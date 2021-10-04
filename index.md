@@ -28,7 +28,7 @@ request turn by turn navigational guidance to the stranded driver, if the maps a
 
 <p>Google street view maps does a great job of identifying streets in towns and cities, but not so much dirt tracks in nature reserves.
 The sossms apps offer three choices of map:</p>
-
+ 
 <ul>
   <li><a href="https://www.google.com/maps/@-24.8084045,28.1284559,16z">Google street maps</a></li>
   <li><a href="https://www.google.com/maps/@-24.8084045,28.1284559,2112m/data=!3m1!1e3">Google satellite view</a></li>
