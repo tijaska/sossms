@@ -11,6 +11,8 @@
 <p>This project offers three smartphone apps that act together to help a stranded driver in nature parks to communicate their location and
 problem to a rescue hub in the park, assuming it has one.</p>
 
+<h3>How the apps work together</h3>
+
 <p><strong>The stranded driver's app</strong> asks the stranded driver for name, vehicle description, and needs.  It automatically uses
 geolocation to capture the driver's location, and then forwards the message to the rescue hub. The stranded driver's app opens when the
 rescue hub sends an invite message to the driver. It arrives as an SMS that contains an explanation and a URL that, when clicked, runs
@@ -41,6 +43,8 @@ and the message will flow to its intended recipient.</p>
 <p>The sossms apps are implemented as <strong>progressive web apps (PWAs)</strong>. These can be downloaded and installed on smartphones
 like classic phone apps, and launched from an icon on the desktop. But even if they haven't been installed in advance, they can still run
 like a web page in a browser if the need arises unexpectedly. As it well may for a rescue messaging system.</p>
+
+<h3>A choice of maps</h3>
 
 <p>When a stranded driver initiates a help request, their app uses their phone's geolocation facilities to get an accurate measure of their
 current location. This is included on the message that their app sends, with the other data entered by the stranded driver, as a URL that
