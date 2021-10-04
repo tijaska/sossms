@@ -1,11 +1,10 @@
-<script>window.location = "index.html";</script>
 <h2>Rescue Stranded Drivers in Nature Parks</h2>
 
 <ul>
-	<li><a href="web/index.html">Description of this system</a></li>
-	<li><a href="web/caller/">Stranded driver app</a></li>
-	<li><a href="web/hub/">Rescue hub app</a></li>
-	<li><a href="web/rescue/">Rescue driver app</a></li>
+  <li><a href="web/index.html">Description of this system</a></li>
+  <li><a href="web/caller/">Stranded driver app</a></li>
+  <li><a href="web/hub/">Rescue hub app</a></li>
+  <li><a href="web/rescue/">Rescue driver app</a></li>
 </ul>
 
 <p>This project offers three progressive web apps (PWAs) that act together to help stranded drivers in nature parks to communicate
