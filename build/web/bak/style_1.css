@@ -1,0 +1,40 @@
+body {font-family: serif; background-color: rgb(255, 238, 221);}
+a {color: black; text-decoration: none; font-family: sans-serif; font-size: 80%;
+    border: 1px solid #666; border-radius: 3px; background-color: #EEE; padding: 2px 6px;}
+a.plain {color: blue; text-decoration: underline; font-family: serif; font-size: 100%;
+    border: none; background-color: transparent; padding: 0px;}
+b {color: maroon; /* background-color: #FEE */}
+button a {text-decoration: none; color: black;}
+li.room {margin: 3px 0px;}
+p {margin: 9px 0px;}
+ul.space {margin: 6px 0px; /*	padding: 1px 4px;*/ list-style-type: none;}
+ul.space li {margin: 6px 0px;; padding: 1px 4px;}
+p.emph {color: maroon; font-style: italic; font-weight: bold;}
+p.emph a {font-family: sans-serif; font-size: 80%; text-decoration: none; color: maroon;
+    border: 1px solid #666; border-radius: 3px; background-color: #EEE; padding: 2px 6px;}
+p.big {font-weight: bold; font-size: 125%;}
+p.box {list-style: none; /*padding-left: 0px;*/}
+p.box li {margin: 16px 0px;}
+p.box b {display: none;}  /* hide warning in mobile or tablet mode */
+p.box a {color: black; text-decoration: none; font-family: sans-serif; font-size: 80%;
+    border: 1px solid #666; border-radius: 3px; background-color: #EEE; padding: 2px 6px;}
+div.box ul {list-style: none; padding: 0px; /*background-color: #FCC;*/}
+div.box li {margin: 16px 0px;}
+div.box b {display: none;}  /* hide warning in mobile or tablet mode */
+div.box a {color: black; text-decoration: none; font-family: sans-serif; font-size: 80%;
+    border: 1px solid #666; border-radius: 3px; background-color: #EEE; padding: 2px 6px;}
+div.config {border: 1px solid brown; padding: 0px 6px;}
+div.compact p {margin: 4px 0px;}
+div.head {font-weight: bold; font-size: 24px; font-family: sans-serif; color: #841;
+    border: 2px solid #840; text-align: center; background-image: linear-gradient(#FFE, #DCB);}
+div.head p {margin: 0px;}
+div.head em {font-style: normal; color: red}
+div.PC {background-color: #FCC;}
+div.PC ul {list-style: none; padding-left: 0px;}
+div.PC li {margin: 16px 0px;}
+div.PC b {display: block; color: maroon;}  /* display warning in PC mode */
+div.PC a {color: maroon; text-decoration: none; font-family: sans-serif; font-size: 80%;
+    border: 1px solid #C99; border-radius: 3px; background-color: #FCC; padding: 2px 6px;}
+form.config {border: 1px solid brown; padding: 0px 6px;}
+span.sans {font-family: sans-serif; font-size: 80%;}
+#notMobiTablet {font-weight: bold; color: maroon; border: 1px solid maroon; background-color: #FCC; padding: 4px; max-width: 500px;}

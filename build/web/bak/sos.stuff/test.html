@@ -9,22 +9,17 @@
 			a {color: maroon}
 			b {color: red}
 			button a {text-decoration: none; color: black;}
-			div.head {font-weight: bold; font-size: 500%; font-family: sans-serif; /*background-color: #FED;  /* #FAEBD7 */
-				border: 2px solid #840; text-align: center; background-image: linear-gradient(#FFE, #DCB);}
-			div.head b {color: red}
 		</style>
 	</head>
-	<body onload="init()">
-		<div class="head">S<b>o</b>S sms</div>
-		<div style="/*border: 1px solid blue*/">
-			<script id="testjsp" src="test.jsp.html">// empty</script>
+	<body>
+		<div style="border: 1px solid blue">
 		<h2>Test</h2>  <!-- Mary had a little lamb, and then a slice of beef%0ahttps://maps.google.com/maps?f%3dq%26q%3d(-24.81411,28.14014) -->
 		<!-- https%3a%2f%2fmaps%2egoogle%2ecom%2fmaps%3ff%3dq%26q%3d%28%2d24%2e81411%2c28%2e14014%29 -->
 		<!-- satellite view:  http://maps.google.com/maps?t=k&q=loc:-24.8117491+28.1277914 
 			 encoded: http%3A%2F%2Fmaps.google.com%2Fmaps%3Ft%3Dk%26q%3Dloc%3A-24.8117491%2B28.1277914 -->
 		<p>date here</p>
 		<form name="aform" onfocusin="document.aform.afield.value = new Date();"><input type="text" name="afield" value="empty"> padding</form>
-		<p><a href="hub.html"><b>&mdash;&gt; switch.html</b></a></p>
+		<p><a href="switch.html"><b>&mdash;&gt; switch.html</b></a></p>
 		<p><a href="sms://0825704803?body=Click%20http%3A%2F%2Ftijaska.co.za%2Fsos%2Fguest.html%20for%20help">SMS help page to guest (0825704803)</a></p>
 		<p><a href="sms://0825704803?body=one%26two%26three">send SMS to 0825704803</a></p>
 		<p><a href="sms://0825704803?body=one%2526two%2526three">send SMS to 0825704803</a></p>
@@ -38,16 +33,9 @@
 		<p>tel: <a href="tel:0114471542">tel</a></p>
 		<p><button onclick="window.open('tel:0114471542')">Phone home</button></p>
 		<p><button><a id="sate" href="mt">satellite</a></button></p>
-		<p><a href="http://somecomputer.xyz/install.html">http://somecomputer.xyz/install.html</a>
 <!--	https://maps.google.com/maps?t=k&q=loc:-24.81270+28.14054 -->
 		<p id="log"></p>
-		<p id="codes">codes</p>
 		</div>
-		<p><a href="https://tijaska.co.za/sos/caller.html?centre=Mabalingwe%20Rescue&cell=%2B27825704803">Mabalingwe Rescue</a><br>
-			<a href="tel:+27-114471542">tel:+27-114471542</a><br>
-			<a href="tel:+27 114471542">tel:+27 114471542</a>
-		</p>
-		<b>bold</b> <em>em</em> <strong>strong</strong>
 		<script>
 			function byId(id) {
 				return document.getElementById(id);
@@ -107,9 +95,6 @@
 				navigator.geolocation.getCurrentPosition(onPositionUpdate);
 			else
 				alert("navigator.geolocation is not available");
-function init() {  // get [[countryNames, codes, phoneCodes]...
-	
-}
 		</script>
 	</body>
 </html>

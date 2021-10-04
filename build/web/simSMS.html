@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simulated SMS</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href="images/SoS.png" type="image/x-icon" />
+		<link rel="stylesheet" href="style.css">
+	</head>
+	<body>
+		<script src="common.js"></script>
+		<div class="head">. . . &nbsp;<em>&ndash; &ndash; &ndash;</em> &nbsp;. . .
+			<p>S<em>o</em>S SMS</p></div>
+		<h2>Simulated SMS</h2>
+		<p>It looks like you're running this app in a PC browser, which can't send an SMS. If you were running this app on a mobile device then
+			it would send an actual SMS instead of displaying this page.  The body of the SMS to be sent appears below for your information.</p>
+		<div id="display" class="config" style="padding: 1ex;"></div>
+		<p><strong>But if you believe that the device that you're using can actually send an SMS, please click</strong>
+			&nbsp;<a id="sms" href="">Send SMS</a></p>
+		<p>If you are evaluating this system to see how it works, you can click on the link in the SMS text above and then see
+			what the recipient of the SoS SMS would see.  You could pretend to be that recipient, and take the request for
+			assistance through to completion.</p>
+		<p>If you want another party to act as the recipient, you can forward the SoS SMS above to them as an email.
+			Click &nbsp;<a id="email" href="">Email request</a></p>
+		<p><strong>Note:</strong> you will not see this page if you run the app on a phone or tablet, as it would normally run.
+			Nor would you be offered email as a way to exchange messages.</p>
+		<script>
+			let display = "";
+			let sms = "sms://?body=";
+			let email = "mailto://?subject=" + encode("SoS SMS request") + "&body=";
+			let text = decode(location.hash.substr(1));  // drop leading #, decode URL
+			let pos = text.search(/https?/);  // locate http: or https: imbedded in the message (was /https?%3A/)
+			while (pos >= 0) {  // while http found,
+				let before = text.substr(0, pos);
+				display += before.replaceAll("\n", "<br>");  // take text preceding http
+				sms += before;  // take text preceding http
+				email += before.replaceAll("\n", "%0A");  // take text preceding http
+				let after = text.substr(pos);  // http and following text
+				let ender = after.search(/\s/);  // white space terminates http
+				ender = ender < 0 ? after.length : ender;
+				let url = after.substr(0, ender);
+				display += '<a class="plain" href="' + decode(url) + '">' + decode(url) + '</a>';
+				sms += encode(url);
+				email += (url);
+				text = after.substr(ender);  // take text after the http if any
+				pos = text.search(/https?%3A/);  // locate next URL imbedded in the message
+			}
+			display += text.replaceAll("\n", "<br>");  // append trailing text
+			sms += encode(text);
+			email += encode(text);
+//			let url = decode(text.substr(pos));  // extract it
+			byId("display").innerHTML = display;  //text.substr(0, pos).replaceAll("\n", "<br>") + '<a class="plain" href="' + url + '">' + url + '</a>';
+			byId("sms").href = sms;  //encode(location.hash.substr(1));  // skip encoding the ? at the start of search
+			byId("email").href = email;  //"mailto://?subject=SoS SMS request" + "&body=" + text.substr(0, pos).replaceAll("\n", "%0A") + encode(url);
+		</script>
+	</body>
+</html>

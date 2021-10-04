@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>Test</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<form name="aform">
+			<a href="sms://01234567890?body=" id="sms" onclick="sendSMS()">Send SMS</a>
+			containing <input name="sms" type="text" value="500" size="4"> characters
+			<br><a href="" id="email" onclick="sendEmail()">Send email</a>
+			containing <input name="email" type="text" value="2000" size="4"> characters<br>
+			To: <input type="text" name="to"><br>
+			Subject: <input type="text" name="subject">
+		</form>
+		<script src="../common.js"></script>
+		<script>
+			let text = "abcdefghijklmnopqrstuvwx%09ABCDEFGHIJKLMNOPQRSTWX%0A";
+			function sendSMS() {
+				let sms = document.aform.sms.value;
+				byId("email").href = "sms://01234567890?body="
+					+ text.repeat(Math.round(1 + sms/text.length)).substr(0, sms);
+				return true;
+			}
+			function sendEmail() {
+				let email = document.aform.email.value;
+				let head = "mailto:" + encode(document.aform.to.value)
+					+ "?subject=" + encode(document.aform.subject.value) + "&body=";
+				byId("email").href = head + text.repeat(Math.round(1 + email/text.length)).substr(0, email - head.length);
+				return true;
+			}
+		</script>
+	</body>
+</html>

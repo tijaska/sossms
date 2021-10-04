@@ -8,12 +8,16 @@
   <li><a href="web/rescue/">Rescue driver app</a></li>
 </ul>
 
-<p>This project offers three progressive web apps (PWAs) that act together to help a stranded driver in nature parks to communicate
-their location and problem to a rescue hub in the park, assuming it has one. The hub app shows the stranded driver's position, name,
-and needs, and can forward the message to the rescue driver best placed to render assistance. The rescue hub should install the
-hub-specific PWA, and the rescue drivers should install their rescue-specific PWA. But a rescue driver may go on leave or fall ill, and
-another be drafted in at short notice and not have the rescue PWA installed. And of course stranded drivers don't go on trips expecting
-vehicle breakdowns, so we can't expect them to install the stranded driver specific PWA in advance.</p>
+<p>This project offers three smartphone apps that act together to help a stranded driver in nature parks to communicate their location and
+problem to a rescue hub in the park, assuming it has one.</p>
+
+<p><strong>The hub app</strong> shows the stranded driver's position, name, and needs, and can forward the message to the rescue driver
+best placed to render assistance. The rescue hub should install the hub-specific app, and the rescue drivers should install their
+<strong>rescue-specific app</strong>. But a rescue driver may go on leave or fall ill, and another be drafted in at short notice and not
+have the rescue app installed.</p>
+
+<p>And of course stranded drivers don't go on trips expecting vehicle breakdowns, so we can't expect them to install the
+<strong>stranded driver specific app</strong> in advance.</p>
 
 <p>Therefore sossms is designed to operate reliably in an environment where some participants have their sossms apps installed, and
 others don't. Apps can't push messages to participants who don't have the corresponding app installed, so sossms piggybacks on the
@@ -21,10 +25,16 @@ oldest and most widely used messaging system, SMS text messaging. About 20 billi
 each day.  The sossms apps create messages to be sent, and then pass them to the SMS app. The user need only press the SMS send button,
 and the message will flow to its intended recipient.</p>
 
-<p>Each message sent contains the data entered by the stranded driver, and a URL that when clicked by the recipient will open the target
-PWA if it is installed, or default to opening a web page that delivers the same function if the PWA is not installed. Either way, the
-recipient gets to see the info entered by the stranded driver, and can display a map showing their location. The rescue driver can request
-turn by turn navigational guidance to the stranded driver, if the maps of the park in question are accurate.</p>
+<p>The sossms apps are implemented as <strong>progressive web apps (PWAs)</strong>. These can be downloaded and installed on smartphones
+like classic phone apps, and launched from an icon on the desktop. But even if they haven't been installed in advance, they can still run
+like a web page in a browser if the need arises unexpectedly. As it well may for a rescue messaging system.</p>
+
+<p>When a stranded driver initiates a help request, their app uses their phone's geolocation facilities to get an accurate measure of their
+current location. This is included on the message that their app sends, with the other data entered by the stranded driver, as a URL that
+when clicked by the recipient will open the target PWA if it is installed, or default to opening a web page that delivers the same function
+if the PWA is not installed. Either way, the recipient gets to see the info entered by the stranded driver, and can display a map showing
+their location. The rescue driver can request turn by turn navigational guidance to the stranded driver, if the maps of the park in question
+are accurate.</p>
 
 <p>Google street view maps does a great job of identifying streets in towns and cities, but not so much dirt tracks in nature reserves.
 The sossms apps offer three choices of map. Here they are, all pointing to the same area in a nature reserve:</p>

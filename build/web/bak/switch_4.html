@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Relay an SOS SMS</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel='icon' href='SoS.png' type='image/x-icon'><!-- favicon.ico -->
+	</head>
+	<body>
+		<script>
+			function pasteTest() {
+				document.aform.in.value = `This is a test SMS
+Hippo Hollow, South Africa
+https://maps.google.com/maps?f=q&q=(-24.81270,28.14054)
+from cell ???`;
+				return false;
+			}
+			function byId(id) {
+				return document.getElementById(id);
+			}
+		/* convert a Google maps URL to the corresponding OpenStreetMaps URL
+			See:  https://wiki.openstreetmap.org/wiki/Shortlink
+		 */
+		function convert() {
+//			byId("result").style.display = "block";
+			var message = byId("message");
+//			var outg = byId("outg");
+			var msg = document.aform.in.value;
+//			var urlLoc = msg.indexOf('https://maps.google.com/');
+//			if (urlLoc == -1) {
+//				message.innerHTML = "No valid Google Maps URL found in SMS.";
+//				return false;
+//			}
+			byId("sendWhat").href = "https://wa.me/+27825704803?text=" + encodeURIComponent(msg);  // default WhatsApp
+			var re = /(^[\s|\S]*)(https:\/\/maps\.google\.com\/)(.*)\((.*),(.*)\)([\s|\S]*$)/;  // template to parse the SMS
+			var part = re.exec(msg);  // find the Google map URL and coordinates; look for "q=(lat,long)"
+//			byId("whatlink").style.display = "block";
+			if (part == null || part.length < 6) {
+				message.innerHTML = "No valid Google Maps URL found in SMS.";
+				return false;  // suppress form submit
+			}
+			var googleURL = part[2] + part[3] + "(" + part[4] + "," + part[5] + ")";
+			var shortLink = makeShortCode(parseFloat(part[4]), parseFloat(part[5]), 17);
+			var osmurl = "https://osm.org/go/" + shortLink + "?m";
+			byId("previewG").href = googleURL;
+			byId("previewO").href = osmurl;
+			byId("sendWhat").href = "https://wa.me/27833757253?text="  // +27825704803
+				+ encodeURIComponent(part[1] + "Google map:  (Try satellite view)\n" + googleURL
+				+ "\nOpen Street map:\n" + osmurl + part[6]);
+//				var outo = byId("outo");
+//				outo.href = outo.innerHTML = "https://osm.org/go/" + shortLink + "?m";  // ?m requests a map marker
+			byId("result").style.display = "block";
+			return false;  // suppress form submit
+		}
+		/* Called to create a short code for the short link */
+		function makeShortCode(lat, lon, zoom) {
+			var char_array = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789_~";
+			var x = Math.round((lon + 180.0) * ((1 << 30) / 90.0));
+			var y = Math.round((lat +  90.0) * ((1 << 30) / 45.0));
+			// JavaScript only has to keep 32 bits of bitwise operators, so this has to be
+			// done in two parts. each of the parts c1/c2 has 30 bits of the total in it
+			// and drops the last 4 bits of the full 64 bit Morton code.
+			var str = "";
+			var c1 = interlace(x >>> 17, y >>> 17), c2 = interlace((x >>> 2) & 0x7fff, (y >>> 2) & 0x7fff);
+			for (var i = 0; i < Math.ceil((zoom + 8) / 3.0) && i < 5; ++i) {
+				digit = (c1 >> (24 - 6 * i)) & 0x3f;
+				str += char_array.charAt(digit);
+			}
+			for (var i = 5; i < Math.ceil((zoom + 8) / 3.0); ++i) {
+				digit = (c2 >> (24 - 6 * (i - 5))) & 0x3f;
+				str += char_array.charAt(digit);
+			}
+			for (var i = 0; i < ((zoom + 8) % 3); ++i) {
+				str += "-";
+			}
+			return str;
+		}
+		/* Called to interlace the bits in x and y, making a Morton code */
+		function interlace(x, y) {
+			x = (x | (x << 8)) & 0x00ff00ff;
+			x = (x | (x << 4)) & 0x0f0f0f0f;
+			x = (x | (x << 2)) & 0x33333333;
+			x = (x | (x << 1)) & 0x55555555;
+			y = (y | (y << 8)) & 0x00ff00ff;
+			y = (y | (y << 4)) & 0x0f0f0f0f;
+			y = (y | (y << 2)) & 0x33333333;
+			y = (y | (y << 1)) & 0x55555555;
+			return (x << 1) | y;
+		}
+	</script>
+	<h2>Relay an S<span style="color: red;">o</span>S SMS</h2>
+		<form name="aform" onsubmit="return false;">
+			<p>Paste the SMS containing the Google Maps link,<br>
+				plus the cell number of the person needing help.<br>
+				(or <button onclick="return pasteTest();">paste a test SMS</button>):</p>
+			<p><textarea name="in" cols="40" rows="10"></textarea></p>
+			<p>Please type the SoS sender's number in the box above.</p>
+			<!--p><button onclick="return convert()">Convert the SMS into a WhatsApp</button></p-->
+			<sl><li><a href="" onclick="return convert()">Convert the SMS into a WhatsApp</a></li></sl>
+			<sl id="result" style="display: none;">
+				<!--li><a id="previewG" target="_blank" href="">Preview the Google map</a> (optional)</li>
+				<li><a id="previewO" target="_blank" href="">Preview the Open Street map</a> (optional)</li-->
+				<li>Optionally: <a id="previewG" target="_blank" href="">preview the Google map</a></li>
+				<li>Optionally: <a id="previewO" target="_blank" href="">preview the Open Street map</a></li>
+				<li>Enter the rescue vehicle driver's cell:
+					<br><input type="text" name="driver" size="10">
+					<br>(else find it in your contacts)</li>
+				<li><a id="sendWhat" href="" target="_blank">Relay the SMS to the rescue driver</a></li>
+			</sl>
+			<p id="message" style="font-weight: bold"></p>
+			after
+		</form>
+	</body>
+</html>

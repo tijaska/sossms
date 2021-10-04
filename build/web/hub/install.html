@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>Install hub SOS SMSapp </title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" href='../images/SoS.png' type='image/x-icon' />
+		<link rel="stylesheet" href="../style.css">
+		<link rel="manifest" href="hub-manifest.json" >
+		<script>  // enable PWA
+	//		window.addEventListener('appinstalled', (evt) => {  // set a cookie if this app installs
+	//			document.cookie = "hubSoSSMS=" + new Date().toISOString().replace(/:/g, "_") + "; max-age=315360000";
+	//		});  // see https://petelepage.com/blog/2019/07/is-my-pwa-installed/ 
+			if ("serviceWorker" in navigator) {
+				window.addEventListener("load", function() {
+					navigator.serviceWorker.register("hub-service-worker.js").then(function(registration) {
+						document.body.style = "background-color: #fed";  // if registration was successful
+					}, function(err) {
+						document.body.style = "background-color: #fcc";  // if registration failed :(
+					});
+				});
+			}
+		</script>
+	</head>
+	<body>
+	<div class="head">S<em>o</em>S SMS</div>
+	<h2>Install this app?</h2>
+	<a href="./index.html">try</a>
+	</body>
+</html>
