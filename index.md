@@ -1,5 +1,5 @@
 <h2>Rescue Stranded Drivers in Nature Parks</h2>
-<h3>View:</h3>
+<h3>Options:</h3>
 <ul>
   <li><a href="web/index.html">Description of this system</a></li>
   <li><a href="web/caller/">Stranded caller app</a></li>
