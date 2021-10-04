@@ -1,7 +1,0 @@
-BEGIN:VCARD
-VERSION:3.0
-PRODID:-//Apple Inc.//iPhone OS 14.4//EN
-N:;Current Location;;;
-FN:Current Location
-URL;type=pref:http://maps.apple.com/?ll=39.604556\,-104.880613&q=39.604556\,-104.880613
-END:VCARD
