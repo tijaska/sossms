@@ -11,13 +11,26 @@
 <p>This project offers three smartphone apps that act together to help a stranded driver in nature parks to communicate their location and
 problem to a rescue hub in the park, assuming it has one.</p>
 
-<p><strong>The hub app</strong> shows the stranded driver's position, name, and needs, and can forward the message to the rescue driver
-best placed to render assistance. The rescue hub should install the hub-specific app, and the rescue drivers should install their
-<strong>rescue-specific app</strong>. But a rescue driver may go on leave or fall ill, and another be drafted in at short notice and not
-have the rescue app installed.</p>
+<p><strong>The stranded driver's app</strong> asks the stranded driver for name, vehicle description, and needs.  It automatically uses
+geolocation to capture the driver's location, and then forwards the message to the rescue hub. The stranded driver's app opens when the
+rescue hub sends an invite message to the driver. It arrives as an SMS that contains an explanation and a URL that, when clicked, runs
+the stranded driver's app in a browser window, or as a stand-alone app if the driver agrees to install it.</p>
 
-<p>And of course stranded drivers don't go on trips expecting vehicle breakdowns, so we can't expect them to install the
+<p>Of course stranded drivers don't go on trips expecting vehicle breakdowns, so we can't expect them to install the
 <strong>stranded driver specific app</strong> in advance.</p>
+
+<p>Alternatively, the rescue hub may hand out pamphlets to visitors when they enter the nature reserve. These could give the name of the
+reserve, an emergency contact phone number, perhaps a map, indemnities, and a QR code produced by the rescue hub app that, when scanned by
+the driver, opens the stranded driver's app with the nature reserve's details already filled in.</p>
+
+<p><strong>The hub app</strong> opens when a request is received from a stranded driver and the recipient clicks on the URL contained within it.
+The app shows the stranded driver's position, name, and needs, and can forward the message to the rescue driver best placed to render
+assistance. The rescue hub should install the hub-specific app.</p>
+
+<p>The rescue drivers should install their <strong>rescue-specific app</strong>. It will open when the hub forwards a request for help
+to the rescue driver. But rescue drivers may go on leave or fall ill, and others be drafted in at short notice and not have the rescue app
+installed. In these cases the rescue driver app will open in a browser window first time round, and invite the driver to install it
+for future use.</p>
 
 <p>Therefore sossms is designed to operate reliably in an environment where some participants have their sossms apps installed, and
 others don't. Apps can't push messages to participants who don't have the corresponding app installed, so sossms piggybacks on the
