@@ -1,7 +1,7 @@
 <h2>Rescue Stranded Drivers in Nature Parks</h2>
 <h3>Options:</h3>
 <ul>
-  <li><a href="web/index.html">Description of this system</a></li>
+  <li><a href="web/index.html">A description of this system</a></li>
   <li><a href="web/caller/">Stranded caller app</a></li>
   <li><a href="web/hub/">Rescue hub app</a></li>
   <li><a href="web/rescue/">Rescue driver app</a></li>
