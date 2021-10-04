@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Relay an SOS SMS</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" href='../images/SoS.png' type='image/x-icon' />
+		<link rel="stylesheet" href="../style.css">
+		<link rel="manifest" href="./hub-manifest.json" >
+		<script>  // enable PWA
+			if ("serviceWorker" in navigator) {
+				window.addEventListener("load", function() {
+					navigator.serviceWorker.register("./hub-service-worker.js?v=h").then(function(registration) {
+						document.body.style = "background-color: #fed";  // if registration was successful
+					}, function(err) {
+						document.body.style = "background-color: #fcc";  // if registration failed :(
+					});
+				});
+			}
+		</script>
+	</head>
+	<body onload="init()">
+		<script src="../common.js"></script>
+		<script src="hub.js"></script>
+	<div class="head">S<em>o</em>S SMS</div>
+	<!--img src="../images/logo.jpg"-->
+	<h2>Relay an S<b>o</b>S SMS from a stranded driver to a rescue vehicle driver</h2>
+		<h4 id="ifNoCaller">This app helps you to get a stranded driver to send you an S<b>o</b>S SMS with their location attached, so you can
+			send it on to a rescue vehicle driver. &nbsp; <a href="index.bak.html">See here</a> how to use it.</h4>
+		<h4 id="ifCaller">A stranded driver has sent you their location, so you can send it on to a rescue vehicle driver.</h4>
+		<form name="hub" onsubmit="return false;">
+			<div class="config">
+				<p style="font-weight: bold;"><input type="checkbox" name="hubConfig" onclick="seeHubConfig(this)">
+					&nbsp;Check or change the hub configuration</p>
+				<ul id="hubFields" style="display: none;">
+				<li>Enter or fix the name of your hub:<br>
+				<input style="background-color: #FFE" type="text" name="name" size="30"></li>
+				<li>Enter your hub's phone country code, e.g.&nbsp;+27&nbsp;for&nbsp;South&nbsp;Africa:<br>
+				<input style="background-color: #FFE" type="text" name="country" size="4"></li>
+				<li>Enter your hub's cell number:<br>
+					<input style="background-color: #FFE" type="text" name="cell" size="13"></li>
+				<li>Your hub's location is:<br>
+					<input style="background-color: #FFE" type="text" name="location" size="30" onfocus="this.blur()"></li>
+				<li style="margin: 1ex 0ex"><a id="hubloc" href="?" target="_blank">Click this Google maps link</a>
+					and make sure that your hub's location is right.
+					If it isn't, please take the phone outdoors and <a href="" onclick="return geolocate()">click&nbsp;here</a> to try get the location right.</li>
+				<li style="margin: 1ex 0ex"><a href="" onclick="return saveHub();">Update</a> if you change anything.</li>
+			</ul>
+			</div>
+		</form>
+		<p><i><span id="geoloc" style="display: none">Getting your location...</span></i></p>
+		<form name="callerInfo" onsubmit="return false;">
+			<div id="noHubComplete" style="display: none;">
+				<b>Please fill in your hub details above, then click the Update button</b>
+			</div>
+			<div id="hubIsComplete">
+			<p id="noCallerInfo"><b>No stranded driver's location was passed to you.</b> You can send them an
+				<a href="" target="_blank" onclick="return sendCallerMsg(this, 1)">SMS</a> that contains a web link.
+				When they click it, it will help them to send their location and other details back to you
+				<a href="" target="_blank" onclick="return sendCallerMsg(this, 3)">(preview)</a>.
+			</p>
+			<table style="background-color: #FFE;" border="1" cellspacing="0" id="callerData">
+				<tbody id="pleaseFill">
+					<tr><td colspan="2">Please fill in the stranded driver's phone number:</td></tr>
+				</tbody>
+				<tbody>
+				<tr><td colspan="2" style="font-weight: bold;">The stranded driver's details:</td></tr>
+				<tr><td>Cell number:</td><td><input type="text" name="cell" size="15" onchange="fixCountry(this, 'callerCountry', false)">
+						<br><span id="callerCountry"></span></td></tr>
+				</tbody>
+				<tbody style="display: none;" id="extraInfo">
+				<tr><td>Name:</td><td><input type="text" name="caller" size="30">
+				<tr><td>Vehicle:</td><td><input type="text" name="vehicle" size="30"></td></tr>
+				<tr><td>Problem:</td><td><input type="text" name="problem" size="40"></td></tr>
+				<tr id="location"><td valign="top">Location:</td><td><input type="text" name="latLong" size="25" disabled>
+				</tbody>
+			</table>
+			<ul id="result" style="display: none; padding: 1ex 0ex; margin: 0px; list-style: none;">
+				<li id="distance" style="font-style: italic; font-weight: bold;"></li>
+				<!--li>If the rescue driver you choose isn't in your phone's contacts, please enter their cell number:
+				<br><input type="text" name="rescueDriver" onchange="fixCountry(this, 'driverCountry', true)">
+				<span id="driverCountry"></span></li-->
+				<li><br><strong>Relay the stranded driver's info to a rescue driver.</strong>
+					<br>If the rescue driver (or rescue WhatsApp group) that you want to send to is already in your contacts,
+					click &nbsp;<a id="sendWhat" href="" target="_blank" onclick="return OKtogo()">WhatsApp</a>&nbsp;
+					or &nbsp;<a id="sendSMS" href="" target="_blank" onclick="return OKtogo()">SMS</a>
+					to send them the caller's details.</li>
+				<li>Else fill in the chosen rescue driver's cell number, then click a button above.
+				<br><input type="text" name="rescueDriver" onchange="fixCountry(this, 'driverCountry', true)">
+				<span id="driverCountry"></span></li>
+				<!--li>If the recipient isn't in your contacts, please enter their cell number
+				(with country code if a WhatsApp e.g. +271234567890) before clicking the button:
+/*	*/			<br><input type="text" name="rescueDriver2"></li-->
+				<li><br>Optionally, see the caller's location in:</li>
+				<li class="room"><a id="previewGS" target="_blank" href="">Google satellite view</a>&nbsp; or &nbsp;
+					<a id="previewG" target="_blank" href="">Google street map</a>&nbsp; or &nbsp;
+					<a id="previewO" target="_blank" href="">Open Street map</a>
+				</li>
+			</ul>
+			<div id="message" style="font-weight: bold;"></div>
+			<div id="installer" style="display: none; font-weight: bold;" onclick="install()">Install this app</div>
+			</div>
+		</form>
+		
+		<!--p><a href="install.html">Install this app</a></p-->
+		
+	</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Update the rescue hub SoS SMS app</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href='../images/SoS.png' type='image/x-icon' />
+		<style>
+			iframe {border: 1px solid red; width: 100%}
+			img {border: 1px solid red}
+		</style>
+	</head>
+	<body onload="document.getElementById('holder').style.display = location.hash == '#debug' ? 'block' : 'none'">
+		<h2>Update the rescue hub SoS SMS app</h2>
+		<p>This app is requesting the latest copies of all of the components that make up the rescue hub's SoS SMS app.</p>
+		<p><button onclick="window.location.href = './' + window.location.search + window.location.hash">Return to the hub app</button></p>
+		<div id="holder" style="display: none">
+			<img src="../images/arrow18.png" title="../images/arrow18.png">
+			<img src="../images/SoS-192.png">
+			<img src="../images/SoS-512.png">
+			<img src="../images/SoS.png">
+			<iframe src="hub-manifest.json"></iframe>
+			<iframe src="hub-service-worker.js"></iframe>
+			<iframe src="hub.js"></iframe>
+			<iframe src="../style.css"></iframe>
+			<iframe src="../common.js"></iframe>
+			<iframe src="index.html#update=yes"></iframe>
+		</div>
+	</body>
+</html>

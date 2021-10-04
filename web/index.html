@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The SoS SMS system</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel='icon' href='images/SoS.png' type='image/x-icon' />
+		<link rel="stylesheet" href="style.css">
+		<style>
+			img {border: 1px solid brown; padding: 4pt; margin: 0pt 0pt 0pt 4pt;}
+		</style>
+	</head>
+	<body>
+		<div class="head">. . . &nbsp;<em>&ndash; &ndash; &ndash;</em> &nbsp;. . .
+			<p>S<em>o</em>S SMS</p></div>
+		<h2>The S<b>o</b>S SMS System</h2>
+		
+		<p>Rescuing drivers in distress is a common need in nature reserves, where roads are often rough and demanding.
+			<strong>SoS SMS</strong	> is a family of three smartphone apps that work together to help a driver stranded in a nature reserve
+			to get assistance.  The request goes from the stranded driver to a rescue hub, which forwards it to the rescue driver best
+			positioned to render assistance to the stranded driver.  The request automatically includes the stranded driver's location as
+			determined by satellite based geolocation, to assist the rescue effort.</p>
+		<p>The three apps are:</p>
+		<ol>
+			<li><strong>The caller's app</strong>, which assists the stranded driver to request help.
+				The request includes the driver's details and physical location, as determined by satellite geolocation.
+				The request flows to the rescue hub.</li>
+			<li><strong>The rescue hub's app</strong>, which receives the stranded driver's request.
+				The app displays map links that show where the stranded driver is.
+				It helps the rescue hub staff to forward the request to the rescue driver best placed to handle it.</li>
+			<li><strong>The rescue driver's app</strong>, which notifies the selected rescue driver
+				of the request for assistance.  It includes map links that the rescue driver can use to get turn-by-turn directions to the
+				stranded driver's location.</li>
+		</ol>
+		
+		<h3>SoS SMS is Open Source</h3>
+		
+		<p>All of the programs that make up the SoS SMS family are available free of charge for anyone to use and modify as they see fit,
+			as <a href="https://en.wikipedia.org/wiki/Open_source" target="_blank">open source</a></p>
+		
+		<h3>A Sample Scenario</h3>
+		
+		<p>This section illustrates how the various apps in the SoS SMS family could be used to rescue a driver in distress.</p>
+		<img src="images/QRcode.png" style="float:right">
+		<ol>
+			<li>A driver in a nature reserve encounters a muddy patch and his vehicle gets bogged down.  He needs to communicate with the
+				rescue hub.
+				<ul style="list-style-type: disc">
+					<li>He may have been given a pamphlet on entry to the nature reserve that shows the cellphone number of the
+						rescue hub. If so, he phones the rescue hub and asks for help.</li>
+					<li> The pamphlet may include a QR code that contains the hub's info as a web link (see right), which he may scan.
+						If so, we skip steps 2 and 3.</li>
+					<li>If the caller installed app on a prior occasion, or just used the app without installing it, then the app will fill
+						in the rescue hub details last seen, and steps 2 and 3 can be skipped if the caller is in the same nature reserve as
+						last time.</li>
+				</ul>
+			</li>
+			<li>The rescue hub operator opens the hub's SoS SMS app, types in the caller's cell number, and clicks its Send SMS button.
+				This sends an SMS to the caller with the hub's information in a web link within its text. This link includes the hub's name
+				and cellphone number.</li>
+			<li>The caller receives the SMS and clicks on the link within it.  If the caller's app is already installed, it opens.
+				Otherwise the link opens in a web page in the phone's web browser. If the caller was given a pamphlet with a QR code on it
+				(see example right), scanning it would open the same app or web page.</li>
+			<li>The first time the caller uses the app, he must fill in his name, cell number, vehicle type.  Thereafter the caller's app will fill
+				them in as default values. Then the caller must enter the problem, and click the Send button to send an SMS back to the rescue hub.
+				This SMS includes a web link that contains the caller's info, and also the caller's location as determined by the caller's app using
+				satellite geolocation.</li>
+			<li>The rescue hub receives the caller's SMS and clicks on the web link within it.  This automatically opens the hub's SoS SMS
+				app with the caller's details and location filled in.  The hub operator can click on a map button to open the Google Maps (or
+				OpenStreetMaps) app to see where the caller is.  Based on this information, the hub operator chooses the rescue driver best
+				placed to assist the caller.</li>
+			<li>The rescue hub operator clicks a button to forward the caller's help request to the selected driver as an SMS or WhatsApp.
+				The advantage of a WhatsApp is it can be addressed to a group rather than just one individual if the hub operator isn't
+				sure what the drivers are doing at that moment, and the drivers in the group can then determine amongst themselves who
+				will respond to the caller's request for help.</li>
+			<li>The SMS or WhatsApp forwarded to the rescue driver contains a web link which when clicked opens the rescue driver's SoS SMS
+				app with the stranded caller's details filled in.  It displays map links that the rescue drive can click on to see where the
+				stranded driver is.  The rescue driver can open the map and ask for turn-by-turn directions to get to the stranded driver.</li>
+		</ol>
+		
+		
+		<h3>SoS SMS App Technology Used</h3>
+		
+		<p>Classic phone apps require the user to find and install the app before it is needed.  And then remember what it is called
+			when the need for it arises.  For frequently used apps, this is perfectly fine.  If a particular rescue hub chooses to
+			use the SoS SMS app family then they will surely install the hub's app on a designated phone in the hub.  But caller's app is
+			different. It is used only in emergencies. Drivers seldom set out with the intention of getting stuck, so we must assume that few
+			will have found and installed the caller's app in anticipation of needing it.</p>
+		
+		<p>Rescue drivers will know if their rescue hub uses the hub app, and can be expected to pre-install the rescue driver's app.
+			But drivers may take leave or fall ill, and other drivers may be brought in at short notice.  They may not have installed the
+			rescue driver's app before needing to use it.</p>
+		
+		<p>For these reasons, the SoS SMS app family is implemented using the newer Progressive Web App (PWA) technology
+			(see <a href="https://en.wikipedia.org/wiki/Progressive_web_application" target="blank">here</a>).
+			Once installed, a PWA behaves exactly like a classic phone app.  It can be launched by clicking on its icon on the home screen.
+			But casual users can use PWAs immediately, without first having to find them in a web store and install them.  All they need is
+			a link to the app in question, and a web browser on their phone. Which is standard.  More frequent users like the rescue hub
+			and rescue drivers can easily install their respective apps in advance of needing to use them, put a launch icon on their home
+			screen, and open it instantly when needed.</p>
+		
+		<p>And when messages flow from one member of the SoS SMS family to another, they include links which, if clicked, will automatically
+			open the appropriate app on the receiver's phone, if installed, or otherwise open the app in the receiving phone's web browser.
+			It is seldom that a user will have to find and open the app that they need. The system is designed to be simple and robust.</p>
+		
+		<h3>Install the SoS SMS Apps</h3>
+		<img src="images/install.png" style="float:right">
+		
+		<p>After being used a few times, each app should offer to install itself on the user's phone. This process can be speeded up, as described
+			below for various phone types.</p>
+		<ul>
+			<li>For Chrome on Android, open the app as a normal web page in the phone's browser, click on the browser's menu (three vertical
+				dots in the top right corner) and then click on the <b>Install app</b> option (boxed in red in the image to the right).</li>
+		</ul>
+		<h3>Web Server Requirements</h3>
+		
+		<p>A trial implementation of the SoS SMS family of apps is available for evaluation at
+			<a href="https://tijaska.co.za/sos/" target="_blank">https://tijaska.co.za/sos/</a>.
+			This is a development server, and it is often taken down to implement and test new software components. This makes it completely
+			unsuitable to support a live production system that may play an important role in the rescue of stranded drivers.</p>
+		
+		<p>Anyone who wants to use the SoS SMS software is free to do so, but they need to find a web server operator who is willing to host it
+			for them.  The packaged web app can be downloaded <b>from ??</b>. 
+		
+		<p>Smartphone apps and web apps are usually designed to interact with programs that run on web servers. A large number of different
+			programming languages are used to code the web server programs. No one web server supports all of these languages. In order to
+			support as wide a range of web servers as possible, so that users have freedom in choosing web service providers or providing their
+			own, the SoS SMS app family has been designed and developed to run without the need for any server-side application programs of its own.
+			The required application logic is built into the web pages that make up the family.  They communicate with one another using SMS
+			or WhatsApp technologies, which are universally available. SMSes are cheap, and WhatsApps are free.</p>
+
+		<h3>Try it out</h3>
+		
+		<p>You can access, test, and optionally install the three apps that make up the SoS SMS family here:</p>
+		<ul class="space" style="list-style-type: disc;">
+			<li><a href='caller/' target='_blank'>The stranded driver's app</a></li>
+			<li><a href='hub/' target='_blank'>The rescue hub app</a></li>
+			<li><a href='rescue/' target='_blank'>The rescue driver's app</a></li>
+		</ul>
+		<ol>
+		<li>Open the rescue hub app first, and click the <strong>Check or change the hub configuration</strong> box to configure a test rescue hub.
+			Put in your own name and phone number. Then use it to send a test SMS to the "stranded driver". This could be yourself, or an accomplice.</li>
+		<li>The chosen "stranded driver" who receives the test SMS must click on the web link within it. This will open the stranded driver's app
+			in a browser page. They can fill in their details and click the <strong>Send</strong> button to send these details back to the rescue
+			hub as an SMS message.</li>
+		<li>The rescue hub should receive the SMS and click on the web link within it. This will open the rescue hub app and display the stranded
+			driver's details.</li>
+		<li>The rescue hub operator must then click the <strong>WhatsApp</strong> or <strong>SMS</strong> button to forward the rescue request to a
+			rescue driver. They will be prompted to choose the recipient of this message.</li>
+		<li>The chosen rescue driver will receive the SMS. They must click on the web link within it to open the rescue driver's SoS SMS app.
+			This will display the stranded driver's request for help, details, and links to maps that can show the stranded driver's location
+			and provide turn-by-turn guidance to finding them.</li>
+		</ol>
+		
+		<h3>The Map Types Offered</h3>
+		<p>The SoS SMS apps offer three different map types to show where the stranded driver is located.</p>
+		<h4>Google Maps Street View</h4>
+		<p>This is the familiar default type of map offered by Google Maps.  It works very well for towns and cities where it's easy to tell
+			what is a road and what is not. It works less well in nature reserves where many of the roads may be dirt tracks. Some roads won't
+			show as roads at all, or only in patches. Google Maps should be able to give good navigation advice while the rescue driver is
+			traveling on bigger roads, but if it doesn't recognize the smaller roads then it will be unable to give turn-by-turn directions in
+			those areas.</p>
+		<p>By way of example, the street map displayed here comes from <a href="https://www.google.com/maps/@-24.8022234,28.1287166,17z">here</a>
+			<br>It shows some of the small roads in a game reserve, but not many compared to the satellite view below.</p>
+		<img src="images/streetmap.jpg">
+		<h4>Google Maps Satellite View</h4>
+		<p>It turns out that the human eye is pretty good as picking out dirt tracks.  The Google navigation advice won't be any different from
+			what it is in street view, but the rescue driver should be able to see and follow a route once the larger roads peter out.</p>
+		<p>The same area shown above is shown here in satellite view
+			<a href="https://www.google.com/maps/@-24.8022234,28.1287166,718m/data=!3m1!1e3">here</a>
+			<br>Far more roads can be seen.  Even rainwater runoff channels are visible.</p>
+		<img src="images/satellite.jpg">
+		<h4>OpenStreetMap</h4>
+		<p>OpenStreetMap is very similar to Google Maps street view in appearance, but seems to do a better job of picking out smaller secondary
+			roads.  It can either run in a browser window, or the user can download and install the app as one does Google Maps. The advantage of
+			having the app installed is that it offers turn-by-turn navigation, in the same way as Google Maps does.</p>
+		<p>OpenStreetMaps makes it easy for the user to edit the map, adding road and place names, even adding smaller roads that the
+			OpenStreetMap scanning process may have missed.
+			It is easy to run a companion app called OSMTracker while traversing roads in an area of interest.
+			This app uses geolocation to record the physical route followed, and hence the actual course of the road.
+			<a href="https://www.openstreetmap.org/#map=17/-24.80296/28.12720" target="_blank">See here</a></p>
+		<img src="images/OSM.jpg">
+	</body>
+</html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>The SoS SMS system</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+<h2>The SoS SMS System</h2>
+<p>SoS SMS helps drivers stranded in nature reserves to communicate with a rescue centre in the area in order to get
+assistance.  It allows them to easily share their location and other info using a smart phone, helping rescuers to find
+them.</p>
+<p>The system is implemented as a set of static HTML pages with embedded JavaScript logic.  They can be made to communicate
+directly with one another to provide a robust service without the assistance of a central application server, by using
+progressive web app (PWA) technology as described <a href="#tech">below</a>.</p>
+
+<h3 id="caller">The caller.html page</h3>
+<p>If a stranded driver opens the caller.html page with no parameter data from the hub.html page
+(see <a href="#hub">below</a>), then:</p>
+<ul>
+	<li>If only one rescue centre cookie is found in their browser, it is used.</li>
+	<li>If they have multiple rescue centre cookies they will be asked which one to use.</li>
+	<li>If none are found then they must add a new rescue centre.  They may have to phone around to get the info, or
+		visit the web page of the area they're in and ask for the local rescue centre's name and cell number, which they
+		must enter into the caller.html page.</li>
+</ul>
+<p>Then preferably they should enter their name, vehicle, and a short description of their problem to help the rescue team.
+Mean while the page will try to get their geolocation.  If this succeeds then the caller can click a link to send their
+location and the other info that they have entereed to the selected rescue centre.</p>
+
+<p>Or the caller can phone the rescue centre and ask for help, giving their cell number.  The rescue centre can use the
+hub.html page to send an SMS or WhatsApp to the caller that includes a caller.html link with parameters that include the
+centre's name and number.  When the caller clicks on this link, it opens the caller.html page from a web server, or opens the
+caller app if it has been installed before, and the caller proceeds by filling in their name, vehicle, problem while the
+page gets their geolocation, and then proceed as above.</p>
+<p>The caller.html page will record the centre name and number, and the caller's name and vehicle details if entered,
+in cookies for subsequent reuse should the need arise.</p>
+
+<h3 id="hub">The hub.html page</h3>
+<p>When the rescue centre opens the hub.html page for the first time on the hub cellphone, they are asked to fill in
+their centre name, country code and cell number.  These get recorded as cookies in the phone's browser.<p>
+
+<p>If the page is opened with no parameters passed by the caller.html page then the user will be invited to send an
+SoS SMS to a caller in trouble, if there is one.  All they have to supply is the caller's number.  The app will build an
+SMS (and WhatsApp) that will include a link to the caller.html page, with the hub's name and cell number as parameters.
+The rescue centre must send this SoS SMS (WhatsApp) to the caller in trouble.</p>
+
+<p>If the rescue centre opens the hub.html page from a link in an SoS SMS sent by a stranded driver then the link
+parameters will include the caller's geolocation and other data that the caller may have entred e.g. name, cell number,
+vehicle, problem.  The hub.html app will shown links that open Google maps in satellite or street map view, or Open
+Street Maps, with the caller's location indicated.  The centre may enter caller fields that were omitted.  Then they
+can forward the SoS SMS to one or more rescue vehicle drivers by SMS, or by WhatsApp, in which case they can send it to
+WhatsApp groups.  The message that they send will include a driver.html page link plus parameter data containing the
+info gathered from the caller and the rescue centre.</p>
+
+<p>Calls handled will be journalled in localstorage for later review.  The centre will update the call status as it
+progresses, e.g. call open, invitation SMS sent, caller location received, call forwarded to driver(s),
+driver accepts the call, driver reports completion, or caller cancels call because someone else rescued them.</p>
+
+<h3 id="driver">The driver.html page</h3>
+<p>The driver.html page will be passed the info collected by the caller.html and hub.html pages, passed in parameters.
+It will display this information, and provide links to open Google maps in satellite or street map view, or Open Street Maps,
+with the caller's location indicated.  Drivers may click on these links to open the Google maps app or Open Street Maps app
+if installed on their phones.  Otherwise their browsers will open web pages that display the maps.<p>
+
+<p>Rescue drivers may be visible to the centre via location sharing so the centre can choose a driver to effect the rescue.
+The nominated driver can use the maps to navigate to the caller.  Then the driver can update the status,
+e.g. rescue completed, or the stranded driver got help from someone else and has departed.
+An SMS or WhatsApp will flow to the centre with the driver's status update.</p>
+
+<h3 id="journal">The journal.html page</h3>
+<p>The caller.html page will create a call reference yyyy-mm-dd hh:mm and insert this in the journal entry to be
+displayed by the journal.html page.  This can be opened in the centre cellphone, and will show all calls captured in its
+localStorage, most recent first.  Clicking on any one call will open it in the hub.html page.</p>
+
+<h2 id="tech">Technical details</h2>
+<p>This system is an open source project implemented by a collection of static HTML pages with embedded JavaScript.
+They communicate with one another by exchanging SoS SMS or WhatsApp messages.  These messages include embedded URLs that,
+if clicked, invoke the other pages as needed.  The URLs include the information that must be shared, as parameters.</p>
+
+<p>All of the HTML pages described above will offer to install themselves as progressive web apps on the user's cell phone
+when used.  If so installed, they can be run without needing access to the web server that supplied them.  This makes
+stranded driver's, rescue vehicle drivers, and the rescue centre itself, less dependent on good network access.</p>
+
+<p>This system does not require any application programs to run on any web server.  All of the required logic is contained
+in JavaScript in the static HTML pages.
+This means that anyone can implement the system on any web server without having to worry about what server-side
+programming language is required.  None is.</p>
+
+<p>The pages invite the users to install them as progressive web apps (PWAs).  If the user does so then the apps can be run
+on later occasions without having to access the web server from which they came.  They therefore pass parameters to one
+another using the #hash fragment of the URL, because if the used the ?search part of the URL then the web browsers that
+render them would fetch a fresh copy of the page from the source web server every time, in case the ?search parameters
+dynamically alter the content of the page that is returned to them.  Which it should no do for HTML pages, but
+browsers are a conservative lot.  The #hash fragment can contain any characters that would be valid in a ?search
+string (or any characters at all, in HTML5).  These pages ascii-encode special characters as is done in the ?search string
+so that they can operate in back-level browsers.</p>
+
+	</body>
+</html>

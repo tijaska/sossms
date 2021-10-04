@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>SoS SMS for Stranded Driver</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="icon" href='../images/SoS.png' type='image/x-icon' />
+		<link rel="stylesheet" href="../style.css">
+		<link rel="manifest" href="./caller-manifest.json" >
+		<script>  // enable PWA
+			if ("serviceWorker" in navigator) {
+				window.addEventListener("load", function() {
+					navigator.serviceWorker.register("./caller-service-worker.js").then(function(registration) {
+						document.body.style = "background-color: #fed";  // if registration was successful
+					}, function(err) {
+						document.body.style = "background-color: #fcc";  // if registration failed :(
+					});
+				});
+			}
+		</script>
+	</head>
+	<body onload="init()">
+		<script src="../locater.js"></script>
+	<div class="head">S<em>o</em>S SMS</div>
+		<h2>Get help from a rescue hub</h2>
+		<p id="notHub"><b>No rescue hub info present.  Please phone the rescue hub and ask them to send you an SMS text message
+				with their details.</b></p>
+		<form name="caller" id="gotHub" style="display: none;">
+			<p>If your vehicle has broken down or is stuck, you can use this app to fill your needs into the fields below and click a button to send
+				the info to them as an SMS message that includes your current location.</p>
+			<p id="telCentre" class="box" style="display: none;">
+				Or: <a id="hub.cell" href="tel:hub.cell" style="border: 1px solid maroon;">Phone the rescue hub
+					<span id="hubname"></span>: <span id="hubcell"></span> ☎</a></p>
+			<p id="notMobiTablet" style="display: none;">You aren't using a mobile phone or tablet.
+				<br>Your device may not get your physical location.
+				<br>Check your location on the map links below, it may be wrong&nbsp; ☠</p>
+			<p>Enter your name:<br>
+			<input type="text" name="name" size="30" maxlength="30" onchange="showButtons()"><br>
+			Enter your cell  number:<br>
+			<input type="text" name="cell" size="15" maxlength="15" onchange="showButtons()"><br>
+			Enter your vehicle:<br>
+			<input type="text" name="vehicle" size="30" maxlength="30" onchange="showButtons()"><br>
+			Please describe your problem <i>briefly</i>:<br>
+			<input type="text" name="problem" size="40" maxlength="40" onchange="showButtons()"></p>
+			<p><i><span id="geoloc" style="display: none">Getting your location...</span></i></p>
+			<p>Optionally, see your location in a map:</p>
+			<p><a id="gmap" href="" target="_blank">Google satellite view</a>&nbsp; <!--i>(may be slow)</i></li-->
+				<a id="gmapr" href="" target="_blank">Google street view</a>&nbsp; <!--i>(may lack detail)</i></li-->
+				<a id="osm" href="" target="_blank">Open Street Map</a></p>
+			<p id="buttons" style="display: none; background-color: #EFE; padding: 2ex 0ex;">
+				<a id="sms" href="sms://telno?body=text" target="_blank">Send</a> the rescue hub an SMS
+				message with your name and location included</p>
+		</form>
+		<p id="log" style="color: maroon;"></p>
+		<script src="../common.js"></script>
+		<script src="caller.js"></script>
+	</body>
+</html>

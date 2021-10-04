@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+	<head>
+		<title>autocomplete</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<form name="any" autocomplete="on" action="auto.html">
+			Name<br>
+			<input type="text" placeholder="Enter name" name="name"  required><!-- id="First_Name" onkeypress="return specialchar(event);" -->
+			<br>First Name<br>
+			<input type="text" placeholder="Enter first_name" name="first_name"  required><!-- id="First_Name" onkeypress="return specialchar(event);" -->
+			<br>
+Surname		<!--label for="Sur_Name"><b>Last Name</b></label--><br>
+			<input type="text" placeholder="Enter Last Name" name="Sur_Name"  required><!-- id="Sur_Name" onkeypress="return specialchar(event);" -->
+			<br>
+			<label><b>Patient ID/National ID/Passport No.</b><br>
+				<input type="text" placeholder="Enter Patient ID" name="PatientId" onkeypress="/*return specialchar(event);*/" required>
+			</label>
+			<br>
+			<label for="Confirm_Patient_ID"><b>Confirm Patient ID/National ID/Passport No.</b></label><br>
+			<input type="text" placeholder="Confirm Patient ID" name="Confirm_Patient_ID" id="Confirm_Patient_ID" onkeypress="/*return specialchar(event);*/" required>
+			<br>
+			<label for="Contact_Num"><b>Phone Number</b></label><br>
+			<select id="medical_aid_id" name="ccode" style="width: 30%">
+							<option disabled >Country Code</option>
+							<option value="27">27</option>
+							<option value="260">260</option>
+							<option value="91">91</option>
+					</select>
+			<input type="text"  onkeypress="return allowNumber(event);" placeholder="Enter Phone Number" name="cell" id="Contact_Num" required>
+			<br><label>Try click this text for the checkbox:
+				<input type="checkbox">
+			</label>
+			<br><label for="email"><b>Email</b></label><br>
+			<input type="email" placeholder="Enter Email" name="eMail" id="eMail" required>
+			<br><input type="submit" value="Submit">
+		</form>
+	</body>
+</html>
