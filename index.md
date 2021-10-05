@@ -1,4 +1,9 @@
 <h2>Rescue Stranded Drivers in Nature Parks</h2>
+
+<p>This is an open source project that offers offers three smartphone apps that act together to help a stranded driver in a nature park
+to communicate their location and problem to a rescue hub in the park, if it has one.  The rescue hub can then forward the help request
+to the rescue driver best placed to render assistance.</p>
+
 <h3>Options:</h3>
 
 <ul>
@@ -7,9 +12,6 @@
   <li><a href="web/hub/">Rescue hub app</a></li>
   <li><a href="web/rescue/">Rescue driver app</a></li>
 </ul>
-
-<p>This project offers three smartphone apps that act together to help a stranded driver in nature parks to communicate their location and
-problem to a rescue hub in the park, assuming it has one.</p>
 
 <h3>How the apps work together</h3>
 
