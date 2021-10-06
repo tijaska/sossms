@@ -1,10 +1,12 @@
-<h2>Rescue Stranded Drivers in Nature Parks</h2>
+<h2>Rescue Stranded Drivers in Nature Reserves</h2>
 
 <p>This is an open source project that offers three smartphone apps that act together to help a stranded driver in a nature park to
 communicate their location and problem to a rescue hub in the park, if it has one.  The rescue hub can then forward the help request
-to the rescue driver best placed to render assistance.  The apps show the stranded driver's location on a choice of maps.</p>
+to the rescue driver best placed to render assistance.  The apps use geolocation to find out where the stranded driver is, and show
+that location to the rescue hub and drivers in a choice of maps.</p>
 
-<p>The open source sossms project source code can be accessed <a href="https://github.com/tijaska/sossms">here</a>, and a running versionof teh code ready to use can be accessed <a href="https://tijaska.github.io/sossms/">here</a>.</p>
+<p>The source code of the sossms project can be accessed <a href="https://github.com/tijaska/sossms">here</a>, and a running version
+of the code ready to use can be accessed <a href="https://tijaska.github.io/sossms/">here</a>.</p>
 
 <p>Anyone is free to copy and amend the source code as they choose, and to host the modified version wherever they will.</p>
 
