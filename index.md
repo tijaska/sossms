@@ -21,11 +21,11 @@ The Github server also supports a running, ready to use version the code <a href
 
 <h3>How the apps work together</h3>
 
-<p>The rescue hub uses the <strong>hub app</strong> to configure their name, phone number and location.  They can use the app to build
-a QR code for inclusion in the pamphlets handed out to visitors on entry to the reserve.  If a visitor scans the QR code it will offer
-a link to the stranded driver's app that includes the rescue hub's information.  Alternatively, the stranded driver can phone the rescue
-hub, who can then use their hub app to send an invite to the stranded driver.  This arrives as an SMS with an embedded link that contains
-an invite, just like the QR code.</p>
+<p>The rescue hub uses the <strong>hub app</strong> to configure their name, phone number and location (which teh app determines by
+geolocation).  The rescue hub can use the app to build a QR code for inclusion in the pamphlets handed out to visitors on entry to the
+reserve.  If a visitor scans the QR code it will offer a link to the stranded driver's app that includes the rescue hub's information.
+Alternatively, the stranded driver can phone the rescue hub, who can then use their hub app to send an invite to the stranded driver.
+This arrives as an SMS with an embedded link that contains an invite, just like the QR code.</p>
 
 <p>When a driver opens <strong>the stranded driver's app</strong> it asks the stranded driver for name, vehicle description, and needs.
 It automatically uses geolocation to capture the driver's location, and then forwards the message to the rescue hub. The stranded driver's
@@ -35,9 +35,9 @@ when clicked, runs the stranded driver's app in a browser window, or as a stand-
 <p>Of course stranded drivers don't go on trips expecting vehicle breakdowns, so we can't expect them to install the
 <strong>stranded driver specific app</strong> in advance.</p>
 
-<p>Alternatively, the rescue hub may hand out pamphlets to visitors when they enter the nature reserve. These could give the name of the
+<!--p>Alternatively, the rescue hub may hand out pamphlets to visitors when they enter the nature reserve. These could give the name of the
 reserve, an emergency contact phone number, perhaps a map, indemnities, and a QR code produced by the rescue hub app that, when scanned by
-the driver, opens the stranded driver's app with the nature reserve's details already filled in.</p>
+the driver, opens the stranded driver's app with the nature reserve's details already filled in.</p-->
 
 <p><strong>The hub app</strong> opens when a request is received from a stranded driver and the recipient clicks on the URL contained within it.
 The app shows the stranded driver's position, name, and needs, and can forward the message to the rescue driver best placed to render

@@ -1,0 +1,24 @@
+{
+	"short_name": "SoS SMS caller",
+	"name": "Send an SoS SMS",
+	"icons": [
+		{
+			"src": "../images/SoS-192.png",
+			"type": "image/png",
+			"sizes": "192x192"
+		},
+		{
+			"src": "../images/SoS-512.png",
+			"type": "image/png",
+			"sizes": "512x512"
+		}
+	],
+	"start_url": "./",
+	"background_color": "#CCCC99",
+	"theme_color": "#336600",
+	"display": "standalone",
+	"scope": "./",
+	"offline_enabled": true,
+	"description": "Send an SoS SMS to a rescue hub",
+	"v3rsion": "i5"
+}

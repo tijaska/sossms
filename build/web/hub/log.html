@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Log of SoS SMS calls</title>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="icon" href="../images/SoS.png" type="image/x-icon" />
+		<link rel="stylesheet" href="../style.css">
+		<style>
+			table, th, td {border: 1px solid brown; border-collapse: collapse;}
+		</style>
+	</head>
+	<body onload="init()">
+		<div class="head">. . . &nbsp;<em>&ndash; &ndash; &ndash;</em> &nbsp;. . .
+			<p>S<em>o</em>S SMS</p></div>
+		<h3>S<b>o</b>S SMS call log</h3>
+		<h4 id="empty" style="display: none">The call log is empty</h4>
+		<div class="config"><input type="checkbox" onclick="check(this)"> Email a copy of the log
+			<p id="emailer" style="display: none">You can send a copy to the log as an email. The receiver can copy and paste the body
+			of the email in an Excel spreadsheet: <a id="email" href="mailto:" onclick="return emailer(this)">Email the log</a></p>
+		</div>
+		<p>Click on any <strong>When</strong> cell below to see the detail</p>
+		<table>
+			<tr><th>When</th><th>Caller cell</th><th>Caller name</th><th>Vehicle</th><th>Problem</th><th>Forwarded</th><th>Rescuer</th></tr>
+			<tbody id="report"></tbody>
+		</table>
+		<script src="../common.js"></script>
+		<script src="log.js"></script>
+	</body>
+</html>
