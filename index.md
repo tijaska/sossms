@@ -2,7 +2,7 @@
 
 <p>This is an open source project that offers three smartphone apps that act together to help a stranded driver in a nature park to
 communicate their location and problem to a rescue hub in the park, if it has one.  The rescue hub can then forward the help request
-to the rescue driver best placed to render assistance.  The apps use geolocation to find out where the stranded driver is, and show
+to the rescue driver best placed to render assistance.  The apps use geolocation to find out where the stranded driver is, and shows
 that location to the rescue hub and drivers in a choice of maps.</p>
 
 <p>The source code of the sossms project can be accessed on the Github shared repository <a href="https://github.com/tijaska/sossms">here</a>.
@@ -21,10 +21,16 @@ The Github server also supports a running, ready to use version the code <a href
 
 <h3>How the apps work together</h3>
 
-<p><strong>The stranded driver's app</strong> asks the stranded driver for name, vehicle description, and needs.  It automatically uses
-geolocation to capture the driver's location, and then forwards the message to the rescue hub. The stranded driver's app opens when the
-rescue hub sends an invite message to the driver. It arrives as an SMS that contains an explanation and a URL that, when clicked, runs
-the stranded driver's app in a browser window, or as a stand-alone app if the driver agrees to install it.</p>
+<p>The rescue hub uses the <strong>hub app</strong> to configure their name, phone number and location.  They can use the app to build
+a QR code for inclusion in the pamphlets handed out to visitors on entry to the reserve.  If a visitor scans the QR code it will offer
+a link to the stranded driver's app that includes the rescue hub's information.  Alternatively, the stranded driver can phone the rescue
+hub, who can then use their hub app to send an invite to the stranded driver.  This arrives as an SMS with an embedded link that contains
+an invite, just like the QR code.</p>
+
+<p>When a driver opens <strong>the stranded driver's app</strong> it asks the stranded driver for name, vehicle description, and needs.
+It automatically uses geolocation to capture the driver's location, and then forwards the message to the rescue hub. The stranded driver's
+app opens when the rescue hub sends an invite message to the driver. It arrives as an SMS that contains an explanation and a URL that,
+when clicked, runs the stranded driver's app in a browser window, or as a stand-alone app if the driver agrees to install it.</p>
 
 <p>Of course stranded drivers don't go on trips expecting vehicle breakdowns, so we can't expect them to install the
 <strong>stranded driver specific app</strong> in advance.</p>
