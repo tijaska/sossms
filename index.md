@@ -1,14 +1,15 @@
 <h2>Rescue Stranded Drivers in Nature Reserves</h2>
 
 <p>This is a free, open source project that offers three smartphone apps that act together to help a stranded driver in a nature reserve
-to communicate their location and problem to a rescue hub in the reserve, if it has one.  The rescue hub can then forward the help request
-to the rescue driver best placed to render assistance.  The app uses geolocation to find out where the stranded driver is, and shows
-that location to the rescue hub and drivers in a choice of maps.</p>
+to communicate their location and problem to a rescue hub in the reserve.  The rescue hub can then forward the help request to the rescue
+driver best placed to render assistance.  The app uses geolocation to find out where the stranded driver is, and shows that location to
+the rescue hub and drivers in a choice of maps.</p>
 
 <p>The source code of the sossms project can be accessed on the Github shared repository <a href="https://github.com/tijaska/sossms">here</a>.
-The Github server also supports a running, ready to use version the code <a href="https://tijaska.github.io/sossms/">here</a>.</p>
+The Github server also supports a running, ready to use version of the code <a href="https://tijaska.github.io/sossms/">here</a>.</p>
 
-<p>Anyone is free to copy and amend the source code as they choose, and to host the modified version wherever they will.</p>
+<p>Anyone is free to copy and amend the source code as they choose, and to host the modified version wherever they will. Such copies must
+refer to the original version <a href="https://github.com/tijaska/sossms">here</a>.</p>
 
 <h3>See the apps:</h3>
 
@@ -21,10 +22,10 @@ The Github server also supports a running, ready to use version the code <a href
 
 <h3>How the apps work together</h3>
 
-<p>The rescue hub installs the <strong>hub app</strong> and then enters their name and phone number into it. The app automatically uses
-geolocation to determine their location.  The app can then be used to build a QR code for inclusion in the pamphlets handed out to visitors
-on entry to the reserve.  If a visitor scans the QR code it will offer a link to the stranded driver's app.  This link will include the
-rescue hub's name, number, and location. When clicked, the stranded driver's app will run.</p>
+<p>The rescue hub installs the <strong>rescue hub app</strong> and then enters their name and phone number into it. The app automatically
+uses geolocation to determine their location.  The app can then be used to build a QR code for inclusion in the pamphlets handed out to
+visitors on entry to the reserve.  If a visitor scans the QR code it will offer a link to the stranded driver's app.  This link will
+include the rescue hub's name, number, and location. When clicked, the stranded driver's app will run.</p>
 
 <p>Alternatively, the stranded driver can phone the rescue hub, who can then use their hub app to send an invite to the stranded driver.
 This arrives as an SMS with an embedded link that contains an invite, just like the QR code.</p>
