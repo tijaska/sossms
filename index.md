@@ -1,7 +1,7 @@
 <h2>Rescue Stranded Drivers in Nature Reserves</h2>
 
-<p>This is a free, open source project that offers three smartphone apps that act together to help a stranded driver in a nature park
-to communicate their location and problem to a rescue hub in the park, if it has one.  The rescue hub can then forward the help request
+<p>This is a free, open source project that offers three smartphone apps that act together to help a stranded driver in a nature reserve
+to communicate their location and problem to a rescue hub in the reserve, if it has one.  The rescue hub can then forward the help request
 to the rescue driver best placed to render assistance.  The apps use geolocation to find out where the stranded driver is, and shows
 that location to the rescue hub and drivers in a choice of maps.</p>
 
@@ -10,10 +10,10 @@ The Github server also supports a running, ready to use version the code <a href
 
 <p>Anyone is free to copy and amend the source code as they choose, and to host the modified version wherever they will.</p>
 
-<h3>Options:</h3>
+<h3>See the apps:</h3>
 
 <ul>
-  <li><a href="web/index.html">A description of this system</a></li>
+  <!--li><a href="web/index.html">A description of this system</a></li-->
   <li><a href="web/caller/">Stranded caller app</a></li>
   <li><a href="web/hub/">Rescue hub app</a></li>
   <li><a href="web/rescue/">Rescue driver app</a></li>
@@ -21,10 +21,10 @@ The Github server also supports a running, ready to use version the code <a href
 
 <h3>How the apps work together</h3>
 
-<p>The rescue hub uses the <strong>hub app</strong> to configure their name and phone number. The app automatically uses geolocation to
-determine their location.  The app can then be used to build a QR code for inclusion in the pamphlets handed out to visitors on entry
-to the reserve.  If a visitor scans the QR code it will offer a link to the stranded driver's app.  This link will include the rescue
-hub's information.</p>
+<p>The rescue hub installs the <strong>hub app</strong> and then enters their name and phone number into it. The app automatically uses
+geolocation to determine their location.  The app can then be used to build a QR code for inclusion in the pamphlets handed out to visitors
+on entry to the reserve.  If a visitor scans the QR code it will offer a link to the stranded driver's app.  This link will include the
+rescue hub's name, number, and location.</p>
 
 <p>Alternatively, the stranded driver can phone the rescue hub, who can then use their hub app to send an invite to the stranded driver.
 This arrives as an SMS with an embedded link that contains an invite, just like the QR code.</p>
@@ -63,7 +63,7 @@ like a web page in a browser if the need arises unexpectedly. As it well may for
 current location. This is included on the message that their app sends, with the other data entered by the stranded driver, as a URL that
 when clicked by the recipient will open the target PWA if it is installed, or default to opening a web page that delivers the same function
 if the PWA is not installed. Either way, the recipient gets to see the info entered by the stranded driver, and can display a map showing
-their location. The rescue driver can request turn by turn navigational guidance to the stranded driver, if the maps of the park in question
+their location. The rescue driver can request turn by turn navigational guidance to the stranded driver, if the maps of the reserve in question
 are accurate.</p>
 
 <p>Google street view maps does a great job of identifying streets in towns and cities, but not so much dirt tracks in nature reserves.
@@ -78,5 +78,5 @@ The sossms apps offer three choices of map. Here they are, all pointing to the s
 <p>The human eye can do a good job of discerning dirt tracks in Google satellite view, even if they are covered by trees here and there,
 which seems to put Google street view off. OpenStreetMaps allows users to reveal roads by driving them with the
 <a href="https://play.google.com/store/apps/details?id=net.osmtracker&hl=en_ZA&gl=US">OpenStreetMap tracker (OSMTracker) app</a> running,
-and to edit maps to include street and place names. Nature park employees traverse roads in order to maintain them, fences, fire breaks,
+and to edit maps to include street and place names. Nature reserve employees traverse roads in order to maintain them, fences, fire breaks,
 and other assets, so getting all of the roads onto the record in OpenStreetMap should not be too onerous.</p>
