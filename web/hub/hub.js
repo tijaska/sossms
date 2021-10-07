@@ -358,10 +358,8 @@ function addExtra(that) {
 	byId("sendWhat").style.background = extraText.length > 0 ? "#D5F5E3" : "#EBEDEF";  // encourage WhatsApp if extra
 }  // from https://web.dev/customize-install/
 /* build a QR code invitation to  the rescue hub */
-function buildQR() {
-	// from sendCallerMsg()
-	let hubURL = "hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
+function buildQR(that) {  // from sendCallerMsg()
+	that.href = "../QRcode/build.html#hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
 		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&t=" + getNow();  //+ "&caller.cell=" + encode(caller.cell)
-	window.open("../QRcode/build.html#" + hubURL, target="_blank");
-    return false;  // prevent page reload
+	return true;
 }
