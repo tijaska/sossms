@@ -24,29 +24,27 @@ The Github server also supports a running, ready to use version the code <a href
 <p>The rescue hub installs the <strong>hub app</strong> and then enters their name and phone number into it. The app automatically uses
 geolocation to determine their location.  The app can then be used to build a QR code for inclusion in the pamphlets handed out to visitors
 on entry to the reserve.  If a visitor scans the QR code it will offer a link to the stranded driver's app.  This link will include the
-rescue hub's name, number, and location.</p>
+rescue hub's name, number, and location. When clicked, the stranded driver's app will run.</p>
 
 <p>Alternatively, the stranded driver can phone the rescue hub, who can then use their hub app to send an invite to the stranded driver.
 This arrives as an SMS with an embedded link that contains an invite, just like the QR code.</p>
 
-<p>When a stranded driver opens <strong>the stranded driver's app</strong> it asks them for their name, phone number, vehicle description,
+<p>When the <strong>the stranded driver's app</strong> opens, it asks the stranded driver for their name, phone number, vehicle description,
 and needs. It automatically uses geolocation to capture the driver's location, and then forwards the message to the rescue hub. The stranded
 driver's app opens when the rescue hub sends an invite message to the driver. It arrives as an SMS that contains an explanation and a URL
 that, when clicked, runs the stranded driver's app in a browser window, or as a stand-alone app if the driver agrees to install it.</p>
 
-<p>Of course drivers don't go on trips expecting vehicle breakdowns, so we can't expect them to install the
-<strong>stranded driver specific app</strong> in advance. For this reason the app is packaged as a <strong>Progressive Web App</strong>
-(PWA) that can run on the fly in a standard browser window, or be installed as a stand-alone phone app as the user chooses.</p>
+<!--p>Of course drivers don't go on trips expecting vehicle breakdowns, so we can't expect them to install the stranded driver app in advance.
+For this reason the app is packaged as a <strong>Progressive Web App</strong>
+(PWA) that can run on the fly in a standard browser window, or be installed as a stand-alone phone app as the user chooses.</p-->
 
-<p><strong>each request from a stranded driver arrives at the rescue hub as SMSes with an explanation and a link embedded within it.
-When the link is clicked, the hub app</strong> opens and displays the request from the stranded driver. The app shows the stranded
-driver's position, name, and needs, and can be used to forward the message to the rescue driver best placed to render assistance.
-The rescue hub should install the hub-specific app.</p>
+<p>Each request from a stranded driver arrives at the rescue hub as an SMS with an explanation and a link embedded within it. When the link
+is clicked, the hub app opens and displays the request from the stranded driver. The app shows the stranded driver's position, name, and needs,
+and can be used to forward the message to the rescue driver best placed to render assistance.</p>
 
-<p>The rescue drivers should install their <strong>rescue-specific app</strong>. It will open when the hub forwards a request for help
-to the rescue driver. But rescue drivers may go on leave or fall ill, and others be drafted in at short notice and not have the rescue app
-installed. In these cases the rescue driver app will open in a browser window first time round, and invite the driver to install it
-for future use.</p>
+<p>The rescue drivers should install the <strong>rescue driver app</strong>. But rescue drivers may go on leave or fall ill, and others be
+drafted in at short notice, and not have the rescue driver app installed. In these cases the rescue driver app will open in a browser window
+first time round, and invite the driver to install it for future use.</p>
 
 <p>Therefore sossms is designed to operate reliably in an environment where some participants have their sossms apps installed, and
 others don't. Apps can't push messages to participants who don't have the corresponding app installed, so sossms piggybacks on the
@@ -55,17 +53,15 @@ each day.  The sossms apps create messages to be sent, and then pass them to the
 and the message will flow to its intended recipient.</p>
 
 <p>The sossms apps are implemented as <strong>progressive web apps (PWAs)</strong>. These can be downloaded and installed on smartphones
-like classic phone apps, and launched from an icon on the desktop. But even if they haven't been installed in advance, they can still run
-like a web page in a browser if the need arises unexpectedly. As it well may for a rescue messaging system.</p>
+just like classic phone apps, and launched from an icon on the desktop. But even if they haven't been installed in advance, they can still
+run like a web page in a browser if the need arises unexpectedly. As it well may for a rescue messaging system.</p>
 
 <h3>A choice of maps</h3>
 
 <p>When a stranded driver initiates a help request, their app uses their phone's geolocation facilities to get an accurate measure of their
-current location. This is included on the message that their app sends, with the other data entered by the stranded driver, as a URL that
-when clicked by the recipient will open the target PWA if it is installed, or default to opening a web page that delivers the same function
-if the PWA is not installed. Either way, the recipient gets to see the info entered by the stranded driver, and can display a map showing
-their location. The rescue driver can request turn by turn navigational guidance to the stranded driver, if the maps of the reserve in question
-are accurate.</p>
+current location. This is included on the message that their app sends to the rescue hub, with the other data entered by the stranded driver.
+The recipient will see the info entered by the stranded driver, and can display a map showing their location. The rescue driver can request
+turn by turn navigational guidance to the stranded driver, if the maps of the reserve in question are accurate.</p>
 
 <p>Google street view maps does a great job of identifying streets in towns and cities, but not so much dirt tracks in nature reserves.
 The sossms apps offer three choices of map. Here they are, all pointing to the same area in a nature reserve:</p>
