@@ -52,20 +52,22 @@ first time round, and invite the driver to install it for future use.</p>
 Apps can't push messages to participants who don't have the corresponding app installed, so sossms piggybacks on the oldest and most widely
 used messaging system, SMS text messaging. About 20 billion SMS text messages flow through the cellphone networks each day.  The sossms apps
 create messages to be sent, and then pass them to the SMS app. The user need only press the SMS send button, and the message will flow to its
-intended recipient. When it arrives, the recipient clicks the link within it and their corresponding app will open, populated with the details
-forwarded to them.</p>
+intended recipient. When the SMS arrives, the recipient clicks the link within it and their corresponding app will open, populated with the
+details forwarded to them.</p>
 
 <p>The sossms apps are implemented as <strong>Progressive Web Apps (PWAs)</strong>. These can be downloaded and installed on smartphones
-just like classic phone apps, and launched from an icon on the desktop. But if the need for an app arises unexpectedly, as it well may do
-for a rescue messaging system, and the needed app hasn't already been installed in advance, it will run in a browser web page, and then
-invite the user to install a local copy.</p>
+in much the same way as are classic phone apps, and launched from an icon on the desktop. But if the need for the app arises unexpectedly,
+as it well may do for a rescue messaging system, and the needed app hasn't already been installed in advance, it will run in a browser web
+page, and then invite the user to install a local copy.  This is vital, since visitors to nature reserves probably won't think to install
+the stranded driver's app before they need it.  Indeed, they probably won't even know that it exists.  Hence it is packaged as a progressive
+web app which can run at the click of the link in the invitation sent to them by the rescue hub, or by scanning the hub's QR code.</p>
 
 <h3>A choice of maps</h3>
 
 <p>When a stranded driver initiates a help request, their app uses their phone's geolocation facilities to get an accurate measure of their
-current location. This is included on the message that their app sends to the rescue hub, with the other data entered by the stranded driver.
-The recipient will see the info entered by the stranded driver, and can display a map showing their location. The rescue driver can request
-turn by turn navigational guidance to the stranded driver, if the maps of the reserve in question are accurate.</p>
+current location. This is automatically included on the message that their app sends to the rescue hub, with the other data entered by the
+stranded driver. The recipient will see the info entered by the stranded driver, and can display a map showing their location.  The rescue
+driver can request turn by turn navigational guidance to the stranded driver, if the maps of the reserve in question are accurate.</p>
 
 <p>Android phones use Google street view as their default map type.  It does a great job of identifying streets in towns and cities, but not
 so much dirt tracks in nature reserves.
@@ -80,6 +82,6 @@ The sossms apps offer three choices of map. Here they are, all pointing to the s
 <p>The human eye can do a good job of discerning dirt tracks in Google satellite view, even if they are covered by trees here and there,
 which seems to put Google street view off. OpenStreetMaps does a pretty good job of identifying secondary roads, and allows users to
 accurately track roads by driving them with the
-<a href="https://play.google.com/store/apps/details?id=net.osmtracker&hl=en_ZA&gl=US">OpenStreetMap tracker (OSMTracker) app</a> running,
-and to edit maps to include street and place names. Nature reserve employees traverse roads in order to maintain them, fences, fire breaks,
-and other assets, so getting all of the roads onto the record in OpenStreetMap should not be too onerous.</p>
+<a href="https://play.google.com/store/apps/details?id=net.osmtracker&hl=en_ZA&gl=US">OpenStreetMap tracker (OSMTracker)</a> app running,
+and to edit maps to include street and place names. Nature reserve employees traverse roads regularly in order to maintain them, fences,
+fire breaks, and other assets, so getting all of the roads onto the record in OpenStreetMap with names should not be too onerous.</p>
