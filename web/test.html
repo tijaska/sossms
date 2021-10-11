@@ -111,16 +111,15 @@ function init() {  // get [[countryNames, codes, phoneCodes]...
 }
 </script>
 <br>
-<!--textarea id="text-val" rows="4">CellA1\tCellB1\tCellC1\nCellA2\tCellB2\tCellC2\n</textarea><br-->
-<textarea id="text-val" rows="4">CellA1,CellB1,CellC1\nCellA2,CellB2,CellC2\n</textarea><br>
+<textarea id="text-val" rows="4" cols="50">CellA1,CellB1,CellC1\nCellA2,CellB2,CellC2\n</textarea><br>
 Size: <input type="text" id="csvsize" value="50"><br>
-<input type="button" id="dwn-btn" value="Download dynamically generated text file"/>
+<input type="button" id="dwn-btn" value="Download dynamically generated csv file"/>
 <script>
 // write localStorage content to a "downloaded" file so the user can email it on.  From:
 // https://ourcodeworld.com/articles/read/189/how-to-create-a-file-and-generate-a-download-with-javascript-in-the-browser-without-a-server
 function download(filename, text) {
 	var csvsize = document.getElementById("csvsize").value;
-	text = text.repeat(csvsize / text.length);
+	text = text.repeat(csvsize / text.length);  // repeat text to get requested length
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(text));
     element.setAttribute('download', filename);
@@ -133,7 +132,7 @@ function download(filename, text) {
 // Start file download.
 	document.getElementById("dwn-btn").addEventListener("click", function(){
     // Generate download of hello.txt file with some content
-	var text = document.getElementById("text-val").value.replace(/\\t/g, "\t").replace(/\\n/g, "\n");
+	var text = document.getElementById("text-val").value.replace(/\\n/g, "\n");
     var filename = "download.csv";
     download(filename, text);
 }, false);

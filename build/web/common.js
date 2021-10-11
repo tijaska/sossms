@@ -101,8 +101,8 @@ function showMap(that, lat, long) {
 	that.selectedIndex = 0;
 }
 /* prettify +-latitide and longitude as North, South, East, West */
-function prettify(lat, long) {
-	return Math.abs(lat) + "°" + (lat >= 0 ? "N" : "S") + "  " + Math.abs(long) + "°" + (long >= 0 ? "E" : "W");
+function prettify(lat, long) {  // ° chokes .csv file download in log.html&.js
+	return Math.abs(lat) + "" + (lat >= 0 ? "N" : "S") + "  " + Math.abs(long) + "" + (long >= 0 ? "E" : "W");
 }
 /* Save a named value in localStorage.  Name is object.component */
 function setValue(name, value) {
@@ -167,4 +167,8 @@ function YMDHM(date) {
 }
 function goto(target) {
 	window.location = target;
+}
+/** make sure field is in csv format */
+function csv(field) {  // if it contains a , or \n then wrap it in " and double each embedded "
+	return /,|\\n/.test(field) ? '"' + field.replace(/"/g, /""/) + '"' : field;
 }

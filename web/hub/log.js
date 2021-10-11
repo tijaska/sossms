@@ -42,21 +42,29 @@ function init() {
 		cell.innerHTML = row[7] ? row[7] : "–";  // rescuer
 	}  // for
 }
-function emailer(that) {
-	let log = "When\tCaller cell\tCaller name\tWhere\tVehicle\tProblem\tWhen sent\tRescuer";
+// download a copy of the log
+function downloader(that) {
+	let log = 'When called,Caller cell,Caller name,Where,Vehicle,Problem,When sent,Delay ",Rescuer #';
 	for (when = 0; when < whens.length; when++) {
 		let row = journal[whens[when]];  // [caller.cell, caller.name, lat, long, vehicle, problem]
-		log += "\n" + YMDHM(whens[when]);  // date and time as YYYY-MM-DD HH:MM
-		log += "\t" + row[0];  // caller.cell
-		log += "\t" + row[1];  // caller.name
-		log += "\t" + prettify(row[2], row[3]);  // caller lat, long
-		log += "\t" + row[4];  // vehicle
-		log += "\t" + row[5];  // problem
-		log += "\t" + YMDHM(row[6]);  // when sent to rescuer
-		log += "\t" + (row[7] ? row[7] : "–");  // rescuer's number
+		log += "\n" + csv(YMDHM(whens[when]));  // date and time as YYYY-MM-DD HH:MM
+		log += "," + csv(row[0]);  // caller.cell
+		log += "," + csv(row[1]);  // caller.name
+		log += "," + csv(prettify(row[2], row[3]));  // caller lat, long
+		log += "," + csv(row[4]);  // vehicle
+		log += "," + csv(row[5]);  // problem
+		log += "," + csv(row[6] ? YMDHM(row[6]) : "?");  // when sent to rescuer
+		log += "," + csv(row[6] ? (parseInt(row[6], 36) - parseInt(whens[when], 36))/1000 : "?");  // elapsed seconds
+		log += "," + csv((row[7] ? row[7] : "?"));  // rescuer's number
 	}  // for
-	that.href = "mailto:?Subject=" + encode(localStorage["hub.name"] + " SoS SMS Log") + "&body=" + encode(log);
-	return true;
+    var element = document.createElement('a');
+    element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
+    element.setAttribute('download', "SoSlog.csv");
+    element.style.display = 'none';
+    document.body.appendChild(element);
+    element.click();
+    document.body.removeChild(element);
+	return false;
 }
 function check(that) {
 	byId("emailer").style.display = that.checked ? "block" : "none";  // enable emailing log
