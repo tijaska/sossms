@@ -1,5 +1,5 @@
-var cacheName = "caller-SoSSMS-j55";
-var dataCacheName = "caller-SoSSMS-j545";
+var cacheName = "caller-SoSSMS-j56";
+var dataCacheName = "caller-SoSSMS-j56";
 var filesToCache = [
 	"./",
 	"./caller-manifest.json",
