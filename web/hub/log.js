@@ -25,7 +25,7 @@ function init() {
 		cell.setAttribute("data-when", whens[when]);
 		if (whens[when] == parameters.t)  // if this is the current request,
 			newRow.style.background = "yellow";  // highlight the row
-		cell.onclick = function () {show(this)};
+		cell.onclick = function() {show(this);};
 		cell = newRow.insertCell();
 		cell.innerHTML = row[0];  // caller.cell
 		cell = newRow.insertCell();
@@ -46,7 +46,7 @@ function init() {
 }
 // download a copy of the log
 function downloader(that) {
-	let log = 'When called,Caller cell,Caller name,Where,Vehicle,Problem,Forwarded,Delay ",Rescuer #';
+	let log = 'When called,Caller cell,Caller name,Caller coords,Vehicle,Problem,Forwarded,Delay ",Rescuer #';
 	for (when = 0; when < whens.length; when++) {
 		let row = journal[whens[when]];  // [caller.cell, caller.name, lat, long, vehicle, problem]
 		log += "\n" + csv(YMDHM(whens[when]));  // date and time as YYYY-MM-DD HH:MM
