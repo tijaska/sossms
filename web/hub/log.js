@@ -39,12 +39,14 @@ function init() {
 		cell = newRow.insertCell();
 		cell.innerHTML = YMDHM(row[6]);  // when sent
 		cell = newRow.insertCell();
-		cell.innerHTML = row[7] ? row[7] : "–";  // rescuer
+		cell.innerHTML = elapsed(whens[when], row[6]);  // delay
+		cell = newRow.insertCell();
+		cell.innerHTML = row[7] ? row[7] : "";  // rescuer
 	}  // for
 }
 // download a copy of the log
 function downloader(that) {
-	let log = 'When called,Caller cell,Caller name,Where,Vehicle,Problem,When sent,Delay ",Rescuer #';
+	let log = 'When called,Caller cell,Caller name,Where,Vehicle,Problem,Forwarded,Delay ",Rescuer #';
 	for (when = 0; when < whens.length; when++) {
 		let row = journal[whens[when]];  // [caller.cell, caller.name, lat, long, vehicle, problem]
 		log += "\n" + csv(YMDHM(whens[when]));  // date and time as YYYY-MM-DD HH:MM
@@ -53,9 +55,9 @@ function downloader(that) {
 		log += "," + csv(prettify(row[2], row[3]));  // caller lat, long
 		log += "," + csv(row[4]);  // vehicle
 		log += "," + csv(row[5]);  // problem
-		log += "," + csv(row[6] ? YMDHM(row[6]) : "?");  // when sent to rescuer
-		log += "," + csv(row[6] ? (parseInt(row[6], 36) - parseInt(whens[when], 36))/1000 : "?");  // elapsed seconds
-		log += "," + csv((row[7] ? row[7] : "?"));  // rescuer's number
+		log += "," + csv(row[6] ? YMDHM(row[6]) : "");  // when sent to rescuer
+		log += "," + elapsed(whens[when], row[6]);  // elapsed seconds
+		log += "," + csv((row[7] ? row[7] : ""));  // rescuer's number
 	}  // for
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
@@ -65,6 +67,9 @@ function downloader(that) {
     element.click();
     document.body.removeChild(element);
 	return false;
+}
+function elapsed(from, to) {  // calculate elapsed time in seconds
+	return to ? Math.round((parseInt(to, 36) - parseInt(from, 36))/1000) : "";
 }
 function check(that) {
 	byId("emailer").style.display = that.checked ? "block" : "none";  // enable emailing log

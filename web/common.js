@@ -160,7 +160,7 @@ function dateTime(t, short) {
 /* get date base 36, return in YYYY-MM-DD HH:MM format */
 function YMDHM(date) {
 	if (date == null)
-		return "–";  // &ndash;
+		return "";  // or "–" = &ndash;
 	let dd = date ? new Date(parseInt(date, 36)) : new Date();
 	let iso = new Date(dd.getTime()-60000*dd.getTimezoneOffset()).toISOString();  // YYYY-MM-DDTHH:MM:SS.SSSZ
 	return iso.substr(0, 10) + " " + iso.substr(11, 5);
