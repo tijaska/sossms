@@ -1,3 +1,8 @@
 <!-- Rescue Stranded Drivers in Nature Reserves -->
 
-<iframe src="web/index.html"  width="100%" height="600"></iframe>
+<iframe id="framer" src="web/index.html" ></iframe>
+<script>
+    let framer = document.getElementById("framer");
+    framer.width = window.innerWidth;
+    framer.height = window.innerHeight;
+</script>
