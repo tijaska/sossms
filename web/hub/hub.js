@@ -192,8 +192,9 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; that is the
 			/*byId("sendWhat")*/ that.href = "https://wa.me/" + (rescuer ? rescuer : "") + "?text="
 			+ encode(text + rescueURL + (extraText ? "\n" + extraText : ""));
 		}
-		journal[parameters.t][6] = getNow();  // add send time to the journal row
-		journal[parameters.t][7] = document.callerInfo.rescueDriver.value;  // add rescue driver's number
+		if (! journal[parameters.t][6])  // if we don't already have a respond time,
+            journal[parameters.t][6] = getNow();  // add send time to the journal row
+		journal[parameters.t][7] = document.callerInfo.rescueDriver.value;  // add rescue driver's number, if given
 		localStorage.journal = JSON.stringify(journal);  // snapshot the journal
 		return true;  // OK to go
 	}

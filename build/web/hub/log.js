@@ -62,12 +62,21 @@ function downloader(that) {
 	}  // for
     var element = document.createElement('a');
     element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(log));
-    element.setAttribute('download', "SoSlog.csv");
+    element.setAttribute('download', "SoSlog_" + YMDHM(getNow(), true) + ".csv");
     element.style.display = 'none';
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
+    byId("deleter").style.display = "inline";
 	return false;
+}
+// delete the log after download
+function deleteLog(that) {
+    if (confirm("Only delete the log after you have emailed and received a copy of its current content")) {
+        delete localStorage.journal;
+        return true;
+    }
+    return false;
 }
 function elapsed(from, to) {  // calculate elapsed time in seconds
 	return to ? Math.round((parseInt(to, 36) - parseInt(from, 36))/1000) : "";
