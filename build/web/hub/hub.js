@@ -33,8 +33,10 @@ function init() {
 	if (location.protocol == "http:" && location.hostname != "localhost")
 		location = location.href.replace("http:", "https:");  // promote to secure
 	
+    if (! isitaPC())  // if it isn't a PC, offer to install
+        byId("installit").style.display = "block";
 	let xx = document.createElement("p");
-	xx.innerHTML = '<small style="color: brown">' + cacheName + ' ' + location.search + '</small>';
+	xx.innerHTML = '<small style="color: brown">' + cacheName + ' ' + location.search + ', ' + progress + '</small>';
 	document.body.appendChild(xx);  // show service-worker.js cache name and version
 	getValues();  // get saved values from localSorage
 	for (let name in hub) {
@@ -363,4 +365,8 @@ function buildQR(that) {  // from sendCallerMsg()
 	that.href = "../QRcode/build.html#hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
 		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&t=" + getNow();  //+ "&caller.cell=" + encode(caller.cell)
 	return true;
+}
+/* tell user how to install the PWA */
+function installer() {
+    alert("To install this app on an Android phone,\nclick the menu (3 dots in top right corner)\nthen click Install app");
 }

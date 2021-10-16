@@ -70,60 +70,58 @@
 				<b>Please fill in your hub details above, then click the Update button</b>
 			</div>
 			<div id="hubIsComplete">
-			<table style="background-color: #FFE;" border="1" cellspacing="0" id="callerData">
-				<tbody id="pleaseFill">
-					<tr><td colspan="2">Please fill in the stranded driver's phone number:</td></tr>
-				</tbody>
-				<tbody>
-				<tr><td colspan="2" style="font-weight: bold;">The stranded driver's details:</td></tr>
-				<tr><td>Cell number:</td><td><input type="text" name="cell" size="15" onkeyup="fixCountry(this, 'callerCountry', 'inner')">
-					<a id="callerCell" style="display: none" href="">Phone the caller: ☎</a>
-					<br><span id="callerCountry"></span></td></tr>
-				</tbody>
-				<tbody style="display: none;" id="extraInfo">
-					<tr><td>Name:</td><td><input type="text" name="caller" size="30" maxlength="30">
-					<tr><td>Vehicle:</td><td><input type="text" name="vehicle" size="30" maxlength="30"></td></tr>
-					<tr><td>Problem:</td><td><input type="text" name="problem" size="40" maxlength="50"></td></tr>
-					<tr id="location"><td valign="top">Location:</td><td><input type="text" name="latLong" size="30" disabled></td></tr>
-					<tr><td>Date/time:</td><td><input type="text" name="dateTime"  size="30" disabled></td></tr>
-				</tbody>
-			</table>
-			<br>
-			<div id="result" class="config" style="display: none">
-				<p id="distance"></p>
-				<p>Optionally, see the caller's location:</p>
-				<select name="map" onchange="showMap(this, parameters.lat, parameters.long)" style="background-color: #EEE;">
-					<option>Choose map type:</option>
-					<option>Google satellite view</option>
-					<option>Google street view</option>
-					<option>Open Street map</option>
-				</select>
-				<h4>Relay the stranded driver's info to a rescue driver:</h4>
-				<p>You can enter the rescue driver's cell number below now, or choose it later from your contacts:
-				<br><input type="text" name="rescueDriver" onkeyup="fixCountry(this, 'driverCountry')">
-				<span id="driverCountry"></span></p>
-				<p>You can add to the message below, but then send by WhatsApp.  SMS size is limited.
-					<br><input type="text" name="extra" size="40" onkeyup="addExtra(this)"></p>
-				<p>Click&nbsp; <a href="" target="_blank" onclick="return OKtogo(1, this)">SMS</a>&nbsp;
-				or &nbsp;<a href="" target="_blank" onclick="return OKtogo(2, this)">WhatsApp</a>&nbsp;
-				to send the caller's details to a rescue driver, or a WhatsApp group</p>
-			</div>
-			<div id="noCallerInfo"><b>No stranded driver's location was passed to you</b>
-				<br>Please fill the stranded driver's cell number above
-				<div id="inner" style="display: none">
-					<a href="" target="_blank" onclick="return sendCallerMsg(this, 1)">Send an SMS invitation to them</a>
-					<!--button onclick="window.open(sendCallerMsg(this, 1))">Send an SMS invitation to them</button-->
-					<br>Your invitation will be formatted as an SMS and shown to you. Please send it without any change.
-					The SMS will contain a web link. When the stranded driver clicks on this link, it will run an app that will
-					assist them to send their location and other details back to you.
-				<div>
-			</div>
-			<div id="message" style="font-weight: bold;"></div>
-			</div>
-			<p><button onclick="alert(progress); location.href = '../install3.html#' + encode(location.href)" style="color: gray">Install this app</button></p>
+                <table style="background-color: #FFE;" border="1" cellspacing="0" id="callerData">
+                    <tbody id="pleaseFill">
+                        <tr><td colspan="2">Please fill in the stranded driver's phone number:</td></tr>
+                    </tbody>
+                    <tbody>
+                    <tr><td colspan="2" style="font-weight: bold;">The stranded driver's details:</td></tr>
+                    <tr><td>Cell number:</td><td><input type="text" name="cell" size="15" onkeyup="fixCountry(this, 'callerCountry', 'inner')">
+                        <a id="callerCell" style="display: none" href="">Phone the caller: ☎</a>
+                        <br><span id="callerCountry"></span></td></tr>
+                    </tbody>
+                    <tbody style="display: none;" id="extraInfo">
+                        <tr><td>Name:</td><td><input type="text" name="caller" size="30" maxlength="30">
+                        <tr><td>Vehicle:</td><td><input type="text" name="vehicle" size="30" maxlength="30"></td></tr>
+                        <tr><td>Problem:</td><td><input type="text" name="problem" size="40" maxlength="50"></td></tr>
+                        <tr id="location"><td valign="top">Location:</td><td><input type="text" name="latLong" size="30" disabled></td></tr>
+                        <tr><td>Date/time:</td><td><input type="text" name="dateTime"  size="30" disabled></td></tr>
+                    </tbody>
+                </table>
+                <br>
+                <div id="result" class="config" style="display: none">
+                    <p id="distance"></p>
+                    <p>Optionally, see the caller's location:</p>
+                    <select name="map" onchange="showMap(this, parameters.lat, parameters.long)" style="background-color: #EEE;">
+                        <option>Choose map type:</option>
+                        <option>Google satellite view</option>
+                        <option>Google street view</option>
+                        <option>Open Street map</option>
+                    </select>
+                    <h4>Relay the stranded driver's info to a rescue driver:</h4>
+                    <p>You can enter the rescue driver's cell number below now, or choose it later from your contacts:
+                    <br><input type="text" name="rescueDriver" onkeyup="fixCountry(this, 'driverCountry')">
+                    <span id="driverCountry"></span></p>
+                    <p>You can add to the message below, but then send by WhatsApp.  SMS size is limited.
+                        <br><input type="text" name="extra" size="40" onkeyup="addExtra(this)"></p>
+                    <p>Click&nbsp; <a href="" target="_blank" onclick="return OKtogo(1, this)">SMS</a>&nbsp;
+                    or &nbsp;<a href="" target="_blank" onclick="return OKtogo(2, this)">WhatsApp</a>&nbsp;
+                    to send the caller's details to a rescue driver, or a WhatsApp group</p>
+                </div>
+                <div id="noCallerInfo"><b>No stranded driver's location was passed to you</b>
+                    <br>Please fill the stranded driver's cell number above
+                    <div id="inner" style="display: none">
+                        <a href="" target="_blank" onclick="return sendCallerMsg(this, 1)">Send an SMS invitation to them</a>
+                        <!--button onclick="window.open(sendCallerMsg(this, 1))">Send an SMS invitation to them</button-->
+                        <br>Your invitation will be formatted as an SMS and shown to you. Please send it without any change.
+                        The SMS will contain a web link. When the stranded driver clicks on this link, it will run an app that will
+                        assist them to send their location and other details back to you.
+                    </div>
+                </div>
+                <div id="message" style="font-weight: bold;"></div>
+            </div><!-- id="complete" -->
+			<p id="installit" style="display: none;"><button onclick="installer()">To install this app, click menu
+                <strong>&nbsp;&#8285;&nbsp;</strong> in top right corner then click <strong>Install app</strong></button></p>
 		</form>
-		
-		<!--p><a href="" onclick="this.href = 'update.html' + window.location.search + window.location.hash;">Update the app</a></p>--
-		
 	</body>
 </html>
