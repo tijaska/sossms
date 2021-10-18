@@ -12,7 +12,7 @@
 			if (navigator.userAgent.match(/tablet|mobi/i) != null) {  // if browser is on a tablet or mobile, enable PWA
 		//		window.addEventListener('appinstalled', (evt) => {  // set a cookie if this app installs
 		//			document.cookie = "hubSoSSMS=" + new Date().toISOString().replace(/:/g, "_") + "; max-age=315360000";
-		//		});  // see https://petelepage.com/blog/2019/07/is-my-pwa-installed/ 
+		//		});  // see https://petelepage.com/blog/2019/07/is-my-pwa-installed/ superceded by https://web.dev/customize-install/#detect-launch-type
 				if ("serviceWorker" in navigator) {
 					progress = 1;
 					window.addEventListener("load", function() {

@@ -69,6 +69,13 @@
 				Please describe your problem <i>briefly</i>:<br>
 				<input type="text" name="problem" size="40" maxlength="40" onchange="showButtons()"></p>
 				<p><i><span id="geoloc" style="display: none">Getting your location...</span></i></p>
+				<!-- added select 2021-10-18 -->
+				<select name="map" onchange="showMap(this, caller.lat, caller.long)" style="background-color: #EEE;">
+					<option>See your location on a map:</option>
+					<option>Google satellite view</option>
+					<option>Google street view</option>
+					<option>Open Street map</option>
+				</select>
 				<p id="buttons" style="display: none">
 					<a id="sms" href="sms://telno?body=text" target="_blank">Send</a> the rescue hub an
 					SMS requesting help. This app will create the SMS. It will include the info you entered above, plus your location,
