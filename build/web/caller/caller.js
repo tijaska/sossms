@@ -93,12 +93,15 @@ function showButtons() {
 	hubUrl += "#t=" + timestamp + "&lat=" + caller.lat + "&long=" + caller.long + "&caller=" + encode(caller.name) + "&cell=" + caller.cell
 		+ "&vehicle=" + encode(caller.vehicle) + "&problem=" + encode(problem);
 	// we double-encode the hrefs contained within the SMS text, else first & stops the sms:// URL
-	let text = "*SoS SMS to rescue hub*\nFrom: " + caller.name
+	let text = "SoS SMS to rescue hub – please click:\n"
+        + encode(hubUrl)
+        + "\n\nFrom: " + caller.name
 		+ (caller.cell ? "\nCell: " + caller.cell : "")  //  + " _(click to call)_"
 		+ (caller.vehicle ? "\nVehicle: " + caller.vehicle : "")
 		+ (problem ? "\nProblem: " + problem : "")
+        + "\nLocation: " + encode(mapURL);
 	byId("sms").href = (isitaPC() ? "../simSMS.html#" : ("sms://" + hub.cell + "?body="))
-		+ encode(text.replace(/\*/g, "").replace(/_/g, "") + "\nLocation: " + encode(mapURL) + "\nRescue hub, click:\n" + encode(hubUrl));
+		+ encode(text.replace(/\*/g, "").replace(/_/g, ""));
 //	byId("previewer").onclick = function() {window.open(hubUrl, "_blank")};
 	if (notMobiTablet) {  // if not a mobile or tablet,
 		byId("getCaller").className = "PC";  // warn the user that location is probably wrong
