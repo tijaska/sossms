@@ -85,4 +85,4 @@ accurately track roads by driving them with the
 and to edit maps to include street and place names. Nature reserve employees traverse roads regularly in order to maintain them, fences,
 fire breaks, and other assets, so getting all of the roads onto the record in OpenStreetMap with names should not be too onerous.</p>
 
-<p>See a fuller description of the system ><a href="web/index.html">here</a></p>
+<p>See a fuller description of the system <a href="web/index.html">here</a></p>
