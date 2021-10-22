@@ -6,7 +6,7 @@ var caller = {};  // info about the caller, e.g. cell number
 var gotCallerLocation = false;
 function init() {
 	let xx = document.createElement("p");
-	xx.innerHTML = '<small style="color: brown">' + cacheName + ' ' + location.search + ', ' + /*progress +*/ '</small>';
+	xx.innerHTML = '<small style="color: brown">' + cacheName + /*', ' + progress +*/ '</small>';
 	document.body.appendChild(xx);  // show service-worker.js cache name and version
 	window.parameters = getParms();  // set caller's fields from location.search, if passed
 	// if latitude parameters present and plausible, accept caller's data

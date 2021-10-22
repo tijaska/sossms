@@ -35,7 +35,7 @@ function init() {
     if (! isitaPC())  // if it isn't a PC, offer to install
         byId("installit").style.display = "block";
 	let xx = document.createElement("p");
-	xx.innerHTML = '<small style="color: brown">' + cacheName + ' ' + location.search + ', ' + progress + '</small>';
+	xx.innerHTML = '<small style="color: brown">' + cacheName + ', ' + progress + '</small>';
 	document.body.appendChild(xx);  // show service-worker.js cache name and version
 	getValues();  // get saved values from localSorage
 	for (let name in hub) {
@@ -187,7 +187,7 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; that is the
 			+ "\n*Click this link while you still have network access:*\n";
 		if (which == 1) {
 			// point to SMS simulation if we're on a PC, SMS if on mobile:
-			let target = isitaPC() ? "../simSMS.htmlsearch" : "sms://" + (rescuer ? rescuer : "") + "?body=";
+			let target = isitaPC() ? "../simSMS.html?" : "sms://" + (rescuer ? rescuer : "") + "?body=";
 			/*byId("sendSMS")*/ that.href = target + encode(text + encode(rescueURL) + (extraText ? "\n" + extraText : ""));
 		} else if (which == 2) {
 			/*byId("sendWhat")*/ that.href = "https://wa.me/" + (rescuer ? rescuer : "") + "?text="

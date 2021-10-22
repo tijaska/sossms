@@ -7,7 +7,7 @@ var hub = {};  // rescue hub parameters
 var caller = {};  // caller parameters
 function init() {
 	let xx = document.createElement("p");
-	xx.innerHTML = '<small style="color: brown">' + cacheName + ' ' + location.search + ', ' + /*progress +*/ '</small>';
+	xx.innerHTML = '<small style="color: brown">' + cacheName + /*', ' + progress +*/ '</small>';
 	document.body.appendChild(xx);  // show service-worker.js cache name and version
 	window.telno = "unknown";  // cellphone number of the to-be selected rescue hub
 	parameters = getParms();  // get parameters passed in the URL's ?search
