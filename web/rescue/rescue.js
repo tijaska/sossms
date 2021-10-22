@@ -1,11 +1,14 @@
 var cellNo = /(^\+\d{10,}$)|(0\d{8,})/;  // cell numbers may start with + (country code) or 0 (local)
 var cookies = {};
-var parameters = {};  // parameters passed in location.hash, if any
+var parameters = {};  // parameters passed in location.search, if any
 var hub = {};  // info about the hub, e.g. latitude and longitude
 var caller = {};  // info about the caller, e.g. cell number
 var gotCallerLocation = false;
 function init() {
-	window.parameters = getHash();  // set caller's fields from location.hash, if passed
+	let xx = document.createElement("p");
+	xx.innerHTML = '<small style="color: brown">' + cacheName + ' ' + location.search + ', ' + /*progress +*/ '</small>';
+	document.body.appendChild(xx);  // show service-worker.js cache name and version
+	window.parameters = getParms();  // set caller's fields from location.search, if passed
 	// if latitude parameters present and plausible, accept caller's data
 	gotCallerLocation = parameters.lat && parameters.lat >= -90 && parameters.lat <= 90
 		&& parameters.long && parameters.long >= -180 && parameters.long <= 180;

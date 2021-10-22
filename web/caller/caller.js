@@ -1,34 +1,37 @@
 var geoloc = false;  // until geolocation succeeds
 var ipinfo = {};  // gets populated by locater()
 var notMobiTablet = isitaPC()  // true if user's device isn't a mobile...
-	&& !window.location.hash.match(/mobi1e/);  //  or tablet, unless we claim it for debug purposes.
-var parameters = {};  // parameters passed in the #hash fragment, if any
+	&& !window.location.search.match(/mobi1e/);  //  or tablet, unless we claim it for debug purposes.
+var parameters = {};  // parameters passed in the ?search fragment, if any
 var hub = {};  // rescue hub parameters
 var caller = {};  // caller parameters
 function init() {
+	let xx = document.createElement("p");
+	xx.innerHTML = '<small style="color: brown">' + cacheName + ' ' + location.search + ', ' + /*progress +*/ '</small>';
+	document.body.appendChild(xx);  // show service-worker.js cache name and version
 	window.telno = "unknown";  // cellphone number of the to-be selected rescue hub
-	parameters = getHash();  // get parameters passed in the URL's #hash
+	parameters = getParms();  // get parameters passed in the URL's ?search
 	for (let name in parameters) {  // copy hub and caller values from parameters, leave other entries in place
 		if (name.match(/^hub\./))
 			hub[name.substr(4)] = parameters[name];
 		else if (name.match(/^caller\./))
 			caller[name.substr(7)] = parameters[name];
 	}
-	let hubInHash = hub.name && /*hub.country &&*/ hub.cell;  // true if hash contains hub's name, country & cell
+	let hubInHash = hub.name && /*hub.country &&*/ hub.cell;  // true if search contains hub's name, country & cell
 	for (let name in localStorage) {  // copy hub and caller values from localStorage as defaults
 		if (name.match(/^hub\./))
-			if (! hub[name.substr(4)])  // if this entry didn't come in hash,
+			if (! hub[name.substr(4)])  // if this entry didn't come in search,
 				hub[name.substr(4)] = localStorage[name];  // use localStorage value as default
 		else if (name.match(/^caller\./))
-			if (! caller[name.substr(4)])  // if this entry didn't come in hash,
+			if (! caller[name.substr(4)])  // if this entry didn't come in search,
 				caller[name.substr(7)] = localStorage[name];  // use localStorage value as default
-		else if (! parameters[name])  // if this entry didn't come in hash,
+		else if (! parameters[name])  // if this entry didn't come in search,
 			parameters[name] = localStorage[name];  // use localStorage value as default
 	}
-	if (hubInHash) {  // if a hub was passed in hash,
+	if (hubInHash) {  // if a hub was passed in search,
 		byId("whichHub").innerHTML = "This rescue hub has sent you an S<b>o</b>S SMS invitation:";
 		byId("oldHub").style.display = "none";  // it's not an old hub
-	} else if (hub.name && /*hub.country &&*/ hub.cell) {  // if no hub in hash but the caller has seen a hub before,
+	} else if (hub.name && /*hub.country &&*/ hub.cell) {  // if no hub in search but the caller has seen a hub before,
 		byId("whichHub").innerHTML = "The last rescue hub that contacted you is shown below. Last seen "
 			+ YMDHM(parameters.t);  // (unless a fresh one is passed in parameters)
 		byId("oldHub").style.display = "block";  // warn it's an old hub
@@ -41,7 +44,7 @@ function init() {
 		byId("showHub").style.display = "block";  // show hub info block
 		byId("notHub").style.display = "none";  // hide no hub info warning
 	}
-	if (hub.name) {  // if hub name was passed in hash, or kept in localStorage,
+	if (hub.name) {  // if hub name was passed in search, or kept in localStorage,
 		byId("hubname").innerHTML = hub.name;  // already copied into hub.name
 		document.hubForm.hubName.value = hub.name;
 	}
@@ -90,7 +93,7 @@ function showButtons() {
 	let timestamp = getNow();  // date/time stamp radix 36
 	let hubUrl = location.href.replace("/caller", "/hub");  // direct SMS to the rescue hub
 	hubUrl = hubUrl.split(/\?|#/, 1)[0];  // split on first embedded ? or # if present, drop what follows
-	hubUrl += "#t=" + timestamp + "&lat=" + caller.lat + "&long=" + caller.long + "&caller=" + encode(caller.name) + "&cell=" + caller.cell
+	hubUrl += "?t=" + timestamp + "&lat=" + caller.lat + "&long=" + caller.long + "&caller=" + encode(caller.name) + "&cell=" + caller.cell
 		+ "&vehicle=" + encode(caller.vehicle) + "&problem=" + encode(problem);
 	// we double-encode the hrefs contained within the SMS text, else first & stops the sms:// URL
 	let text = "SoS SMS to rescue hub – please click:\n"
@@ -100,7 +103,7 @@ function showButtons() {
 		+ (caller.vehicle ? "\nVehicle: " + caller.vehicle : "")
 		+ (problem ? "\nProblem: " + problem : "")
         + "\nLocation: " + encode(mapURL);
-	byId("sms").href = (isitaPC() ? "../simSMS.html#" : ("sms://" + hub.cell + "?body="))
+	byId("sms").href = (isitaPC() ? "../simSMS.html?" : ("sms://" + hub.cell + "?body="))
 		+ encode(text.replace(/\*/g, "").replace(/_/g, ""));
 //	byId("previewer").onclick = function() {window.open(hubUrl, "_blank")};
 	if (notMobiTablet) {  // if not a mobile or tablet,

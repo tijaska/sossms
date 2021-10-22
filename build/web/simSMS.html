@@ -28,7 +28,7 @@
 			let display = "";
 			let sms = "sms://?body=";
 			let email = "mailto://?subject=" + encode("SoS SMS request") + "&body=";
-			let text = decode(location.hash.substr(1));  // drop leading #, decode URL
+			let text = decode(location.search.substr(1));  // drop leading ?, decode URL
 			let pos = text.search(/https?/);  // locate http: or https: imbedded in the message (was /https?%3A/)
 			while (pos >= 0) {  // while http found,
 				let before = text.substr(0, pos);
@@ -50,7 +50,7 @@
 			email += encode(text);
 //			let url = decode(text.substr(pos));  // extract it
 			byId("display").innerHTML = display;  //text.substr(0, pos).replaceAll("\n", "<br>") + '<a class="plain" href="' + url + '">' + url + '</a>';
-			byId("sms").href = sms;  //encode(location.hash.substr(1));  // skip encoding the ? at the start of search
+			byId("sms").href = sms;  //encode(location.search.substr(1));  // skip encoding the ? at the start of search
 			byId("email").href = email;  //"mailto://?subject=SoS SMS request" + "&body=" + text.substr(0, pos).replaceAll("\n", "%0A") + encode(url);
 		</script>
 	</body>

@@ -1,5 +1,5 @@
 var cellNo = /(^\+\d{10,}$)|(0\d{8,})/;  // cell numbers may start with + (country code) or 0 (local)
-var parameters = {};  // parameters passed in location.hash, if any
+var parameters = {};  // parameters passed in location.search, if any
 var hub = {};  // info about the hub, e.g. latitude and longitude
 var caller = {};  // info about the caller, e.g. cell number
 /* journal of past help requests.  Format: {dateTime: [caller.cell, caller.name, lat, long, vehicle, problem]} */
@@ -32,7 +32,6 @@ window.addEventListener('beforeinstallprompt', (evt) => {
 function init() {
 	if (location.protocol == "http:" && location.hostname != "localhost")
 		location = location.href.replace("http:", "https:");  // promote to secure
-	
     if (! isitaPC())  // if it isn't a PC, offer to install
         byId("installit").style.display = "block";
 	let xx = document.createElement("p");
@@ -58,12 +57,12 @@ function init() {
 		byId("noCallerInfo").style.display = "none";
 		byId("callerData").style.display = "none";
 	}
-	parameters = getHash();  // else set caller's fields from location.hash, if passed
+	parameters = getParms();  // else set caller's fields from location.search, if passed
 	if (parameters.T) {  // if parameter T is set then we have a reference from hub/log.html
 		let row = journal[parameters.T];  // get the selected row from the journal
-		location.hash = "cell=" + row[0] + "&caller=" + row[1] + "&lat=" + row[2] + "&long=" + row[3]
+		location.search = "cell=" + row[0] + "&caller=" + row[1] + "&lat=" + row[2] + "&long=" + row[3]
 			+ "&vehicle=" + row[4] + "&problem=" + row[5] + "&t=" + parameters.T;
-		parameters = getHash();
+		parameters = getParms();
 	}
 	if (parameters.cell && parameters.t) {  // if we got the caller's cell number and the dateTime of the request,
 		let cell = parameters.cell;
@@ -188,7 +187,7 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; that is the
 			+ "\n*Click this link while you still have network access:*\n";
 		if (which == 1) {
 			// point to SMS simulation if we're on a PC, SMS if on mobile:
-			let target = isitaPC() ? "../simSMS.html#" : "sms://" + (rescuer ? rescuer : "") + "?body=";
+			let target = isitaPC() ? "../simSMS.htmlsearch" : "sms://" + (rescuer ? rescuer : "") + "?body=";
 			/*byId("sendSMS")*/ that.href = target + encode(text + encode(rescueURL) + (extraText ? "\n" + extraText : ""));
 		} else if (which == 2) {
 			/*byId("sendWhat")*/ that.href = "https://wa.me/" + (rescuer ? rescuer : "") + "?text="
@@ -225,17 +224,17 @@ function sendCallerMsg(link, type) {
 	caller.cell = document.callerInfo.cell.value;
 	if (caller.cell.match(/^0/))  // if number starts with a zero,
 		caller.cell = hub.country + caller.cell.substr(1);  // drop leading 0, prefix with country
-	let callerUrl = location.href.split("#")[0].replace("/hub", "/caller");  // drop #parameters, if any
+	let callerUrl = location.href.split("?")[0].replace("/hub", "/caller");  // drop ?parameters, if any
 	let hubURL = "hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
 		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&caller.cell=" + encode(caller.cell) + "&t=" + getNow();
 	let rest = encode("Please send your location to the " + hub.name + " rescue hub."
-		+ "\nTo get help in doing this, please click this link:\n" + callerUrl + "#" + (type == 1 ? encode(hubURL) : hubURL));
+		+ "\nTo get help in doing this, please click this link:\n" + callerUrl + "?" + (type == 1 ? encode(hubURL) : hubURL));
 	if (type = 1)
-		link.href = (isitaPC() ? "../simSMS.html#" : "sms://" + caller.cell + "?body=") + rest;
+		link.href = (isitaPC() ? "../simSMS.html?" : "sms://" + caller.cell + "?body=") + rest;
 	else if (type == 2)
 		link.href = "https://wa.me/" + caller.cell + "?text=" + rest;
 	else if (type == 3)
-		link.href = callerUrl + "#" + hubURL;
+		link.href = callerUrl + "?" + hubURL;
 	window.scrollBy(0, 200);  // scroll down to show lower lines
 	return true;  // true;
 }
@@ -362,7 +361,7 @@ function addExtra(that) {
 }  // from https://web.dev/customize-install/
 /* build a QR code invitation to  the rescue hub */
 function buildQR(that) {  // from sendCallerMsg()
-	that.href = "../QRcode/build.html#hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
+	that.href = "../QRcode/build.html?hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
 		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&t=" + getNow();  //+ "&caller.cell=" + encode(caller.cell)
 	return true;
 }

@@ -42,15 +42,14 @@ function encode(arg) {
 function decode(arg) {
 	return decodeURIComponent(arg);
 }
-/** get parameter=value pairs from location.hash
- * parameters are passed in #hash not ?search; else browser refreshes page from server, breaking PWA */
-function getHash() {
+/** get parameter=value pairs from location.search */
+function getParms() {
 	let result = {};
-	let hash = decode(decode(window.location.hash));
-	if (hash.length > 0) {
-		if (hash.charAt(0) == "#")
-			hash = hash.substr(1);  // skip leading #
-		let parms = hash.split("&");  // 
+	let search = decode(decode(window.location.search));
+	if (search.length > 0) {
+		if (search.charAt(0) == "?")
+			search = search.substr(1);  // skip leading ?
+		let parms = search.split("&");  // 
 		for (let i in parms) {  // scan the & delimited parameters
 			if (parms[i].length > 0) {
 				let parts = parms[i].split("=");  // split name = value
@@ -143,9 +142,9 @@ function makeSMS(rescuer, body, url) {
 	return (isitaPC() ? "../simSMS.html#" : ("sms://" + (rescuer ? rescuer : "") + "?body="))
 		+ encode(body + (isitaPC() ? url : encode(url)));
 }
-/* return true if user's device isn't a mobile, unless "&mobile" is in location.hash */
+/* return true if user's device isn't a mobile, unless "&mobile" is in location.search */
 function isitaPC() {
-	return navigator.userAgent.match(/tablet|mobi/i) == null && location.hash.indexOf("&mobile") < 0;
+	return navigator.userAgent.match(/tablet|mobi/i) == null && location.search.indexOf("&mobile") < 0;
 }
 /* current date/time radix 36 */
 function getNow() {

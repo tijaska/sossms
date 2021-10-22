@@ -5,40 +5,6 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<script>
-/*			function getSearch() {
-				let result = {};
-				let hash = decode(decode(window.location.hash));
-				if (hash.length > 0) {
-					if (hash.charAt(0) == "#")
-						hash = hash.substr(1);  // skip leading #
-					let parms = hash.split("&");  // 
-					for (let i in parms) {  // scan the & delimited parameters
-						if (parms[i].length > 0) {
-							let parts = parms[i].split("=");  // split name = value
-							if (parts[0].length > 0)  // if a name is present, give it a value if present, else "?"
-								result[parts[0]] = parts.length == 1 ? "?" : parts[1] == "" ? "?" : decode(parts[1]);
-						}
-					}
-				}
-				return result;
-			}
-			function getHash() {
-				let result = {};
-				let hash = decode(decode(window.location.hash));
-				if (hash.length > 0) {
-					if (hash.charAt(0) == "#")
-						hash = hash.substr(1);  // skip leading #
-					let parms = hash.split("&");  // 
-					for (let i in parms) {  // scan the & delimited parameters
-						if (parms[i].length > 0) {
-							let parts = parms[i].split("=");  // split name = value
-							if (parts[0].length > 0)  // if a name is present, give it a value if present, else "?"
-								result[parts[0]] = parts.length == 1 ? "?" : parts[1] == "" ? "?" : decode(parts[1]);
-						}
-					}
-				}
-				return result;
-			}		*/
 			function init() {
 				document.getElementById("href").innerHTML = window.location.href;
 				document.getElementById("search").innerHTML = window.location.search;

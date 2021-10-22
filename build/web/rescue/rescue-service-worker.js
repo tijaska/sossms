@@ -1,5 +1,5 @@
-var cacheName = "rescue-SoSSMS-j57";
-var dataCacheName = "rescue-SoSSMS-j57";
+var cacheName = "rescue-SoSSMS-j59";
+var dataCacheName = "rescue-SoSSMS-j59";
 var filesToCache = [
 	"./",
 	"./rescue-manifest.json",

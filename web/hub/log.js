@@ -1,7 +1,7 @@
 /* journal of past help requests.  Format: {dateTime: [caller.cell, caller.name, lat, long, vehicle, problem]} */
 var journal;
 var whens = [];  // journal sorted in descending date sequence
-var parameters = getHash();  // parameters passed in location.hash, if any
+var parameters = getParms();  // parameters passed in location.search, if any
 var hub = {};  // info about the hub, e.g. latitude and longitude
 var caller = {};  // info about the caller, e.g. cell number
 function show(that) {
