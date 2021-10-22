@@ -96,7 +96,7 @@ function init() {
 	byId("noCallerInfo").style.display = gotCallerLocation ? "none" : "block";
 	byId("extraInfo").style.display = gotCallerLocation ? "table-row-group" : "none";  // show extra caller fields
 	byId("result").style.display = gotCallerLocation ? "block" : "none";
-	if (document.referrer.search("/log.html"))  // if this is an old record from the log,
+	if (document.referrer.search("/log.html") > 0)  // if this is an old record from the log,
 		byId("ifCaller").innerHTML = "<h3>This is an old record from the log:</h3>";  // say so.
 
 	if (hub.lat && hub.long) {  // if hub coordinates known,
