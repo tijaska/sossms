@@ -17,6 +17,8 @@ function init() {
 		else if (name.match(/^caller\./))
 			caller[name.substr(7)] = parameters[name];
 	}
+    if (parameters.w && (parameters.w).search("h") >= 0)  // if the hub accepts WhatsApp,
+        byId("whatsapp").style.display = "inline";  // display the WhatsApp button
 	let hubInHash = hub.name && /*hub.country &&*/ hub.cell;  // true if search contains hub's name, country & cell
 	for (let name in localStorage) {  // copy hub and caller values from localStorage as defaults
 		if (name.match(/^hub\./))
@@ -157,4 +159,34 @@ function showDistance() {
 		+ bear + "°" + (far ? "</b>" : "")
 		+ '&nbsp; <img src="../images/arrow18.png" style="transform: rotate(' + bear + 'deg); vertical-align: bottom">';
 	byId("distance").style = far ? "display: block; font-style: italic; font-weight: bold; background-color: #FEE;" : "";
+}
+
+/* send an SMS or WhatsApp to a rescue hub */
+function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is the link that called OKtogo
+	let Gmap = "http://maps.google.com/maps?";  // Google maps
+	let mapURL = Gmap + "t=k&q=loc:" + caller.lat + (caller.long >= 0 ? "+" : "") + caller.long;  // satellite view
+	let timestamp = getNow();  // date/time stamp radix 36
+	let problem = document.called.problem.value.trim();
+	let hubUrl = location.href.replace("/caller", "/hub");  // direct SMS to the rescue hub
+	hubUrl = hubUrl.split(/\?|#/, 1)[0];  // split on first embedded ? or # if present, drop what follows
+	hubUrl += "?t=" + timestamp + "&lat=" + caller.lat + "&long=" + caller.long + "&caller=" + encode(caller.name) + "&cell=" + caller.cell
+		+ "&vehicle=" + encode(caller.vehicle) + "&problem=" + encode(problem);
+	// we double-encode the hrefs contained within the SMS text, else first & stops the sms:// URL
+	let text = "SoS SMS to rescue hub – please click:\n"
+        + encode(hubUrl)
+        + "\n\nFrom: " + caller.name
+		+ (caller.cell ? "\nCell: " + caller.cell : "")  //  + " _(click to call)_"
+		+ (caller.vehicle ? "\nVehicle: " + caller.vehicle : "")
+		+ (problem ? "\nProblem: " + problem : "")
+        + "\nLocation: " + encode(mapURL);
+    if (which == 1) {  // SMS
+        // point to SMS simulation if we're on a PC, SMS app if on mobile:
+        let target = isitaPC() ? "../simSMS.html?" : "sms://" + "?body=";
+        that.href = target + encode(text);
+        return true;  // OK to go
+    } else if (which == 2) {  // WhatsApp
+        that.href = "https://wa.me/" + "?text=" + text.replace(/\n/g, "%0D");  // replace new line chars with %0D
+        return true;  // OK to go
+    } else
+        return false;  // invalid which value
 }

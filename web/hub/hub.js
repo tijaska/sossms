@@ -137,6 +137,7 @@ function saveHub() {
 	hub.name = document.hubForm.name.value;
 	hub.country = document.hubForm.country.value;
 	hub.cell = document.hubForm.cell.value;
+    parameters.w = document.hubForm.canWhatsApp.checked ? "h" : "";  // set hub WhatsApp flag if checked
 	if (hub.name != "" && hub.cell != "" && hub.country != "") {
 		setValue("hub.name", hub.name);
 		setValue("hub.country", hub.country);
@@ -185,12 +186,12 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; that is the
 			+ "\nVehicle: " + parameters.vehicle
 			+ "\nProblem: " + parameters.problem
 			+ "\n*Click this link while you still have network access:*\n";
-		if (which == 1) {
-			// point to SMS simulation if we're on a PC, SMS if on mobile:
+		if (which == 1) {  // SMS
+			// point to SMS simulation if we're on a PC, SMS app if on mobile:
 			let target = isitaPC() ? "../simSMS.html?" : "sms://" + (rescuer ? rescuer : "") + "?body=";
-			/*byId("sendSMS")*/ that.href = target + encode(text + encode(rescueURL) + (extraText ? "\n" + extraText : ""));
+			that.href = target + encode(text + encode(rescueURL) + (extraText ? "\n" + extraText : ""));
 		} else if (which == 2) {
-			/*byId("sendWhat")*/ that.href = "https://wa.me/" + (rescuer ? rescuer : "") + "?text="
+			that.href = "https://wa.me/" + (rescuer ? rescuer : "") + "?text="
 			+ encode(text + rescueURL + (extraText ? "\n" + extraText : ""));
 		}
 		if (! journal[parameters.t][6])  // if we don't already have a respond time,
@@ -226,13 +227,14 @@ function sendCallerMsg(link, type) {
 		caller.cell = hub.country + caller.cell.substr(1);  // drop leading 0, prefix with country
 	let callerUrl = location.href.split("?")[0].replace("/hub", "/caller");  // drop ?parameters, if any
 	let hubURL = "hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
-		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&caller.cell=" + encode(caller.cell) + "&t=" + getNow();
+		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + (parameters.w ? "&w=h" : "")  // w=h means hub likes WhatsApp
+        + "&caller.cell=" + encode(caller.cell) + "&t=" + getNow();
 	let rest = encode("Please send your location to the " + hub.name + " rescue hub."
 		+ "\nTo get help in doing this, please click this link:\n" + callerUrl + "?" + (type == 1 ? encode(hubURL) : hubURL));
 	if (type = 1)
 		link.href = (isitaPC() ? "../simSMS.html?" : "sms://" + caller.cell + "?body=") + rest;
 	else if (type == 2)
-		link.href = "https://wa.me/" + caller.cell + "?text=" + rest;
+		link.href = "https://wa.me/" + caller.cell + "?text=" + rest.replace(/\n/g, "%0D");  // replace new line chars with %0D
 	else if (type == 3)
 		link.href = callerUrl + "?" + hubURL;
 	window.scrollBy(0, 200);  // scroll down to show lower lines
