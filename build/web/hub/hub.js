@@ -42,6 +42,7 @@ function init() {
 		if (document.hubForm[name])  // if the hub form has this field name,
 			document.hubForm[name].value = hub[name];  // initialise it from the value.
 	}
+    document.hubForm.canWhatsApp.checked = hub.f == "w";  // can hub Whatsapp?
 	let fields = ["name", "cell", "country"/*, "lat", "long"*/];  // hub fields set from localStorage
 	var hubComplete = true;
 	for (let ii in fields) {
@@ -57,7 +58,8 @@ function init() {
 		byId("noCallerInfo").style.display = "none";
 		byId("callerData").style.display = "none";
 	}
-	parameters = getParms();  // else set caller's fields from location.search, if passed
+    var driver = parameters.m == "d";  // true if the user is a rescue driver, rather than a rescue hub
+	parameters = getParms();  // get parameters from location.search, if any
 	if (parameters.T) {  // if parameter T is set then we have a reference from hub/log.html
 		let row = journal[parameters.T];  // get the selected row from the journal
 		location.search = "cell=" + row[0] + "&caller=" + row[1] + "&lat=" + row[2] + "&long=" + row[3]
@@ -137,11 +139,12 @@ function saveHub() {
 	hub.name = document.hubForm.name.value;
 	hub.country = document.hubForm.country.value;
 	hub.cell = document.hubForm.cell.value;
-    parameters.w = document.hubForm.canWhatsApp.checked ? "h" : "";  // set hub WhatsApp flag if checked
+    hub.w = document.hubForm.canWhatsApp.checked ? "h" : "";  // set hub WhatsApp flag if checked
 	if (hub.name != "" && hub.cell != "" && hub.country != "") {
 		setValue("hub.name", hub.name);
 		setValue("hub.country", hub.country);
 		setValue("hub.cell", hub.cell);
+		setValue("hub.w", hub.w);  // 
 		if (hub.lat)
 			setValue("hub.lat", hub.lat);
 		if (hub.long)
@@ -178,8 +181,8 @@ function fixCountry(that, next, sender) {
 function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; that is the link that called OKtogo
 	if (parameters.lat != null || parameters.long != null) {  // if caller's location is known,
 		let rescueURL = window.location.href.replace("/hub", "/rescue");
-		var rescuer = document.callerInfo.rescueDriver.value.trim();  // rescue driver's cell number (optional)
-		rescuer = rescuer.split(" ").join("").split("-").join("").split("+").join("");  // squeeze out imbedded blanks and dashes, leading +
+//		var rescuer = document.callerInfo.rescueDriver.value.trim();  // rescue driver's cell number (optional)
+//		rescuer = rescuer.split(" ").join("").split("-").join("").split("+").join("");  // squeeze out imbedded blanks and dashes, leading +
 		let text = "*SoS SMS Driver, please rescue:*\n"
 			+ parameters.caller
 			+ "\nCell: " + parameters.cell
@@ -188,15 +191,15 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; that is the
 			+ "\n*Click this link while you still have network access:*\n";
 		if (which == 1) {  // SMS
 			// point to SMS simulation if we're on a PC, SMS app if on mobile:
-			let target = isitaPC() ? "../simSMS.html?" : "sms://" + (rescuer ? rescuer : "") + "?body=";
+			let target = isitaPC() ? "../simSMS.html?" : "sms://" + /*(rescuer ? rescuer : "") +*/ "?body=";
 			that.href = target + encode(text + encode(rescueURL) + (extraText ? "\n" + extraText : ""));
-		} else if (which == 2) {
-			that.href = "https://wa.me/" + (rescuer ? rescuer : "") + "?text="
+		} else if (which == 2) {  // WhatsApp
+			that.href = "https://wa.me/" + /*(rescuer ? rescuer : "") +*/ "?text="
 			+ encode(text + rescueURL + (extraText ? "\n" + extraText : ""));
 		}
 		if (! journal[parameters.t][6])  // if we don't already have a respond time,
             journal[parameters.t][6] = getNow();  // add send time to the journal row
-		journal[parameters.t][7] = document.callerInfo.rescueDriver.value;  // add rescue driver's number, if given
+//		journal[parameters.t][7] = document.callerInfo.rescueDriver.value;  // add rescue driver's number, if given
 		localStorage.journal = JSON.stringify(journal);  // snapshot the journal
 		return true;  // OK to go
 	}
@@ -227,7 +230,7 @@ function sendCallerMsg(link, type) {
 		caller.cell = hub.country + caller.cell.substr(1);  // drop leading 0, prefix with country
 	let callerUrl = location.href.split("?")[0].replace("/hub", "/caller");  // drop ?parameters, if any
 	let hubURL = "hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
-		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + (parameters.w ? "&w=h" : "")  // w=h means hub likes WhatsApp
+		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + (hub.w ? "&w=h" : "")  // w=h means hub likes WhatsApp
         + "&caller.cell=" + encode(caller.cell) + "&t=" + getNow();
 	let rest = encode("Please send your location to the " + hub.name + " rescue hub."
 		+ "\nTo get help in doing this, please click this link:\n" + callerUrl + "?" + (type == 1 ? encode(hubURL) : hubURL));

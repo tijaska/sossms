@@ -3,13 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/b/websites/sossms/web/caller/caller-service-worker.js</file>
-            <file>file:/E:/b/websites/sossms/index.md</file>
-            <file>file:/E:/b/websites/sossms/web/caller/caller.js</file>
             <file>file:/E:/b/websites/sossms/web/common.js</file>
             <file>file:/E:/b/websites/sossms/web/caller/index.html</file>
+            <file>file:/E:/b/websites/sossms/web/hub/log.js</file>
+            <file>file:/E:/b/websites/sossms/web/rescue/index.html</file>
             <file>file:/E:/b/websites/sossms/web/index.html</file>
-            <file>file:/E:/b/websites/sossms/web/seeHash.html</file>
+            <file>file:/E:/b/websites/sossms/index.md</file>
+            <file>file:/E:/b/websites/sossms/web/caller/caller.js</file>
+            <file>file:/E:/b/websites/sossms/web/hub/index.html</file>
+            <file>file:/E:/b/websites/sossms/web/rescue/rescue.js</file>
+            <file>file:/E:/b/websites/sossms/web/hub/hub.js</file>
+            <file>file:/E:/b/websites/sossms/web/readindex.jsp</file>
         </group>
     </open-files>
 </project-private>

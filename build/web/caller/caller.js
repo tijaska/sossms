@@ -6,6 +6,7 @@ var parameters = {};  // parameters passed in the ?search fragment, if any
 var hub = {};  // rescue hub parameters
 var caller = {};  // caller parameters
 function init() {
+	getValues();  // fetch values stored in localStorage, if any
 	let xx = document.createElement("p");
 	xx.innerHTML = '<small style="color: brown">' + cacheName + /*', ' + progress +*/ '</small>';
 	document.body.appendChild(xx);  // show service-worker.js cache name and version
@@ -25,7 +26,7 @@ function init() {
 			if (! hub[name.substr(4)])  // if this entry didn't come in search,
 				hub[name.substr(4)] = localStorage[name];  // use localStorage value as default
 		else if (name.match(/^caller\./))
-			if (! caller[name.substr(4)])  // if this entry didn't come in search,
+			if (! caller[name.substr(7)])  // if this entry didn't come in search,
 				caller[name.substr(7)] = localStorage[name];  // use localStorage value as default
 		else if (! parameters[name])  // if this entry didn't come in search,
 			parameters[name] = localStorage[name];  // use localStorage value as default
@@ -60,7 +61,7 @@ function init() {
 //		byId("hubname").innerHTML = hub.name;
 		byId("hubname2").innerHTML = hub.name;
 	}
-	getValues();  // fetch values stored in localStorage, if any
+//\\getValues();  // fetch values stored in localStorage, if any
 	if (window.parameters.skipLocate) {
 		byId("geoloc").innerHTML = "<b>You have skipped getting your physical location.</b>";
 		byId("geoloc").style.display = "block";
@@ -105,8 +106,8 @@ function showButtons() {
 		+ (caller.vehicle ? "\nVehicle: " + caller.vehicle : "")
 		+ (problem ? "\nProblem: " + problem : "")
         + "\nLocation: " + encode(mapURL);
-	byId("sms").href = (isitaPC() ? "../simSMS.html?" : ("sms://" + hub.cell + "?body="))
-		+ encode(text.replace(/\*/g, "").replace(/_/g, ""));
+//	byId("sms").href = (isitaPC() ? "../simSMS.html?" : ("sms://" + hub.cell + "?body="))
+//		+ encode(text.replace(/\*/g, "").replace(/_/g, ""));
 //	byId("previewer").onclick = function() {window.open(hubUrl, "_blank")};
 	if (notMobiTablet) {  // if not a mobile or tablet,
 		byId("getCaller").className = "PC";  // warn the user that location is probably wrong
