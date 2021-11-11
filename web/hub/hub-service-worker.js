@@ -1,5 +1,5 @@
-var cacheName = "hub-SoSSMS-j62";
-var dataCacheName = "hub-SoSSMS-data-j62";
+var cacheName = "hub-SoSSMS-j63";
+var dataCacheName = "hub-SoSSMS-data-j63";
 var filesToCache = [
 	"./",
 	"./hub-manifest.json",
