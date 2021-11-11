@@ -18,7 +18,7 @@ function init() {
 		else if (name.match(/^caller\./))
 			caller[name.substr(7)] = parameters[name];
 	}
-    if (parameters.w && (parameters.w).search("h") >= 0)  // if the hub accepts WhatsApp,
+    if (parameters.h && (parameters.h).search("w") >= 0)  // if the hub accepts WhatsApp,
         byId("whatsapp").style.display = "inline";  // display the WhatsApp button
 	let hubInHash = hub.name && /*hub.country &&*/ hub.cell;  // true if search contains hub's name, country & cell
 	for (let name in localStorage) {  // copy hub and caller values from localStorage as defaults
@@ -182,11 +182,11 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is t
         + "\nLocation: " + encode(mapURL);
     if (which == 1) {  // SMS
         // point to SMS simulation if we're on a PC, SMS app if on mobile:
-        let target = isitaPC() ? "../simSMS.html?" : "sms://" + "?body=";
+        let target = isitaPC() ? "../simSMS.html?" : "sms://" + hub.cell + "?body=";  //?
         that.href = target + encode(text);
         return true;  // OK to go
     } else if (which == 2) {  // WhatsApp
-        that.href = "https://wa.me/" + "?text=" + text.replace(/\n/g, "%0D");  // replace new line chars with %0D
+        that.href = "https://wa.me/" + hub.cell + "?text=" + text.replace(/\n/g, "%0D");  // replace new line chars with %0D
         return true;  // OK to go
     } else
         return false;  // invalid which value

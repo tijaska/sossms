@@ -1,6 +1,6 @@
 body {font-family: serif; background-color: rgb(255, 238, 221);}
-a {color: black; text-decoration: none; font-family: sans-serif; font-size: 80%;
-    border: 1px solid #666; border-radius: 3px; background-color: #EEE; padding: 2px 6px;}
+a.button {color: black; text-decoration: none; font-family: sans-serif; font-size: 80%;
+    border: 1px solid #666; border-radius: 3px; background-color: #EEE; padding: 2px 6px; margin: 4px 0px;}
 a.plain {color: blue; text-decoration: underline; font-family: serif; font-size: 100%;
     border: none; background-color: transparent; padding: 0px;}
 b {color: maroon; /* background-color: #FEE */}

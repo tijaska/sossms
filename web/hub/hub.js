@@ -139,12 +139,12 @@ function saveHub() {
 	hub.name = document.hubForm.name.value;
 	hub.country = document.hubForm.country.value;
 	hub.cell = document.hubForm.cell.value;
-    hub.w = document.hubForm.canWhatsApp.checked ? "h" : "";  // set hub WhatsApp flag if checked
+    hub.flags = document.hubForm.canWhatsApp.checked ? "w" : "";  // set hub WhatsApp flag if checked
 	if (hub.name != "" && hub.cell != "" && hub.country != "") {
 		setValue("hub.name", hub.name);
 		setValue("hub.country", hub.country);
 		setValue("hub.cell", hub.cell);
-		setValue("hub.w", hub.w);  // 
+		setValue("hub.flags", hub.flags);  // 
 		if (hub.lat)
 			setValue("hub.lat", hub.lat);
 		if (hub.long)
@@ -230,7 +230,7 @@ function sendCallerMsg(link, type) {
 		caller.cell = hub.country + caller.cell.substr(1);  // drop leading 0, prefix with country
 	let callerUrl = location.href.split("?")[0].replace("/hub", "/caller");  // drop ?parameters, if any
 	let hubURL = "hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
-		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + (hub.w ? "&w=h" : "")  // w=h means hub likes WhatsApp
+		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + (hub.flags ? "&h=w" : "")  // w=h means hub likes WhatsApp
         + "&caller.cell=" + encode(caller.cell) + "&t=" + getNow();
 	let rest = encode("Please send your location to the " + hub.name + " rescue hub."
 		+ "\nTo get help in doing this, please click this link:\n" + callerUrl + "?" + (type == 1 ? encode(hubURL) : hubURL));
@@ -367,8 +367,13 @@ function addExtra(that) {
 /* build a QR code invitation to  the rescue hub */
 function buildQR(that) {  // from sendCallerMsg()
 	that.href = "../QRcode/build.html?hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
-		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&t=" + getNow();  //+ "&caller.cell=" + encode(caller.cell)
+		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&t=" + getNow();
 	return true;
+}
+/* build a QR code invitation to  the rescue hub */
+function buildQR2() {  // from sendCallerMsg()
+	return "../QRcode/build.html?hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
+		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&t=" + getNow();
 }
 /* tell user how to install the PWA */
 function installer() {

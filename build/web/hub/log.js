@@ -17,7 +17,7 @@ function init() {
 	journal = JSON.parse(localStorage.journal);
 	whens = Object.keys(journal).sort().reverse();  // most recent calls first
 	for (when = 0; when < whens.length; when++) {
-		let row = journal[whens[when]];  // [caller.cell, caller.name, lat, long, vehicle, problem]
+		let row = journal[whens[when]];  // [caller.cell, caller.name, lat, long, vehicle, problem, when forwarded]
 		let report = byId("report");
 		let newRow = report.insertRow();
 		let cell = newRow.insertCell();
@@ -41,8 +41,8 @@ function init() {
 		cell.innerHTML = YMDHM(row[6]);  // when sent
 		cell = newRow.insertCell();
 		cell.innerHTML = elapsed(whens[when], row[6]);  // delay
-		cell = newRow.insertCell();
-		cell.innerHTML = row[7] ? row[7] : "";  // rescuer
+//		cell = newRow.insertCell();
+//		cell.innerHTML = row[7] ? row[7] : "";  // rescuer
 	}  // for
 }
 // download a copy of the log

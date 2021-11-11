@@ -5,57 +5,69 @@ to communicate their location and problem to a rescue hub in the reserve.  The r
 driver best placed to render assistance.  The app uses geolocation to find out where the stranded driver is, and shows that location to
 the rescue hub and drivers in a choice of maps.</p>
 
-<p>The source code of the sossms project can be accessed on the Github shared repository <a href="https://github.com/tijaska/sossms">here</a>.
-The Github server also supports a running, ready to use version of the code <a href="https://tijaska.github.io/sossms/">here</a>.</p>
-
 <p>Anyone is free to copy and amend the source code as they choose, and to host the modified version wherever they will. Such copies must
 refer to the original version <a href="https://github.com/tijaska/sossms">here</a>.</p>
 
-<h3>See the apps:</h3>
+<p>The source code of the sossms project can be accessed on the Github shared repository <a href="https://github.com/tijaska/sossms">here</a>.
+The Github server also supports a running, ready to use version of the code:</p>
+
+<h3>Try the apps:</h3>
 <ul>
-  <li><a href="web/caller/">Stranded caller app</a></li>
+  <li><a href="web/caller/">Stranded driver app</a></li>
   <li><a href="web/hub/">Rescue hub app</a></li>
   <li><a href="web/rescue/">Rescue driver app</a></li>
-  <li><a href="web/hub/?m=d">Rescue driver app 2</a></li>
+  <!--li><a href="web/hub/?m=d">Rescue driver app 2</a></li-->
 </ul>
 <p>Each app displays an info icon <img src="images/help.png"  width="15" height="15"> which shows help for that app if clicked.</p>
 
 <h3>How the apps work together</h3>
-<p>If a nature reserve chooses to use the apps then their rescue hub will install the rescue hub app and configure it with their name
-and the rescue number that stranded drivers should call.  This number may be in the Contact us section of their website already.
-It would be a cellphone that remains permanently in the rescue hub.  The app will build a web link that the nature reserve can include
-in their Contact us page.</p>
-<p>Stranded drivers are then encouraged to click this link.  When clicked, it open the stranded caller's app on the caller's phone.
-This app invites the caller to enter their name and a few other details.  It uses geolocation to get the caller's coordinates, then
-builds a help request message and invites the caller to click the Send button to send it to the rescue hub by SMS, or by WhatsApp
-is the rescue hub's phone supports this.</p>
-<p>The rescue hub installs the <strong>rescue hub app</strong> and then enters their name and phone number into it. The app automatically
-uses geolocation to determine their location.  The app can then be used to build a QR code for inclusion in the pamphlets handed out to
-visitors on entry to the reserve.  If a visitor scans the QR code it will offer a link to the <strong>stranded driver's app</strong>.
-This link will include the rescue hub's name, number, and location. When clicked, the stranded driver's app will run.</p>
+<p>If a nature reserve chooses to use the apps then their rescue hub must install the rescue hub app on a cellphone that remains permanently
+in the rescue hub, and configure the app with the nature reserve's name and the rescue cellphone's number.</p>
 
-<p>Alternatively, the stranded driver can phone the rescue hub, who can then use their hub app to send an invite to the stranded driver.
-This arrives as an SMS with an explanation and an embedded link that contains the invite, just like the QR code.</p>
+<h4>The rescue hub app</h4>
+<p>This app helps the hub to extend rescue invitations to stranded drivers.  This can be done in several different ways:</p>
 
-<p>When the <strong>the stranded driver's app</strong> opens, it asks the stranded driver for their name, phone number, vehicle description,
-and needs. It automatically uses geolocation to capture the driver's location, and then forwards the message to the rescue hub.</p>
-<!-- The stranded
-driver's app opens when the rescue hub sends an invite message to the driver. It arrives as an SMS that contains an explanation and a URL
-that, when clicked, runs the stranded driver's app in a browser window, or as a stand-alone app if the driver agrees to install it.-->
+<ul>
+    <li>The rescue invitation may be included as a link in the nature reserve's Contact us web page.  When clicked by a stranded driver,
+        the link will open the stranded driver's app in the caller's phone.  The hub app can be used to create the required link.</li>
+    <li>The rescue invitation link may be included as a QR code on a pamphlet that gets handed to each visitor on entry.  When scanned
+        by a stranded driver, it will open the stranded driver's app in the caller's phone.  The hub app can be used to create the required
+        QR code.</li>
+    <li>The nature reserve's rescue cellphone number may already be in their Contact us web page, and/or on a pamphlet that gets handed to each
+	visitor on entry.  A stranded driver can call this number for help.  The rescue hub app can then be used to send a rescue invite back
+	to the caller in the form of an SMS.  This will contain a link which, if clicked, opens the stranded driver app in the caller's phone.</li>
+</ul>
 
-<!--p>Of course drivers don't go on trips expecting vehicle breakdowns, so we can't expect them to install the stranded driver app in advance.
-For this reason the app is packaged as a <strong>Progressive Web App</strong>
-(PWA) that can run on the fly in a standard browser window, or be installed as a stand-alone phone app as the user chooses.</p-->
+<h4>The stranded caller's app</h4>
+<p>This app runs when the stranded driver opens a rescue invite from the hub.  It asks the caller to enter their name and a few other details.
+It uses geolocation to get the caller's coordinates, then it builds a rescue request message and invites the caller to click the Send button to
+send it to the rescue hub by SMS or WhatsApp.</p>
 
-<p>Each request from a stranded driver arrives at the rescue hub as an SMS with an explanation and a link embedded within it. When the link
-is clicked, the hub app opens and displays the request from the stranded driver. The app shows the stranded driver's position, name, and needs,
-and can be used to forward the message to the rescue driver best placed to render assistance.</p>
+<p>Of course visitors don't go on trips expecting vehicle breakdowns, so we can't expect them to install the stranded driver app in advance.
+To be fail safe, the app is packaged as a <strong>Progressive Web App</strong> (PWA) that can run on the fly in a standard browser window,
+and perhaps be installed as a stand-alone phone app at a later time if the user so chooses.</p>
 
-<p>The rescue drivers should install the <strong>rescue driver app</strong>. But rescue drivers may go on leave or fall ill, and others be
-drafted in at short notice, and not have the rescue driver app installed. In these cases the rescue driver app will open in a browser window
-first time round, and invite the driver to install it for future use.</p>
+<h4>Back to the rescue hub app</h4>
+<p>Each help request sent by a stranded driver arrives at the rescue hub cellphone as an SMS or WhatsApp that contains a summary of the stranded
+driver's situation, and with a link embedded within it. When this link is clicked, the hub app opens and displays the details of the request
+from the stranded driver. It shows the stranded driver's location, name, and needs. The hub app can then be instructed to forward the message
+to the rescue driver best placed to render assistance. The request for help could be sent by radio instead, but the advantage of the rescue app
+system is the rescue driver gets the exact location of the stranded driver, and can open this in an online map to see both the stranded driver's
+location, and their own. This info helps them to find the stranded driver in terrain where road names may be few and far between.</p>
 
-<p>sossms is designed to operate reliably in an environment where some participants have their sossms apps installed, and others don't.
+<H4>The rescue driver's app</h4>
+<p>Rescue drivers should install this app. But they may go on leave or fall ill, and others be drafted in at short notice, and not have
+the rescue driver app installed. To be fail-safe, the rescue driver's app is a progressive web app. When first invoked, it will open in
+a browser window on the rescue driver's phone, and invite the driver to install it for future use.</p>
+
+<h3>Why SMS?<h3>
+<p>SMS messaging is the oldest, clunkiest smart phone messaging system around. Why does sossms make use of it?</p>
+
+<p>Well firstly WhatsApp is offered as an alternative to SMS. It costs less to use.  But it will only work if both the sender and the recipient
+have the WhatsApp app installed. And there's no guarantee that this will be the case. On the other hand, the SMS messaging app is built into every
+cellphone from the oldest to the newest, and this app can't be uninstalled.</p>
+
+<p>The sossms apps are designed to operate reliably in an environment where some participants have their sossms apps installed, while others don't.
 Apps can't push messages to participants who don't have the corresponding app installed, so sossms piggybacks on the oldest and most widely
 used messaging system, SMS text messaging. About 20 billion SMS text messages flow through the cellphone networks each day.  The sossms apps
 create messages to be sent, and then pass them to the SMS app. The user need only press the SMS send button, and the message will flow to its
@@ -92,5 +104,3 @@ accurately track roads by driving them with the
 <a href="https://play.google.com/store/apps/details?id=net.osmtracker&hl=en_ZA&gl=US">OpenStreetMap tracker (OSMTracker)</a> app running,
 and to edit maps to include street and place names. Nature reserve employees traverse roads regularly in order to maintain them, fences,
 fire breaks, and other assets, so getting all of the roads onto the record in OpenStreetMap with names should not be too onerous.</p>
-
-<p>See a fuller description of the system <a href="web/index.html">here</a></p>
