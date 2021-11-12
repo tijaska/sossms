@@ -171,3 +171,9 @@ function goto(target) {
 function csv(field) {  // if it contains a , or \n then wrap it in " and double each embedded "
 	return /,|\\n/.test(field) ? '"' + field.replace(/"/g, /""/) + '"' : field;
 }
+function evalDebug() {
+	let debugz;
+	eval("debugz =" + byId("debugIn").value);
+	byId("debugOut").value = JSON.stringify(debugz);
+	return false;
+}

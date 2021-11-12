@@ -116,7 +116,11 @@
                     </div>
                 </div>
                 <div id="message" style="font-weight: bold;"></div>
-            </div><!-- id="complete" -->
+            </div>
+			<div id="debug" style="display: none">
+				Expression: <input id="debugIn" type="text"> <button onclick="evalDebug()">Evaluate</button><br>
+				<textarea id="debugOut" rows="5" cols="50"></textarea>
+			</div>
 			<p id="installit" style="display: none;"><button onclick="installer()">To install this app,<br>
 					click menu <strong>&nbsp;&#8285;&nbsp;</strong> in top right corner,<br>
                 then click <strong>Install app</strong></button></p>

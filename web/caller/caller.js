@@ -7,6 +7,8 @@ var hub = {};  // rescue hub parameters
 var caller = {};  // caller parameters
 function init() {
 	getValues();  // fetch values stored in localStorage, if any
+	if (location.hash == "#debug")
+		byId("debug").style.display = "block";  // display the debug area
 	let xx = document.createElement("p");
 	xx.innerHTML = '<small style="color: brown">' + cacheName + /*', ' + progress +*/ '</small>';
 	document.body.appendChild(xx);  // show service-worker.js cache name and version

@@ -32,6 +32,8 @@ window.addEventListener('beforeinstallprompt', (evt) => {
 function init() {
 	if (location.protocol == "http:" && location.hostname != "localhost")
 		location = location.href.replace("http:", "https:");  // promote to secure
+	if (location.hash == "#debug")
+		byId("debug").style.display = "block";  // display the debug area
     if (! isitaPC())  // if it isn't a PC, offer to install
         byId("installit").style.display = "block";
 	let xx = document.createElement("p");
