@@ -351,9 +351,9 @@ function showDistance() {
 	let km = Math.round(distance(parameters.lat, parameters.long, hub.lat, hub.long) * 10) / 10;
 	let far = (km > 10 ? true : false);  // because let km = far > 10 doesn't work!!
 	let bear = Math.round(bearing(parameters.lat, parameters.long, hub.lat, hub.long));
-	byId("distance").innerHTML = (far ? "<b>" : "") + "The caller is " + km + " km from you, bearing: "
+	byId("distance").innerHTML = (far ? "<b>" : "") + "The caller is " + km + " km from you, bearing:&nbsp;"
 		+ bear + "°" + (far ? "</b>" : "")
-		+ '&nbsp; <img src="../images/arrow18.png" style="transform: rotate(' + bear + 'deg); vertical-align: bottom">';
+		+ '&nbsp;<img src="../images/arrow18.png" style="transform: rotate(' + bear + 'deg); vertical-align: bottom">';
 	byId("distance").style = far ? "display: block; font-style: italic; font-weight: bold; background-color: #FEE;" : "";
 }
 function round5(num) {  // return num rounded to 5 decimals
