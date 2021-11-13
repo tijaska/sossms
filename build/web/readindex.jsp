@@ -9,7 +9,6 @@
 	<title>sossms | Rescue</title>
   </head>
   <body>
-	  <div> <!--class="container-lg px-3 my-5 markdown-body">-->
       <h1><a href="https://tijaska.github.io/sossms/">sossms preview</a></h1>
 <%	// copy index.md here to be rendered as HTML:
 //	String path = HttpServletRequest.getContextPath();
@@ -17,7 +16,7 @@
 		BufferedReader reader = new BufferedReader(new FileReader("E:/b/websites/sossms/index.md"));
 		String line = reader.readLine();
 		while (line != null) {
-			out.println(line);
+			out.println(line.replaceAll("web/images/", "images/"));
 			line = reader.readLine();
 		}
 		reader.close();

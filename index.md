@@ -18,7 +18,7 @@ The Github server also supports a running, ready to use version of the code:</p>
   <li><a href="web/rescue/">Rescue driver app</a></li>
   <!--li><a href="web/hub/?m=d">Rescue driver app 2</a></li-->
 </ul>
-<p>Each app displays an info icon <img src="images/help.png"  width="15" height="15"> which shows help for that app if clicked.</p>
+<p>Each app displays an info icon <img src="web/images/help.png"  width="15" height="15"> which shows help for that app if clicked.</p>
 
 <h3>How the apps work together</h3>
 <p>If a nature reserve chooses to use the apps then their rescue hub must install the rescue hub app on a cellphone that remains permanently
