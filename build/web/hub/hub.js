@@ -236,12 +236,12 @@ function sendCallerMsg(link, type) {
         + "&caller.cell=" + encode(caller.cell) + "&t=" + getNow();
 	let rest = encode("Please send your location to the " + hub.name + " rescue hub."
 		+ "\nTo get help in doing this, please click this link:\n" + callerUrl + "?" + (type == 1 ? encode(hubURL) : hubURL));
-	if (type = 1)
+	if (type == 1)
 		link.href = (isitaPC() ? "../simSMS.html?" : "sms://" + caller.cell + "?body=") + rest;
 	else if (type == 2)
 		link.href = "https://wa.me/" + caller.cell + "?text=" + rest.replace(/\n/g, "%0D");  // replace new line chars with %0D
-	else if (type == 3)
-		link.href = callerUrl + "?" + hubURL;
+//	else if (type == 3)
+//		link.href = callerUrl + "?" + hubURL;
 	window.scrollBy(0, 200);  // scroll down to show lower lines
 	return true;  // true;
 }

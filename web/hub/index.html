@@ -37,7 +37,7 @@
 		<table width="100%">
 			<tr><td><h3>S<b>o</b>S SMS for the Rescue Hub</h3>
 				Click <a href="help.html" target="_blank"><img src="../images/help.png" align="top"></a> for help.</td>
-				<td style="text-align: right"><button style="font-size: 66%;" onclick="window.open('log.html')">See log</button></td></tr>
+				<td style="text-align: right"><button onclick="window.open('log.html')">See log</button></td></tr>
 		</table>
 		<h4 id="ifNoCaller">This app helps you to get a stranded driver to send you an S<b>o</b>S SMS with their location in it, so you can
 			send it on to a rescue vehicle driver.</h4>
@@ -108,11 +108,12 @@
                 <div id="noCallerInfo"><b>No stranded driver's location was passed to you</b>
                     <br>Please fill the stranded driver's cell number above
                     <div id="inner" style="display: none">
-                        <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 1)">Send an SMS invitation to them</a>
-                        <!--button onclick="window.open(sendCallerMsg(this, 1))">Send an SMS invitation to them</button-->
-                        <br>Your invitation will be formatted as an SMS and shown to you. Please send it without any change.
-                        The SMS will contain a web link. When the stranded driver clicks on this link, it will run an app that will
-                        assist them to send their location and other details back to you.
+                        <br>Send a rescue invitation to them by <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 1)">SMS</a>
+						<br><span style="color: brown">(or <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 2)">WhatsApp</a>
+							if they have it installed &ndash; phone number must include country code)</span>
+                        <br>Your invitation will be formatted and shown to you. Please send it without any change.
+                        It will contain a web link. When the stranded driver clicks on this link, it will run an app that will help them
+						to send their location and other details back to you.
                     </div>
                 </div>
                 <div id="message" style="font-weight: bold;"></div>
