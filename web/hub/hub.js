@@ -60,7 +60,6 @@ function init() {
 		byId("noCallerInfo").style.display = "none";
 		byId("callerData").style.display = "none";
 	}
-    var driver = parameters.m == "d";  // true if the user is a rescue driver, rather than a rescue hub
 	parameters = getParms();  // get parameters from location.search, if any
 	if (parameters.T) {  // if parameter T is set then we have a reference from hub/log.html
 		let row = journal[parameters.T];  // get the selected row from the journal
@@ -79,9 +78,8 @@ function init() {
 		} else
 			journalCell[cell] = [dateTime];  // start a new entry for this cell
 		localStorage.journal = JSON.stringify(journal);  // snapshot the journal
-//		localStorage.journalCell = JSON.stringify(journalCell);  // snapshot the cell index into the journal
 	}
-	for (let name in parameters) {  // scan parameters passed
+/*	for (let name in parameters) {  // scan parameters passed
 		if (parameters[fields[name]]) {  // if a value is passed
 			if (fields[name] == "t")
 				document.callerInfo.dateTime.value = dateTime(parameters.t);  // convert timestamp to date/time
@@ -91,7 +89,7 @@ function init() {
 				byId("pleaseFill").style.display = "none";
 		}
 	}
-	// if latitude parameters present and plausible, accept caller's data
+*/	// if latitude parameters present and plausible, accept caller's data
 	gotCallerLocation = parameters.lat && parameters.lat >= -90 && parameters.lat <= 90
 		&& parameters.long && parameters.long >= -180 && parameters.long <= 180;
 	// if the caller hasn't sent lat and long, suggest sending an SMS to collect it
@@ -124,6 +122,10 @@ function init() {
 					byId("pleaseFill").style.display = "none";
 			}
 		}
+	if (document.callerInfo.cell.value.length > 0) {  // if there's a caller phone number,
+		byId("callerCell").style.display = "inline";
+		byId("callerCell").href = "tel:" + document.callerInfo.cell.value;  // let the user phone it
+	}
 		if (hub.lat && hub.long) {  // if hub coordinates found,
 			document.hubForm.location.value = prettify(hub.lat, hub.long);
 		}
