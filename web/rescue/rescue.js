@@ -20,7 +20,7 @@ function init() {
 		for (let i in fields) {  // copy passed parameters into the caller info box
 			if (parameters[fields[i]]) {  // if a value is passed
 				if (fields[i] == "t")
-					document.callerInfo.dateTime.value = dateTime(parameters.t);  // convert timestamp to date/time
+					document.callerInfo.dateTime.value = getDateTime(parameters.t);  // convert timestamp to date/time
 				else
 					document.callerInfo[fields[i]].value = parameters[fields[i]];
 				if (fields[i] == "cell" && window.parameters[fields[i]])

@@ -6,7 +6,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" href='../images/SoS.png' type='image/x-icon' />
 		<link rel="stylesheet" href="../style.css">
-		<link rel="manifest" href="hub-manifest.json" >
+		<link rel="manifest" href="hub-manifest.json">
+		<style id="orWhat">
+			span.orElse {color: brown}  /* change if caller usess WhatsApp */
+		</style>
 		<script>
 			var progress = 0;
 			if (navigator.userAgent.match(/tablet|mobi/i) != null) {  // if browser is on a tablet or mobile, enable PWA
@@ -42,6 +45,7 @@
 		<h4 id="ifNoCaller">This app helps you to get a stranded driver to send you an S<b>o</b>S SMS with their location in it, so you can
 			send it on to a rescue vehicle driver.</h4>
 		<h4 id="ifCaller">A stranded driver has sent you their location, so you can send it on to a rescue vehicle driver:</h4>
+		<h4 id="ifLog">This stranded driver info comes from the log:</h4>
 		<form name="hubForm" onsubmit="return false;" autocomplete="off">
 			<div class="config">
 				<p style="font-weight: bold;"><input type="checkbox" name="hubConfig" onclick="seeHubConfig(this)">
@@ -60,7 +64,7 @@
 						and make sure that your hub's location is right. If it isn't, please take the phone outdoors and
 						<button onclick="geolocate()">click here</button> to try get the location right.</p>
 					<p style="margin: 1ex 0ex"><button onclick="saveHub();">Update hub configuration</button> if you change anything.</p>
-					<p style="margin: 1ex 0ex"><button onclick="window.open(buildQR2())">Build a QR code</button>
+					<p style="margin: 1ex 0ex"><button onclick="window.open(buildQR())">Build a QR code</button>
 						that you can include in a pamphlet that gets handed to visitors.
 						If scanned, it gives them an invitation to your rescue hub.</p>
 				</div>
@@ -100,17 +104,18 @@
                         <option>Google street view</option>
                         <option>Open Street map</option>
                     </select>
+					<p id="ifOld" style="display: none; font-weight: bold; color: maroon">Previously forwarded at: </p>
                     <h4>Relay the stranded driver's info to a rescue driver:</h4>
                     <p>Click&nbsp; <a class="button" href="" target="_blank" onclick="return OKtogo(1, this)">SMS</a>&nbsp;
                     or &nbsp;<a class="button" href="" target="_blank" onclick="return OKtogo(2, this)">WhatsApp</a>&nbsp;
                     to send the caller's details to a rescue driver, or a WhatsApp group</p>
                 </div>
                 <div id="noCallerInfo"><b>No stranded driver's location was passed to you</b>
-                    <br>Please fill the stranded driver's cell number above
+                    <br>Please fill in the stranded driver's cell number above
                     <div id="inner" style="display: none">
                         <br>Send a rescue invitation to them by <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 1)">SMS</a>
-						<br><span style="color: brown">(or <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 2)">WhatsApp</a>
-							if they have it installed &ndash; phone number must include country code)</span>
+						<br><span class="orElse">(or <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 2)">WhatsApp</a>
+							<i>if they have it installed &ndash;</i> phone number must include country code)</span>
                         <br>Your invitation will be formatted and shown to you. Please send it without any change.
                         It will contain a web link. When the stranded driver clicks on this link, it will run an app that will help them
 						to send their location and other details back to you.

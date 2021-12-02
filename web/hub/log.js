@@ -7,7 +7,7 @@ var caller = {};  // info about the caller, e.g. cell number
 function show(that) {
     let path = document.location.href;
     let back = path.substr(0, path.lastIndexOf("/"));
-	window.location = back + "#T=" + that.dataset.when;  // point back to the hub index.html, choose this request
+	window.location = back + "?T=" + that.dataset.when;  // point back to the hub index.html, choose this request
 }
 function init() {
 	if (! localStorage.journal) {

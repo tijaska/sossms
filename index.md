@@ -18,7 +18,7 @@ The Github server also supports a running, ready to use version of the code:</p>
   <li><a href="web/rescue/">Rescue driver app</a></li>
   <!--li><a href="web/hub/?m=d">Rescue driver app 2</a></li-->
 </ul>
-<p>Each app displays an info icon <img src="web/images/help.png"  width="15" height="15"> which shows help for that app if clicked.</p>
+<!--p>Each app displays an info icon <img src="web/images/help.png"  width="15" height="15"> which shows help for that app if clicked.</p-->
 
 <h3>How the apps work together</h3>
 <p>If a nature reserve chooses to use the apps then their rescue hub must install the rescue hub app on a cellphone that remains permanently
@@ -35,13 +35,14 @@ in the rescue hub, and configure the app with the nature reserve's name and the 
         QR code.</li>
     <li>The nature reserve's rescue cellphone number may already be in their Contact us web page, and/or on a pamphlet that gets handed to each
 	visitor on entry.  A stranded driver can call this number for help.  The rescue hub app can then be used to send a rescue invite back
-	to the caller in the form of an SMS.  This will contain a link which, if clicked, opens the stranded driver app in the caller's phone.</li>
+	to the caller in the form of an SMS (or WhatsApp, if the caller has it installed).  The rescue invite will contain a link which, if clicked,
+	open the stranded driver app in the caller's phone.</li>
 </ul>
 
 <h4>The stranded caller's app</h4>
 <p>This app runs when the stranded driver opens a rescue invite from the hub.  It asks the caller to enter their name and a few other details.
 It uses geolocation to get the caller's coordinates, then it builds a rescue request message and invites the caller to click the Send button to
-send it to the rescue hub by SMS or WhatsApp.</p>
+send it to the rescue hub by SMS (or WhatsApp, if the rescue hub phone supports it).</p>
 
 <p>Of course visitors don't go on trips expecting vehicle breakdowns, so we can't expect them to install the stranded driver app in advance.
 To be fail safe, the app is packaged as a <strong>Progressive Web App</strong> (PWA) that can run on the fly in a standard browser window,

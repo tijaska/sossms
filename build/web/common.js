@@ -150,12 +150,6 @@ function isitaPC() {
 function getNow() {
 	return new Date().getTime().toString(36);
 }
-/* convert timestamp in seconds to date/time */
-function dateTime(t, short) {
-	let text = new Date(parseInt(t, 36)).toString();
-	let pos = short ? text.indexOf(" GMT") : text.indexOf("(");  // find (local time zone in words)
-	return text.substr(0, pos);  // drop the words
-}
 /* get date base 36, return in YYYY-MM-DD HH:MM format, or YYYY-MM-DD if short */
 function YMDHM(date, short) {
 	if (date == null)
@@ -163,6 +157,12 @@ function YMDHM(date, short) {
 	let dd = date ? new Date(parseInt(date, 36)) : new Date();
 	let iso = new Date(dd.getTime()-60000*dd.getTimezoneOffset()).toISOString();  // YYYY-MM-DDTHH:MM:SS.SSSZ
 	return iso.substr(0, 10) + (! short ? " " + iso.substr(11, 5) : "");
+}
+/* convert timestamp in seconds to date/time - reverse YMDHM() */
+function getDateTime(t, short) {
+	let text = new Date(parseInt(t, 36)).toString();
+	let pos = short ? text.indexOf(" GMT") : text.indexOf("(");  // find (local time zone in words)
+	return text.substr(0, pos);  // drop the words
 }
 function goto(target) {
 	window.location = target;

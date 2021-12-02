@@ -2,21 +2,22 @@ var cellNo = /(^\+\d{10,}$)|(0\d{8,})/;  // cell numbers may start with + (count
 var parameters = {};  // parameters passed in location.search, if any
 var hub = {};  // info about the hub, e.g. latitude and longitude
 var caller = {};  // info about the caller, e.g. cell number
-/* journal of past help requests.  Format: {dateTime: [caller.cell, caller.name, lat, long, vehicle, problem]} */
+/* journal of past help requests.  Format: {dateTime: [caller.cell, caller.name, lat, long, vehicle, problem, forwarded]} */
 var journal = localStorage.journal ?  // if we have a record of past help requests in localStorage,
 	JSON.parse(localStorage.journal) : {};  // grab it; else journal is empty
-var journalCell = {};  // index by caller.cell into journal.  Format: {cell: [dateTime]}
-for (let dateTime in journal) {  // populate cell index into journal
-	let row = journal[dateTime];  // a past call
+/*var journalCell = {};  // index by caller.cell into journal.  Format: {cell: [dateTime]}
+for (let when in journal) {  // populate cell index into journal
+	let row = journal[when];  // a past call
 	let cell = row[0];  // caller's cell no
 	if (journalCell[cell]) {  // if there's already an entry for this cell,
-		if (! journalCell[cell].includes(dateTime))  // if doesn't have this dateTime yet,
-			journalCell[cell].push(dateTime);  // append it
+		if (! journalCell[cell].includes(when))  // if doesn't have this dateTime yet,
+			journalCell[cell].push(when);  // append it
 	} else
-		journalCell[cell] = [dateTime];  // start a new entry for this cell
-}
+		journalCell[cell] = [when];  // start a new entry for this cell
+}	*/
 var extraText = "";  // hub may add to the message
 var gotCallerLocation = false;
+var dateTime;  // the date/time that a request was originated
 
 // from https://web.dev/customize-install/
 var deferredPrompt;  // Initialize deferredPrompt for use later to show browser install prompt.
@@ -63,21 +64,24 @@ function init() {
 	parameters = getParms();  // get parameters from location.search, if any
 	if (parameters.T) {  // if parameter T is set then we have a reference from hub/log.html
 		let row = journal[parameters.T];  // get the selected row from the journal
-		location.search = "cell=" + row[0] + "&caller=" + row[1] + "&lat=" + row[2] + "&long=" + row[3]
-			+ "&vehicle=" + row[4] + "&problem=" + row[5] + "&t=" + parameters.T;
-		parameters = getParms();
+		parameters = {cell: row[0], caller: row[1], lat: row[2], long: row[3], vehicle: row[4], problem: row[5], t: parameters.T, f: row[6]};
+		if (row[6]) {  // if this request has been forwarded before,
+			let ifOld = byId("ifOld");
+			ifOld.innerHTML += YMDHM(row[6]);
+			ifOld.style.display = "block";
+		}
 	}
 	if (parameters.cell && parameters.t) {  // if we got the caller's cell number and the dateTime of the request,
 		let cell = parameters.cell;
-		let dateTime = parameters.t;
+		dateTime = parameters.t;
 		let row = [cell, parameters.caller, parameters.lat, parameters.long, parameters.vehicle, parameters.problem];
 		journal[dateTime] = row;
-		if (journalCell[cell]) {  // if there's already an entry for this cell,
+/*		if (journalCell[cell]) {  // if there's already an entry for this cell,
 			if (! journalCell[cell].includes(dateTime))  // if doesn't have this dateTime yet,
 				journalCell[cell].push(dateTime);  // append it
 		} else
 			journalCell[cell] = [dateTime];  // start a new entry for this cell
-		localStorage.journal = JSON.stringify(journal);  // snapshot the journal
+*/		localStorage.journal = JSON.stringify(journal);  // snapshot the journal
 	}
 /*	for (let name in parameters) {  // scan parameters passed
 		if (parameters[fields[name]]) {  // if a value is passed
@@ -92,15 +96,16 @@ function init() {
 */	// if latitude parameters present and plausible, accept caller's data
 	gotCallerLocation = parameters.lat && parameters.lat >= -90 && parameters.lat <= 90
 		&& parameters.long && parameters.long >= -180 && parameters.long <= 180;
-	// if the caller hasn't sent lat and long, suggest sending an SMS to collect it
-	byId("ifCaller").style.display = gotCallerLocation ? "block" : "none";
-	byId("ifNoCaller").style.display = gotCallerLocation ? "none" : "block";
+	let fromLog = parameters.f;
+	byId("ifLog").style.display = fromLog ? "block" : "none";  // show this request is from the  log
+	byId("ifCaller").style.display = fromLog ? "none" : (gotCallerLocation ? "block" : "none");
+//	byId("ifCaller").style.display = gotCallerLocation ? "block" : "none";
+	byId("ifNoCaller").style.display = gotCallerLocation ? "none" : "block";  // if the caller hasn't sent lat and long, suggest sending an SMS to collect it
 	byId("noCallerInfo").style.display = gotCallerLocation ? "none" : "block";
 	byId("extraInfo").style.display = gotCallerLocation ? "table-row-group" : "none";  // show extra caller fields
 	byId("result").style.display = gotCallerLocation ? "block" : "none";
-	if (document.referrer.search("/log.html") > 0)  // if this is an old record from the log,
-		byId("ifCaller").innerHTML = "<h3>This is an old record from the log:</h3>";  // say so.
-
+//	if (document.referrer.search("/log.html") > 0)  // if this is an old record from the log,
+//		byId("ifCaller").innerHTML = "<h3>This is an old record from the log:</h3>";  // say so.
 	if (hub.lat && hub.long) {  // if hub coordinates known,
 		document.hubForm.location.value = prettify(hub.lat, hub.long);
 		setHubloc(hub.lat, hub.long);
@@ -115,7 +120,7 @@ function init() {
 		for (let i in fields) {  // copy passed parameters into the caller info box
 			if (window.parameters[fields[i]]) {
 				if (fields[i] == "t")
-					document.callerInfo.dateTime.value = dateTime(parameters.t);  // convert timestamp to date/time
+					document.callerInfo.dateTime.value = getDateTime(dateTime);  // convert timestamp to date/time
 				else
 					document.callerInfo[fields[i]].value = parameters[fields[i]];
 				if (fields[i] == "cell" && parameters[fields[i]])
@@ -185,8 +190,6 @@ function fixCountry(that, next, sender) {
 function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; that is the link that called OKtogo
 	if (parameters.lat != null || parameters.long != null) {  // if caller's location is known,
 		let rescueURL = window.location.href.replace("/hub", "/rescue");
-//		var rescuer = document.callerInfo.rescueDriver.value.trim();  // rescue driver's cell number (optional)
-//		rescuer = rescuer.split(" ").join("").split("-").join("").split("+").join("");  // squeeze out imbedded blanks and dashes, leading +
 		let text = "*SoS SMS Driver, please rescue:*\n"
 			+ parameters.caller
 			+ "\nCell: " + parameters.cell
@@ -201,9 +204,8 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; that is the
 			that.href = "https://wa.me/" + /*(rescuer ? rescuer : "") +*/ "?text="
 			+ encode(text + rescueURL + (extraText ? "\n" + extraText : ""));
 		}
-		if (! journal[parameters.t][6])  // if we don't already have a respond time,
-            journal[parameters.t][6] = getNow();  // add send time to the journal row
-//		journal[parameters.t][7] = document.callerInfo.rescueDriver.value;  // add rescue driver's number, if given
+		if (! journal[dateTime][6])  // if we don't already have a respond time,
+            journal[dateTime][6] = getNow();  // add send time to the journal row
 		localStorage.journal = JSON.stringify(journal);  // snapshot the journal
 		return true;  // OK to go
 	}
@@ -369,13 +371,7 @@ function addExtra(that) {
 	byId("sendWhat").style.background = extraText.length > 0 ? "#D5F5E3" : "#EBEDEF";  // encourage WhatsApp if extra
 }  // from https://web.dev/customize-install/
 /* build a QR code invitation to  the rescue hub */
-function buildQR(that) {  // from sendCallerMsg()
-	that.href = "../QRcode/build.html?hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
-		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&t=" + getNow();
-	return true;
-}
-/* build a QR code invitation to  the rescue hub */
-function buildQR2() {  // from sendCallerMsg()
+function buildQR() {  // from sendCallerMsg()
 	return "../QRcode/build.html?hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
 		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + "&t=" + getNow();
 }

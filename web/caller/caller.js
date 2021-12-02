@@ -172,8 +172,8 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is t
 	let problem = document.called.problem.value.trim();
 	let hubUrl = location.href.replace("/caller", "/hub");  // direct SMS to the rescue hub
 	hubUrl = hubUrl.split(/\?|#/, 1)[0];  // split on first embedded ? or # if present, drop what follows
-	hubUrl += "?t=" + timestamp + "&lat=" + caller.lat + "&long=" + caller.long + "&caller=" + encode(caller.name) + "&cell=" + caller.cell
-		+ "&vehicle=" + encode(caller.vehicle) + "&problem=" + encode(problem);
+	hubUrl += (which == 2 ? "?c=w&" : "?") + "t=" + timestamp + "&lat=" + caller.lat + "&long=" + caller.long + "&caller=" + encode(caller.name)
+		+ "&cell=" + caller.cell + "&vehicle=" + encode(caller.vehicle) + "&problem=" + encode(problem);
 	// we double-encode the hrefs contained within the SMS text, else first & stops the sms:// URL
 	let text = "SoS SMS to rescue hub – please click:\n"
         + encode(hubUrl)
@@ -188,8 +188,8 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is t
         that.href = target + encode(text);
         return true;  // OK to go
     } else if (which == 2) {  // WhatsApp
-        that.href = "https://wa.me/" + hub.cell + "?text=" + text.replace(/\n/g, "%0D");  // replace new line chars with %0D
+        that.href = "https://wa.me/" + hub.cell + "?text=" + text.replace(/\n/g, "%0A");  // replace new line chars with %0A (or %0D)
         return true;  // OK to go
     } else
-        return false;  // invalid which value
+        return false;  // invalid which value, don't go
 }
