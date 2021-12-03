@@ -107,6 +107,7 @@ function showButtons() {
 		+ (caller.cell ? "\nCell: " + caller.cell : "")  //  + " _(click to call)_"
 		+ (caller.vehicle ? "\nVehicle: " + caller.vehicle : "")
 		+ (problem ? "\nProblem: " + problem : "")
+		+ (parameters.ua ? /\(.+\)/.exec(navigator.userAgent)[0] : "")  // show userAgent if ua parameter in ?search
         + "\nLocation: " + encode(mapURL);
 //	byId("sms").href = (isitaPC() ? "../simSMS.html?" : ("sms://" + hub.cell + "?body="))
 //		+ encode(text.replace(/\*/g, "").replace(/_/g, ""));
