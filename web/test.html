@@ -27,6 +27,7 @@
 		<!-- satellite view:  http://maps.google.com/maps?t=k&q=loc:-24.8117491+28.1277914 
 			 encoded: http%3A%2F%2Fmaps.google.com%2Fmaps%3Ft%3Dk%26q%3Dloc%3A-24.8117491%2B28.1277914 -->
 		<p>date here</p>
+		<p>userAgent: <span id="agent">?</span></p>
 		<form name="aform"><input onfocusin="document.aform.afield.value = new Date();" type="text" name="afield" value="empty"> padding
 		<p><a href="hub.html"><b>&mdash;&gt; switch.html</b></a></p>
 		<p><a href="sms://0825704803?body=Click%20http%3A%2F%2Ftijaska.co.za%2Fsos%2Fguest.html%20for%20help">SMS help page to guest (0825704803)</a></p>
@@ -115,6 +116,7 @@
 			else
 				alert("navigator.geolocation is not available");
 function init() {  // get [[countryNames, codes, phoneCodes]...
+	byId("agent").innerHTML = navigator.userAgent;
 }
 function fixme(target) {
 	let size = document.aform.size.value;
