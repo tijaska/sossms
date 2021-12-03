@@ -118,7 +118,7 @@ function init() {  // get [[countryNames, codes, phoneCodes]...
 }
 function fixme(target) {
 	let size = document.aform.size.value;
-	target.href = "sms://0825704803?body=" +  "0123456789".repeat(Math.round(size/10));
+	target.href = "sms://0825704803?body=" +  "0123456789".repeat(Math.ceil(size/10)).substr(0, size);
 }
 </script>
 <br>
