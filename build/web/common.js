@@ -179,5 +179,5 @@ function evalDebug() {
 }
 function userAgent() {  // return the browser device from the userAgent string
 	let ua = /\(([^)]+)\)/.exec(navigator.userAgent);
-	return ua ? ua : "?";
+	return ua && ua[1] ? ua[1] : "?";
 }
