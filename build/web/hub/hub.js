@@ -127,6 +127,10 @@ function init() {
 					byId("pleaseFill").style.display = "none";
 			}
 		}
+		if (parameters.ua) {  // if caller's browser device passed,
+			document.callerInfo.ua.value = parameters.ua;
+			byId("uaRow").style.display = "table-row";  // show the browser device
+		}
 	if (document.callerInfo.cell.value.length > 0) {  // if there's a caller phone number,
 		byId("callerCell").style.display = "inline";
 		byId("callerCell").href = "tel:" + document.callerInfo.cell.value;  // let the user phone it
@@ -175,12 +179,13 @@ function setHubloc(lat, long) {
 	byId("hubloc").href = "https://maps.google.com/maps?t=k&q=loc:" + lat + (long >= 0 ? "+" : "") + long;
 }
 /* fix the country code on a phone number, enable dial */
-function fixCountry(that, next, sender) {
+function fixCountry(that, next, sender, noCallerInfo) {
 	if (that.value == "0") {  // leading zero means no country code
 		that.value = hub.country;  // change leading zero to country code
 		byId(next).innerHTML = "<b>Hub country code " + hub.country + " added; fix if wrong.<b>";
 	} else if (that.value.length >= 10) {  // if there's a full caller phone number,
 		byId(sender).style.display = "block";
+		byId(noCallerInfo).style.display = "none";
 	} else if (that.value.length > 0) {  // if there's a caller phone number,
 		byId("callerCell").style.display = "inline";
 		byId("callerCell").href = "tel:" + that.value;  // let the user phone it
@@ -234,10 +239,11 @@ function sendCallerMsg(link, type) {
 	caller.cell = document.callerInfo.cell.value;
 	if (caller.cell.match(/^0/))  // if number starts with a zero,
 		caller.cell = hub.country + caller.cell.substr(1);  // drop leading 0, prefix with country
+	let debug = document.hubForm.debug.checked;  // are we in debug mode?
 	let callerUrl = location.href.split("?")[0].replace("/hub", "/caller");  // drop ?parameters, if any
 	let hubURL = "hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
 		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + (hub.flags ? "&h=w" : "")  // h=w means hub likes WhatsApp
-        + "&caller.cell=" + encode(caller.cell) + "&t=" + getNow();
+        + "&caller.cell=" + encode(caller.cell) + "&t=" + getNow() + (debug ? "&ua=1" : "");
 	let rest = encode("Please send your location to the " + hub.name + " rescue hub."
 		+ "\nTo get help in doing this, please click this link:\n" + callerUrl + "?" + (type == 1 ? encode(hubURL) : hubURL));
 	if (type == 1)
@@ -264,8 +270,6 @@ function checkInputs() {
 		return false;
 	if (!checkCell(document.hubForm.cell, cellNo, "Please fill in your hub's cell number"))
 		return false;
-//	\\		if (! checkCell(document.callerInfo.cell, cellNo, "Please fill in the stranded driver's cell number"))
-//	\\			return false;
 	if (document.callerInfo.cell.value == "") {
 		byId("pleaseFill").style = "color: maroon; font-weight: bold";
 		document.callerInfo.cell.style = "background-color: #FCC";

@@ -78,7 +78,11 @@ function init() {
 		document.called.vehicle.value = caller.vehicle;
 }  // init()
 function showButtons() {
-	if (!hub.cell || document.called.name.value.trim() == "")
+	byId("getCaller").style.display = "block";
+	byId("buttons").style.display = "block";
+	return;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*	if (!hub.cell || document.called.name.value.trim() == "")
 		return;
 	caller.name = document.called.name.value.trim();
 	if (caller.name == "")
@@ -110,14 +114,14 @@ function showButtons() {
 		+ (parameters.ua ? "\nUA: " + /\(([^)]+)\)/.exec(navigator.userAgent)[0] : "")  // show userAgent if ua parameter in ?search
         + "\nLocation: " + encode(mapURL);
 //	byId("sms").href = (isitaPC() ? "../simSMS.html?" : ("sms://" + hub.cell + "?body="))
-//		+ encode(text.replace(/\*/g, "").replace(/_/g, ""));
+//		+ encode(text.replace(/\*     /g, "").replace(/_/g, ""));  // 5 blanks inserted between * and /
 //	byId("previewer").onclick = function() {window.open(hubUrl, "_blank")};
 	if (notMobiTablet) {  // if not a mobile or tablet,
 		byId("getCaller").className = "PC";  // warn the user that location is probably wrong
 		byId("notMobiTablet").style.display = "block";
 	}
-	byId("getCaller").style.display = "block";
-	byId("buttons").style.display = "block";
+//	byId("getCaller").style.display = "block";
+//	byId("buttons").style.display = "block";		*/
 }
 /** get the browser's physical coordinates */
 function geolocate() {
@@ -167,6 +171,13 @@ function showDistance() {
 
 /* send an SMS or WhatsApp to a rescue hub */
 function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is the link that called OKtogo
+	let fields = ["name", "cell", "vehicle", "problem"];  // fields that the user must fill in
+	for (let ff in fields) {
+		if (document.called[fields[ff]].value == "") {
+			alert("Please enter a value in " + fields[ff] + " and click again");
+			return false;
+		}
+	}
 	let Gmap = "http://maps.google.com/maps?";  // Google maps
 	let mapURL = Gmap + "t=k&q=loc:" + caller.lat + (caller.long >= 0 ? "+" : "") + caller.long;  // satellite view
 	let timestamp = getNow();  // date/time stamp radix 36
@@ -174,7 +185,9 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is t
 	let hubUrl = location.href.replace("/caller", "/hub");  // direct SMS to the rescue hub
 	hubUrl = hubUrl.split(/\?|#/, 1)[0];  // split on first embedded ? or # if present, drop what follows
 	hubUrl += (which == 2 ? "?c=w&" : "?") + "t=" + timestamp + "&lat=" + caller.lat + "&long=" + caller.long + "&caller=" + encode(caller.name)
-		+ "&cell=" + caller.cell + "&vehicle=" + encode(caller.vehicle) + "&problem=" + encode(problem);
+		+ "&cell=" + caller.cell + "&vehicle=" + encode(caller.vehicle) + "&problem=" + encode(problem)
+		+ (parameters.ua ? "&ua=" + encode(userAgent()) : "")  // show userAgent if ua parameter in ?search
+;
 	// we double-encode the hrefs contained within the SMS text, else first & stops the sms:// URL
 	let text = "SoS SMS to rescue hub – please click:\n"
         + encode(hubUrl)
@@ -182,6 +195,7 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is t
 		+ (caller.cell ? "\nCell: " + caller.cell : "")  //  + " _(click to call)_"
 		+ (caller.vehicle ? "\nVehicle: " + caller.vehicle : "")
 		+ (problem ? "\nProblem: " + problem : "")
+//	\\	+ (parameters.ua ? "\nUA: " + /\(([^)]+)\)/.exec(navigator.userAgent)[0] : "")  // show userAgent if ua parameter in ?search
         + "\nLocation: " + encode(mapURL);
     if (which == 1) {  // SMS
         // point to SMS simulation if we're on a PC, SMS app if on mobile:

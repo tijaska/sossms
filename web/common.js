@@ -177,3 +177,7 @@ function evalDebug() {
 	byId("debugOut").value = JSON.stringify(debugz);
 	return false;
 }
+function userAgent() {  // return the browser device from the userAgent string
+	let ua = /\(([^)]+)\)/.exec(navigator.userAgent);
+	return ua ? ua : "?";
+}

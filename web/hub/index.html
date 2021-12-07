@@ -57,7 +57,8 @@
 					<input style="background-color: #FFE" type="text" name="country" size="4"></p>
 					<p>Enter your hub's cell number:<br>
 						<input style="background-color: #FFE" type="text" name="cell" size="13"></p>
-					<p><input type="checkbox" name="canWhatsApp"> Check this if your phone can accept WhatsApps</p>
+					<p><input type="checkbox" name="canWhatsApp"> Check this if your phone can accept WhatsApps
+						<br><input type="checkbox" name="debug"> <i>Check this for debug mode</i></p>
 					<p><span id="yourLoc">Your hub's location is:</span><br>
 						<input style="background-color: #FFE" type="text" name="location" size="30" onfocus="this.blur()"></p>
 					<p style="margin: 1ex 0ex"><a id="hubloc" class="button" href="?" target="_blank">Click this Google maps link</a>
@@ -82,7 +83,7 @@
                     </tbody>
                     <tbody>
                     <tr><td colspan="2" style="font-weight: bold;">The stranded driver's details:</td></tr>
-                    <tr><td>Cell number:</td><td><input type="text" name="cell" size="15" onkeyup="fixCountry(this, 'callerCountry', 'inner')">
+                    <tr><td>Cell number:</td><td><input type="text" name="cell" size="15" onkeyup="fixCountry(this, 'callerCountry', 'inner', 'noCallerInfo')">
                         &nbsp;<a class="button" id="callerCell" style="display: none" href="">Phone the caller: ☎</a>
                         <br><span id="callerCountry"></span></td></tr>
                     </tbody>
@@ -92,6 +93,7 @@
                         <tr><td>Problem:</td><td><input type="text" name="problem" size="40" maxlength="50"></td></tr>
                         <tr id="location"><td valign="top">Location:</td><td><input type="text" name="latLong" size="30" disabled></td></tr>
                         <tr><td>Date/time:</td><td><input type="text" name="dateTime"  size="30" disabled></td></tr>
+                        <tr id="uaRow" style="display: none;"><td><i>Browser device:</i></td><td><input type="text" name="ua"  size="30" disabled></td></tr>
                     </tbody>
                 </table>
                 <br>
@@ -112,15 +114,15 @@
                 </div>
                 <div id="noCallerInfo"><b>No stranded driver's location was passed to you</b>
                     <br>Please fill in the stranded driver's cell number above
-                    <div id="inner" style="display: none">
-                        <br>Send a rescue invitation to them by <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 1)">SMS</a>
-						<br><span class="orElse">(or <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 2)">WhatsApp</a>
-							<i>if they have it installed &ndash;</i> phone number must include country code)</span>
-                        <br>Your invitation will be formatted and shown to you. Please send it without any change.
-                        It will contain a web link. When the stranded driver clicks on this link, it will run an app that will help them
-						to send their location and other details back to you.
-                    </div>
                 </div>
+				<div id="inner" style="display: none">
+					<br>Send a rescue invitation to them by <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 1)">SMS</a>
+					<br><span class="orElse">(or <a class="button" href="" target="_blank" onclick="return sendCallerMsg(this, 2)">WhatsApp</a>
+						<i>if they have it installed &ndash;</i> phone number must include country code)</span>
+					<br>Your invitation will be formatted and shown to you. Please send it without any change.
+					It will contain a web link. When the stranded driver clicks on this link, it will run an app that will help them
+					to send their location and other details back to you.
+				</div>
                 <div id="message" style="font-weight: bold;"></div>
             </div>
 			<div id="debug" style="display: none">
