@@ -150,7 +150,7 @@ function isitaPC() {
 function getNow() {
 	return new Date().getTime().toString(36);
 }
-/* get date base 36, return in YYYY-MM-DD HH:MM format, or YYYY-MM-DD if short */
+/* get date base 36 in minutes, return in YYYY-MM-DD HH:MM format, or YYYY-MM-DD if short */
 function YMDHM(date, short) {
 	if (date == null)
 		return "";  // or "–" = &ndash;
@@ -177,7 +177,8 @@ function evalDebug() {
 	byId("debugOut").value = JSON.stringify(debugz);
 	return false;
 }
-function userAgent() {  // return the browser device from the userAgent string
+/* return the browser device from the userAgent string */
+function userAgent() {
 	let ua = /\(([^)]+)\)/.exec(navigator.userAgent);
 	return ua && ua[1] ? ua[1] : "?";
 }

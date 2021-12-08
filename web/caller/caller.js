@@ -1,5 +1,4 @@
 var geoloc = false;  // until geolocation succeeds
-var ipinfo = {};  // gets populated by locater()
 var notMobiTablet = isitaPC()  // true if user's device isn't a mobile...
 	&& !window.location.search.match(/mobi1e/);  //  or tablet, unless we claim it for debug purposes.
 var parameters = {};  // parameters passed in the ?search fragment, if any
@@ -189,14 +188,13 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is t
 		+ (parameters.ua ? "&ua=" + encode(userAgent()) : "")  // show userAgent if ua parameter in ?search
 ;
 	// we double-encode the hrefs contained within the SMS text, else first & stops the sms:// URL
-	let text = "SoS SMS to rescue hub – please click:\n"
+	let text = "Rescue hub – please click this SoS SMS:\n"
         + encode(hubUrl)
         + "\n\nFrom: " + caller.name
 		+ (caller.cell ? "\nCell: " + caller.cell : "")  //  + " _(click to call)_"
+        + "\nLocation: " + encode(mapURL)
 		+ (caller.vehicle ? "\nVehicle: " + caller.vehicle : "")
-		+ (problem ? "\nProblem: " + problem : "")
-//	\\	+ (parameters.ua ? "\nUA: " + /\(([^)]+)\)/.exec(navigator.userAgent)[0] : "")  // show userAgent if ua parameter in ?search
-        + "\nLocation: " + encode(mapURL);
+		+ (problem ? "\nProblem: " + problem : "");
     if (which == 1) {  // SMS
         // point to SMS simulation if we're on a PC, SMS app if on mobile:
         let target = isitaPC() ? "../simSMS.html?" : "sms://" + hub.cell + "?body=";  //?

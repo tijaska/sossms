@@ -61,7 +61,7 @@ location, and their own. This info helps them to find the stranded driver in ter
 the rescue driver app installed. To be fail-safe, the rescue driver's app is a progressive web app. When first invoked, it will open in
 a browser window on the rescue driver's phone, and invite the driver to install it for future use.</p>
 
-<h3>Why SMS?<h3>
+<h3>Why SMS?</h3>
 <p>SMS messaging is the oldest, clunkiest smart phone messaging system around. Why does sossms make use of it?</p>
 
 <p>Well firstly WhatsApp is offered as an alternative to SMS. It costs less to use.  But it will only work if both the sender and the recipient
