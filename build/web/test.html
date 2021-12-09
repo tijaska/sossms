@@ -34,6 +34,8 @@
 		<p><a href="sms://0825704803?body=one%26two%26three">send SMS to 0825704803</a></p>
 		<p><a href="any" onclick="fixme(this)">send SMS to 0825704803 size</a>
 			<input name="size" type="text" value="10" size="4"></p>
+		<p>Create a file with <input name="mailSize" value="100" size="4"> characters.
+			<a href="" onclick="sendEmail(this)" download="fileName.txt">Save</a> and then email it.</p>
 		<p><a href="https://wa.me/?text=https%3a%2f%2fmaps%2egoogle%2ecom%2fmaps%3ff%3dq%26q%3d%28%2d24%2e81411%2c28%2e14014%29">WhatsApp no num map +27825704803</a></p>
 		<p><a href="https://wa.me/27825704803?text=https%3a%2f%2fmaps%2egoogle%2ecom%2fmaps%3ff%3dq%26q%3d%28%2d24%2e81411%2c28%2e14014%29">WhatsApp map 27825704803</a></p>
 		<p><a href="https://wa.me/27829999999text=https%3a%2f%2fmaps%2egoogle%2ecom%2fmaps%3ff%3dq%26q%3d%28%2d24%2e81411%2c28%2e14014%29">WhatsApp map 27829999999</a></p>
@@ -115,13 +117,18 @@
 				navigator.geolocation.getCurrentPosition(onPositionUpdate);
 			else
 				alert("navigator.geolocation is not available");
-function init() {  // get [[countryNames, codes, phoneCodes]...
-	byId("agent").innerHTML = navigator.userAgent;
-}
-function fixme(target) {
-	let size = document.aform.size.value;
-	target.href = "sms://0825704803?body=" +  "0123456789".repeat(Math.ceil(size/10)).substr(0, size);
-}
+			function init() {  // get [[countryNames, codes, phoneCodes]...
+				byId("agent").innerHTML = navigator.userAgent;
+			}
+			function fixme(target) {
+				let size = document.aform.size.value;
+				target.href = "sms://0825704803?body=" +  "0123456789".repeat(Math.ceil(size/10)).substr(0, size);
+			}
+			function sendEmail(target) {
+				let size = document.aform.mailSize.value;
+				target.href = "data:text/plain;charset=utf-8," +  "0123456789".repeat(Math.ceil(size/10)).substr(0, size);
+				
+			}
 </script>
 <br>
 <textarea id="text-val" rows="4" cols="50">CellA1,CellB1,CellC1\nCellA2,CellB2,CellC2\n</textarea><br>
