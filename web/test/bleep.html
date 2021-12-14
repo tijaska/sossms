@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bleep</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>
+		function beep(duration, frequency, volume, type, callback) {
+			var audioCtx = new (window.AudioContext || window.webkitAudioContext || window.audioContext);
+			var oscillator = audioCtx.createOscillator();
+			var gainNode = audioCtx.createGain();
+
+			oscillator.connect(gainNode);
+			gainNode.connect(audioCtx.destination);
+
+			if (volume){gainNode.gain.value = volume;}
+			if (frequency){oscillator.frequency.value = frequency;}
+			if (type){oscillator.type = type;}
+			if (callback){oscillator.onended = callback;}
+
+			oscillator.start(audioCtx.currentTime);
+			oscillator.stop(audioCtx.currentTime + ((duration || 500) / 1000));
+		};
+		function test() {
+			beep(getInt("duration"), getInt("frequency"), getInt("volume"), document.ff.type.value, callback );
+		}
+		function callback() {
+			document.getElementById("back").style.color = "red";
+		}
+		function getInt(arg) {
+			return parseInt(document.ff[arg].value);
+		}
+	</script>
+	</head>
+	<body>
+		<h2>Bleep</h2>
+		<form name="ff">
+			<table cellspacing="0" border="1">
+				<tr><td>duration</td><td><input type="text" size="4" name="duration" value="500"></td></tr>
+				<tr><td>frequency</td><td><input type="text" size="4" name="frequency" value="440"></td></tr>
+				<tr><td>volume</td><td><input type="text" size="4" name="volume" value="5"> (1-5)</td></tr>
+				<tr><td>type</td><td><input type="text" size="8" name="type" value="sine"> (sine, square, sawtooth, triangle, custom)</td></tr>
+			</table>
+			<button onclick="test(); return false;">bleep()</button>
+			<p id="back" style="color: blue">callback</p>
+		</form>
+	</body>
+</html>

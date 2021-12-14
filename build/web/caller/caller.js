@@ -124,6 +124,9 @@ function showButtons() {
 }
 /** get the browser's physical coordinates */
 function geolocate() {
+	
+	window.startLocate = new Date().getTime();  //\\//\\
+	
 	byId("geoloc").style.display = "block";
 	let options = {timeout: 5000 /* msec */};
 	if (navigator.geolocation)
@@ -138,7 +141,8 @@ function onPositionGot(position) {
 	caller.lat = round5(position.coords.latitude);
 	caller.long = round5(position.coords.longitude);
 	byId("geoloc").innerHTML = "Your location is:<br>" + Math.abs(caller.lat) + (caller.lat >= 0 ? "&deg; north, " : "&deg; south, ")
-		+ Math.abs(caller.long) + (caller.long >= 0 ? "&deg; east" : "&deg; west");
+		+ Math.abs(caller.long) + (caller.long >= 0 ? "&deg; east" : "&deg; west")
+		+ " after " + (new Date().getTime() - window.startLocate) + " msec";
 	showButtons();
 	showDistance();  // show caller's distance from the rescue hub
 }
