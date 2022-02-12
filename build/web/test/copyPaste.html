@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Copy and paste</title>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<script>
+			function copyToClipboard(el) {
+				el.focus();
+				if (navigator.userAgent.indexOf("iPhone") > 0)
+					iosCopyToClipboard(el);
+				else  // assume Android
+					navigator.clipboard.writeText(el.value);
+				return false;
+			}
+			function iosCopyToClipboard(el) {
+			var oldContentEditable = el.contentEditable,
+				oldReadOnly = el.readOnly,
+				range = document.createRange();
+
+			el.contentEditable = true;
+			el.readOnly = false;
+			range.selectNodeContents(el);
+
+			var s = window.getSelection();
+			s.removeAllRanges();
+			s.addRange(range);
+
+			el.setSelectionRange(0, 999999); // A big number, to cover anything that could be inside the element.
+
+			el.contentEditable = oldContentEditable;
+			el.readOnly = oldReadOnly;
+
+			document.execCommand('copy');
+		}
+	</script>
+	</head>
+	<body>
+		<h1>Copy and paste</h1>
+		<form name="aform">
+			<textarea name="atext">some stuff</textarea><br>
+			<button onclick="return copyToClipboard(document.aform.atext)">copy</button>
+		</form>
+	</body>
+</html>
