@@ -201,8 +201,10 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is t
 		+ (problem ? "\nProblem: " + problem : "");
     if (which == 1) {  // SMS
         // point to SMS simulation if we're on a PC, SMS app if on mobile:
-        let target = isitaPC() ? "../simSMS.html?" : "sms://" + hub.cell + "?body=";  //?
-        that.href = target + encode(text);
+//		let target = isitaPC() ? "../simSMS.html?" : "sms://" + hub.cell + "?body=";  //?
+//		that.href = target + encode(text);
+        let target = isitaPC() ? "../simSMS.html?" : sms(hub.cell, encode(text()));
+        that.href = target;
         return true;  // OK to go
     } else if (which == 2) {  // WhatsApp
         that.href = "https://wa.me/" + hub.cell + "?text=" + text.replace(/\n/g, "%0A");  // replace new line chars with %0A (or %0D)

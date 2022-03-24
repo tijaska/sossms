@@ -177,8 +177,16 @@ function evalDebug() {
 	byId("debugOut").value = JSON.stringify(debugz);
 	return false;
 }
-/* return the browser device from the userAgent string */
+/** return the browser device from the userAgent string **/
 function userAgent() {
 	let ua = /\(([^)]+)\)/.exec(navigator.userAgent);
 	return ua && ua[1] ? ua[1] : "?";
+}
+/** check for iOS **/
+function isIOS() {
+	return /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+}
+/** return sms invocation tailored for iOS or other client platforms **/
+function sms(number, body) {
+	return "sms://" + (number ? number : "") + (body ? (isIOS() ? "&" : "?") + body : "");
 }
