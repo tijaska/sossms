@@ -187,6 +187,6 @@ function isIOS() {
 	return /iPad|iPhone|iPod/.test(navigator.platform) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
 }
 /** return sms invocation tailored for iOS or other client platforms **/
-function sms(number, body) {
+function buildSMS(number, body) {
 	return "sms://" + (number ? number : "") + (body ? (isIOS() ? "&" : "?") + body : "");
 }

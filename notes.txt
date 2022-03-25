@@ -1,0 +1,6 @@
+Detect if client is running under iOS:
+	https://stackoverflow.com/questions/9038625/detect-if-device-is-ios
+Build sms invocation in iOS and other platforms (sms://number[?|&|;]body)
+	https://stackoverflow.com/questions/6480462/how-to-pre-populate-the-sms-body-text-via-an-html-link
+Detect iOS version from userAgent:
+	https://stackoverflow.com/questions/11171895/detecting-ios-version-number-from-user-agent-using-regular-expressions
