@@ -18,6 +18,7 @@
 		</style>
 	</head>
 	<body onload="init()">
+		<script src="common.js"></script>
 		<a>no parameter a element</a>
 		<div class="head">S<b>o</b>S sms</div>
 		<div style="/*border: 1px solid blue*/">
@@ -60,7 +61,8 @@
 			<a href="tel:+27-114471542">tel:+27-114471542</a><br>
 			<a href="tel:+27 114471542">tel:+27 114471542</a>
 		</p>
-		<b>bold</b> <em>em</em> <strong>strong</strong>
+		<p>userAgent = "<span id="userAgent">?</span>"</p>
+		<p>sms = "<span id="smseg">?</span>"</p>
 		<script>
 			function byId(id) {
 				return document.getElementById(id);
@@ -122,6 +124,8 @@
 				alert("navigator.geolocation is not available");
 			function init() {  // get [[countryNames, codes, phoneCodes]...
 				byId("agent").innerHTML = navigator.userAgent;
+				byId("userAgent").innerHTML = navigator.userAgent;
+				byId("smseg").innerHTML = buildSMS("+27825704803", "The quick+&brown fox");
 			}
 			function fixme(target) {
 				let size = document.aform.size.value;
