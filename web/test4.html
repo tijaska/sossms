@@ -125,7 +125,7 @@
 			function init() {  // get [[countryNames, codes, phoneCodes]...
 				byId("agent").innerHTML = navigator.userAgent;
 				byId("userAgent").innerHTML = navigator.userAgent;
-				let smsLink = buildSMS("+27825704803", encode("The quick+brown fox1: &ampersand")); // 
+				let smsLink = buildSMS("+27825704803", "The quick+brown fox4: &ampersand"); // 
 				byId("smseg").innerHTML = byId("smsHit").href = smsLink;
 			}
 			function fixme(target) {
