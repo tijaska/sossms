@@ -244,7 +244,7 @@ function sendCallerMsg(link, type) {
 	let hubURL = "hub.name=" + encode(hub.name) + "&hub.cell=" + encode(getCell(hub.country, hub.cell))
 		+ "&hub.lat=" + encode(hub.lat) + "&hub.long=" + encode(hub.long) + (hub.flags ? "&h=w" : "")  // h=w means hub likes WhatsApp
         + "&caller.cell=" + encode(caller.cell) + "&t=" + getNow() + (debug ? "&ua=1" : "");
-	let rest = encode("Please send your location to the " + hub.name + " rescue hub."
+	let rest = /*encode*/("Please send your location to the " + hub.name + " rescue hub."
 		+ "\nTo get help in doing this, please click this link:\n" + callerUrl + "?" + (type == 1 ? encode(hubURL) : hubURL));
 	if (type == 1)
 		link.href = isitaPC() ? "../simSMS.html?" + rest : buildSMS(caller.cell, rest);
