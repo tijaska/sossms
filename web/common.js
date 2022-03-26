@@ -188,5 +188,6 @@ function isIOS() {
 }
 /** return sms invocation tailored for iOS or other client platforms **/
 function buildSMS(number, body) {
-	return "sms://" + (number ? number : "") + (body ? (isIOS() ? "&" : "?") + "body=" + body + "!" : "");
+	// replace any & in the body with + or it will terminate the body string, = next parameter
+	return "sms://" + (number ? number : "") + (body ? (isIOS() ? "&" : "?") + "body=" + body.replace(/&/g, '+') + "!" : "");
 }
