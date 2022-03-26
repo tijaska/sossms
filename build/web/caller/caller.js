@@ -203,7 +203,7 @@ function OKtogo(which, that) {  // which == 1 is SMS, 2 is WhatsApp; "that" is t
         // point to SMS simulation if we're on a PC, SMS app if on mobile:
 //		let target = isitaPC() ? "../simSMS.html?" : "sms://" + hub.cell + "?body=";  //?
 //		that.href = target + encode(text);
-        let target = isitaPC() ? "../simSMS.html?" : buildSMS(hub.cell, encode(text()));
+        let target = isitaPC() ? "../simSMS.html?" : buildSMS(hub.cell, text());
         that.href = target;
         return true;  // OK to go
     } else if (which == 2) {  // WhatsApp
