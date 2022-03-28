@@ -186,9 +186,13 @@ function fixCountry(that, next, sender, noCallerInfo) {
 	} else if (that.value.length >= 10) {  // if there's a full caller phone number,
 		byId(sender).style.display = "block";
 		byId(noCallerInfo).style.display = "none";
-	} else if (that.value.length > 0) {  // if there's a caller phone number,
-		byId("callerCell").style.display = "inline";
-		byId("callerCell").href = "tel:" + that.value;  // let the user phone it
+	}
+}
+/* enable SMS and WhatsApp once a recipient phone number is entered */
+function enableSMS(that) {
+	if (that.value.length > 0) {  // if there's a caller phone number,
+		byId("callerCell").style.display = "inline";  // let the user phone or SMS it
+		byId("callerCell").href = "tel:" + that.value;
 	}
 }
 /* send an SMS or WhatsApp to a rescue driver */
@@ -248,9 +252,9 @@ function sendCallerMsg(link, type) {
 		+ "\nTo get help in doing this, please click this link:\n" + callerUrl + "?" + (type == 1 ? encode(hubURL) : hubURL));
 	if (type == 1)
 		link.href = isitaPC() ? "../simSMS.html?" + rest : buildSMS(caller.cell, rest);
-//		link.href = (isitaPC() ? "../simSMS.html?" : "sms://" + caller.cell + "?body=") + rest;
 	else if (type == 2)
-		link.href = "https://wa.me/" + caller.cell + "?text=" + rest.replace(/\n/g, "%0D");  // replace new line chars with %0D
+		link.href = "https://wa.me/" + caller.cell + "?text=" + encode(rest);
+//		link.href = "https://wa.me/" + caller.cell + "?text=" + rest.replace(/\n/g, "%0D");  // replace new line chars with %0D
 //	else if (type == 3)
 //		link.href = callerUrl + "?" + hubURL;
 	window.scrollBy(0, 200);  // scroll down to show lower lines

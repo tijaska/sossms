@@ -144,7 +144,8 @@ function makeSMS(rescuer, body, url) {
 }
 /* return true if user's device isn't a mobile, unless "&mobile" is in location.search */
 function isitaPC() {
-	return navigator.userAgent.match(/tablet|mobi/i) == null && location.search.indexOf("&mobile") < 0;
+//	return navigator.userAgent.match(/tablet|mobi/i) == null && location.search.indexOf("&mobile") < 0;
+	return false;	//<<<================================================================================================== !!
 }
 /* current date/time radix 36 */
 function getNow() {
